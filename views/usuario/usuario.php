@@ -177,7 +177,10 @@
 												<button type="reset" class="btn btn-default">Reset</button>
 											</div>
 										</div>
+
 										<canvas id="canvas" class="none"></canvas>
+
+										
 									</footer>
 								</section>
 							</form>
