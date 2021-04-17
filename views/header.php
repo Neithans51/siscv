@@ -277,7 +277,7 @@
 										<ul class="nav nav-children">
 											
 											<li>
-												<a href="forms-advanced.html">
+												<a href="<?php echo constant('URL');?>usuario/RegistroUsuario">
 													 Nuevo usuario
 												</a>
 											</li>
