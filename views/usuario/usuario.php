@@ -79,16 +79,23 @@
 											<a href="#" class="fa fa-times"></a>
 										</div>
 
-										<h2 class="panel-title">Basic Form Validation</h2>
+										<h2 class="panel-title">Registro de Usuario</h2>
 										<p class="panel-subtitle">
-											Basic validation will display a label with the error after the form control.
+											Formulario basico para el registro de usuarios.
 										</p>
 									</header>
 									<div class="panel-body">
 
+									<div class="form-group">
+											<label class="col-sm-3 control-label">Nacionalidad/Cedula<span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
+											</div>
+										</div>
+
 									
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Full Name <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Nombres<span class="required">*</span></label>
 											<div class="col-sm-9">
 												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
 											</div>
@@ -96,7 +103,29 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Email <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Apellidos<span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Genero<span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Telefono<span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Correo <span class="required">*</span></label>
 											<div class="col-sm-9">
 												<div class="input-group">
 													<span class="input-group-addon">
@@ -114,7 +143,7 @@
 
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label">GitHub</label>
+											<label class="col-sm-3 control-label">Usuario</label>
 											<div class="col-sm-9">
 												<input type="url" name="github" class="form-control" placeholder="eg.: https://github.com/johndoe" />
 											</div>
@@ -122,12 +151,36 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Skills <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Contrasea <span class="required">*</span></label>
 											<div class="col-sm-9">
 												<textarea name="skills" rows="5" class="form-control" placeholder="Describe your skills" required></textarea>
 											</div>
 										</div>
 
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Estatus <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<textarea name="skills" rows="5" class="form-control" placeholder="Describe your skills" required></textarea>
+											</div>
+										</div>
+
+
+
+
+										<div class="form-group">
+												<label class="col-md-3 control-label" for="inputSuccess">Inline checkboxes</label>
+												<div class="col-md-6">
+													<label class="checkbox-inline">
+														<input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+													</label>
+													<label class="checkbox-inline">
+														<input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+													</label>
+													<label class="checkbox-inline">
+														<input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+													</label>
+												</div>
+											</div>
 
 
 
@@ -139,7 +192,7 @@
 										
 										
 							<fieldset class="form-group">
-								<div class="row">
+							<div class="col-md-12">
 									<div class="form-check radio_check">
 										<input class="form-check-input" type="radio" name="radio_select" id="radiosfoto" value="1" checked>
 										<label class="form-check-label" for="radiosfoto">Seleccionar Foto</label>
@@ -150,6 +203,8 @@
 									</div>
 								</div>
 							</fieldset>
+
+
 							<div class="container_radio">
 								<input type="file" class="form-control-file video_container" name="archivo" id="subirfoto" accept="image/*">
 								<video id="video" autoplay="autoplay" class="video_container none"></video>
@@ -173,7 +228,7 @@
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-primary">Submit</button>
+												<button class="btn btn-u">Submit</button>
 												<button type="reset" class="btn btn-default">Reset</button>
 											</div>
 										</div>
