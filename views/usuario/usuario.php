@@ -79,7 +79,7 @@
 					
 						<div class="row">
 						<div class="col-md-12">
-							<form id="frm_foto"  name="frm_foto" class="form-horizontal">
+							<form id="registro-form"  method="post"  class="form-horizontal">
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -178,24 +178,6 @@
 
 										</div>
 					
-
-									<!--	<div class="form-group">
-											<label class="col-sm-3 control-label">Estatus <span class="required">*</span></label>
-											<div class="col-sm-9">
-											<select class="select2_demo_3 form-control  m-b" name="etnia" id="etnia">                                    
-                                            <option selected="selected" value="">Seleccione </option> 
-                                            <option value="1"?>Activo</option>
-											<option value="0"?>Inactivo</option>
-                                            </select> 
-											</div>
-										</div>-->
-
-
-
-
-						
-
-
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Foto <span class="required">*</span></label>
@@ -321,6 +303,8 @@
 
 
 
+
+
 	<!-- Tomar foto -->
 
 
@@ -342,23 +326,27 @@ function btnSave() {
     $("#btn_save").attr("disabled", false);
 }
 
-$(document).ready(function() {
 
+/*Validar formulario y procesar por Ajax */
 
-    $("#frm_foto").unbind('submit').bind('submit', function(){
-		//$('#frm_foto').submit(function(e) {
-		e.preventDefault();
+$(document).ready(function(){
+    $("#registro-form").validate({
+       // event: "blur",rules: {'name': "required",'email': "required email",'message': "required"},
+      //  messages: {'name': "Por favor indica tu nombre",'email': "Por favor, indica una direcci&oacute;n de e-mail v&aacute;lida",'message': "Por favor, dime algo!"},
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+           
+	
+
 		var nacionalidad = $('#nacionalidad').val();
 		var cedula = $('#cedula').val();
-	
 		var nombres = $('#nombres').val();
 		var apellidos = $('#apellidos').val();
-	
 		var genero = $('#genero').val();
 		var telefono = $('#telefono').val();
 		var email = $('#email').val();
         var radio = $("input[name='radio_select']:checked").val();
-console.log(radio);
+
         if (radio == 0) {
             cxt.drawImage(video, 0, 0, 300, 150);
             var data = canvas.toDataURL("image/jpeg");
@@ -368,7 +356,7 @@ console.log(radio);
                 url : "<?php echo constant('URL');?>usuario/RegistraUsuariof",
 				data : {foto : info[1],nacionalidad:nacionalidad,cedula:cedula,
 					 nombres: nombres, apellidos: apellidos,genero:genero,telefono:telefono,
-					 email: email, , genero: genero},
+					 email: email, genero: genero},
                 dataType : 'json',
                 beforeSend: function() {
                     btnSaveLoad();
@@ -385,11 +373,13 @@ console.log(radio);
                 }
             });
         } else if (radio == 1) {
-/*save_img */
+			/*save_img */
+			//var formData = new FormData(this);
+			var formData = new FormData(form);
             $.ajax({
                 url: '<?php echo constant('URL');?>usuario/RegistraUsuariof',
                 type: 'POST',
-                data: new FormData(this),
+                data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -397,13 +387,14 @@ console.log(radio);
                     btnSaveLoad();
                 },
                 success: function(response){
+					console.log(radio);
                     btnSave();
                     if (response.success == true) {
-                        swal("MENSAJE", response.messages , "success");
-                        $("#frm_foto")[0].reset();
+                       // swal("MENSAJE", response.messages , "success");
+                        $("#registro-form")[0].reset();
                         $("#radiosfoto").click();
                     } else {
-                        swal("MENSAJE", response.messages , "error");
+                       // swal("MENSAJE", response.messages , "error");
                     }
                 }
             });
@@ -412,10 +403,18 @@ console.log(radio);
 
         return false;
         
+
+
+
+           
+        }
     });
-
-
 });
+
+
+
+
+
 	</script>
 
 

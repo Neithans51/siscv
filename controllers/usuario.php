@@ -16,8 +16,8 @@
 
 
     function RegistraUsuariof(){//Se registra un usuario con foto
-    echo($foto); exit();
-    $foto = base64_decode($_POST["foto"]);
+   
+  $foto = base64_decode($_POST["foto"]);
 	$nombres = $_POST["nombres"];
 	$apellidos = $_POST["apellidos"];
 	
