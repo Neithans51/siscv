@@ -64,14 +64,22 @@
 						</div>
 					</header>
 
-						
+			
+					
+					<style>
+
+
+.none {
+	display: none !important;
+}
+					</style>
 
 					<!-- start: page -->
-				
+	<!--Validar campos-->			
 					
 						<div class="row">
 						<div class="col-md-12">
-							<form id="frm_foto"  action="forms-validation.html" class="form-horizontal">
+							<form id="frm_foto"  name="frm_foto" class="form-horizontal">
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -87,40 +95,67 @@
 									<div class="panel-body">
 
 									<div class="form-group">
-											<label class="col-sm-3 control-label">Nacionalidad/Cedula<span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
+
+											<div class="row">
+														<div class="col-sm-3">
+															
+														<select class="select2_demo_3 form-control  m-b required" name="nacionalidad">                                    
+														<option selected="selected" value="">Selecione </option> 
+														<option value="V">V</option>
+														<option value="E">E</option>
+														</select> 
+
+														</div>
+														<div class="visible-xs mb-md"></div>
+														<div class="col-sm-9">
+															<input type="text" class="form-control required" name="cedula" placeholder="Escriba su umero de cedula">
+														</div>
+													</div>
+											
 											</div>
+
+
+
 										</div>
 
 									
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Nombres<span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Nombres <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
+												<input type="text" name="nombres" class="form-control required" placeholder="Escriba sus nombres" required/>
 											</div>
 										</div>
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Apellidos<span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Apellidos <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
+												<input type="text" name="apellidos" class="form-control required" placeholder="Escriba sus apellidos" required/>
 											</div>
 										</div>
+
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Genero<span class="required">*</span></label>
-											<div class="col-sm-9">
-												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
+												<label class="col-md-3 control-label" for="inputSuccess">Genero <span class="required">*</span></label>
+												<div class="col-md-6">
+													<label class="checkbox-inline">
+														<input type="radio" id="inlineCheckbox1" name="genero" class="required" value="Femenino"> Femenino
+													</label>
+													<label class="checkbox-inline">
+														<input type="radio" id="inlineCheckbox1" name="genero" class="required" value="Masculino"> Masculino
+													</label>
+													
+												</div>
 											</div>
-										</div>
+
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Telefono<span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text" name="fullname" class="form-control" placeholder="eg.: John Doe" required/>
+												<input type="text" name="telefono" class="form-control required" placeholder="eg.: John Doe" />
 											</div>
 										</div>
 
@@ -131,7 +166,7 @@
 													<span class="input-group-addon">
 														<i class="fa fa-envelope"></i>
 													</span>
-													<input type="email" name="email" class="form-control" placeholder="eg.: email@email.com" required/>
+													<input type="email" name="email" class="form-control required" placeholder="ej.: email@email.com" />
 												</div>
 											</div>
 
@@ -142,78 +177,51 @@
 
 
 										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label">Usuario</label>
-											<div class="col-sm-9">
-												<input type="url" name="github" class="form-control" placeholder="eg.: https://github.com/johndoe" />
-											</div>
-										</div>
+					
 
-
-										<div class="form-group">
-											<label class="col-sm-3 control-label">Contrasea <span class="required">*</span></label>
-											<div class="col-sm-9">
-												<textarea name="skills" rows="5" class="form-control" placeholder="Describe your skills" required></textarea>
-											</div>
-										</div>
-
-										<div class="form-group">
+									<!--	<div class="form-group">
 											<label class="col-sm-3 control-label">Estatus <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<textarea name="skills" rows="5" class="form-control" placeholder="Describe your skills" required></textarea>
+											<select class="select2_demo_3 form-control  m-b" name="etnia" id="etnia">                                    
+                                            <option selected="selected" value="">Seleccione </option> 
+                                            <option value="1"?>Activo</option>
+											<option value="0"?>Inactivo</option>
+                                            </select> 
 											</div>
-										</div>
+										</div>-->
 
+
+
+
+						
 
 
 
 										<div class="form-group">
-												<label class="col-md-3 control-label" for="inputSuccess">Inline checkboxes</label>
-												<div class="col-md-6">
-													<label class="checkbox-inline">
-														<input type="checkbox" id="inlineCheckbox1" value="option1"> 1
-													</label>
-													<label class="checkbox-inline">
-														<input type="checkbox" id="inlineCheckbox2" value="option2"> 2
-													</label>
-													<label class="checkbox-inline">
-														<input type="checkbox" id="inlineCheckbox3" value="option3"> 3
-													</label>
-												</div>
-											</div>
-
-
-
-
-										<div class="form-group">
-											<label class="col-sm-3 control-label">Skills <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Foto <span class="required">*</span></label>
 											<div class="col-sm-9">
 											
 										
 										
-							<fieldset class="form-group">
-							<div class="col-md-12">
-									<div class="form-check radio_check">
-										<input class="form-check-input" type="radio" name="radio_select" id="radiosfoto" value="1" checked>
-										<label class="form-check-label" for="radiosfoto">Seleccionar Foto</label>
-									</div>
-									<div class="form-check radio_check">
-										<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
-										<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
-									</div>
-								</div>
-							</fieldset>
+											<fieldset class="form-group">
+											<div class="col-md-12">
+													<div class="form-check radio_check checkbox-inline">
+														<input class="form-check-input required" type="radio" name="radio_select" id="radiosfoto" value="1" >
+														<label class="form-check-label" for="radiosfoto">Seleccionar Foto</label>
+													</div>
+													<div class="form-check radio_check checkbox-inline">
+														<input class="form-check-input required" type="radio" name="radio_select" id="radiotfoto" value="0">
+														<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
+													</div>
+												</div>
+											</fieldset>
 
-
-							<div class="container_radio">
-								<input type="file" class="form-control-file video_container" name="archivo" id="subirfoto" accept="image/*">
-								<video id="video" autoplay="autoplay" class="video_container none"></video>
-							</div>
-					
-											
-											
-
-
+<br>
+										<div class="container_radio">
+											<input type="file" class="form-control-file video_container none" name="archivo" id="subirfoto" accept="image/*">
+											<video id="video" autoplay="autoplay" class="video_container none"></video>
+										</div>
+										
 
 
 										   </div>
@@ -228,8 +236,8 @@
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-u">Submit</button>
-												<button type="reset" class="btn btn-default">Reset</button>
+												<button type="submit" class="btn btn-primary" >Guardar</button>
+												<button type="reset" class="btn btn-default">Cancelar</button>
 											</div>
 										</div>
 
@@ -317,7 +325,98 @@
 
 
 	<script src="<?php echo constant('URL');?>src/js/camara.js"></script>
-	<script src="<?php echo constant('URL');?>src/js/inserta.js"></script>
+
+
+
+
+	<!--<script src="<?php echo constant('URL');?>src/js/inserta.js"></script>-->
+
+	<script>
+function btnSaveLoad() {
+    $("#btn_save").html('Guardando ...');
+    $("#btn_save").attr("disabled", true);
+}
+
+function btnSave() {
+    $("#btn_save").html('Guardar');
+    $("#btn_save").attr("disabled", false);
+}
+
+$(document).ready(function() {
+
+
+    $("#frm_foto").unbind('submit').bind('submit', function(){
+		//$('#frm_foto').submit(function(e) {
+		e.preventDefault();
+		var nacionalidad = $('#nacionalidad').val();
+		var cedula = $('#cedula').val();
+	
+		var nombres = $('#nombres').val();
+		var apellidos = $('#apellidos').val();
+	
+		var genero = $('#genero').val();
+		var telefono = $('#telefono').val();
+		var email = $('#email').val();
+        var radio = $("input[name='radio_select']:checked").val();
+console.log(radio);
+        if (radio == 0) {
+            cxt.drawImage(video, 0, 0, 300, 150);
+            var data = canvas.toDataURL("image/jpeg");
+            var info = data.split(",", 2);
+            $.ajax({
+                type : "POST",
+                url : "<?php echo constant('URL');?>usuario/RegistraUsuariof",
+				data : {foto : info[1],nacionalidad:nacionalidad,cedula:cedula,
+					 nombres: nombres, apellidos: apellidos,genero:genero,telefono:telefono,
+					 email: email, , genero: genero},
+                dataType : 'json',
+                beforeSend: function() {
+                    btnSaveLoad();
+                },
+                success : function(response) {
+                    btnSave();
+                    if (response.success == true) {
+                        swal("MENSAJE", response.messages , "success");
+                        $("#frm_foto")[0].reset();
+                        $("#radiosfoto").click();
+                    } else {
+                        swal("MENSAJE", response.messages , "error");
+                    }
+                }
+            });
+        } else if (radio == 1) {
+/*save_img */
+            $.ajax({
+                url: '<?php echo constant('URL');?>usuario/RegistraUsuariof',
+                type: 'POST',
+                data: new FormData(this),
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function(){
+                    btnSaveLoad();
+                },
+                success: function(response){
+                    btnSave();
+                    if (response.success == true) {
+                        swal("MENSAJE", response.messages , "success");
+                        $("#frm_foto")[0].reset();
+                        $("#radiosfoto").click();
+                    } else {
+                        swal("MENSAJE", response.messages , "error");
+                    }
+                }
+            });
+
+        }
+
+        return false;
+        
+    });
+
+
+});
+	</script>
 
 
 
