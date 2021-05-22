@@ -117,7 +117,7 @@
 										<ul class="nav nav-children">
 											
 											<li>
-												<a href="<?php echo constant('URL');?>usuario/RegistroUsuario">
+												<a href="<?php echo constant('URL');?>usuario/Registro">
 													 Nuevo usuario
 												</a>
 											</li>
