@@ -35,6 +35,8 @@
 
 		<!-- Theme Custom CSS -->
 		<link rel="stylesheet" href="<?php echo constant('URL');?>src/assets/stylesheets/theme-custom.css">
+		<!-- Select2-->
+		<link rel="stylesheet" href="<?php echo constant('URL');?>src/assets/vendor/select2/select2.css" />
 
 		<!-- Head Libs -->
 		<script src="<?php echo constant('URL');?>src/assets/vendor/modernizr/modernizr.js"></script>
@@ -97,17 +99,17 @@
 									<div class="form-group">
 											<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text" id="cedula" name="cedula" class="form-control required" placeholder="Escriba su cedula" required/>
+												<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula Ej. V-00000000 o E-00000000" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
 											</div>
 
 										</div>
 
-											
+							
 									
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Nombres <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text" id="nombres" name="nombres" class="form-control required" placeholder="Escriba sus nombres" required/>
+												<input type="text" id="nombres" name="nombres" class="form-control required" placeholder="Escriba sus nombres" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)"  onkeyup="javascript:this.value=this.value.toUpperCase();"  />
 											</div>
 										</div>
 
@@ -115,7 +117,7 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Apellidos <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text" id="apellidos" name="apellidos" class="form-control required" placeholder="Escriba sus apellidos" required/>
+												<input type="text" id="apellidos" name="apellidos" class="form-control required" placeholder="Escriba sus apellidos" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
 											</div>
 										</div>
 
@@ -136,36 +138,26 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Telefono<span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Teléfono <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text" id="telefono" name="telefono" class="form-control required" placeholder="eg.: John Doe" />
+												<input type="text" id="telefono" name="telefono"  data-plugin-masked-input data-input-mask="(9999) 999-9999" class="form-control required" placeholder="Escriba su numero de teléfono" />
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Correo <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="fa fa-envelope"></i>
-													</span>
-													<input type="email" id="correo" name="correo" class="form-control required" placeholder="ej.: email@email.com" />
-												</div>
+													<input type="email" id="correo" name="correo" class="form-control required" placeholder="Escriba su correo electrónico" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toLowerCase();"/>
 											</div>
-
-
-
 										</div>
-					
-
-
+														
 
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Departamento <span class="required">*</span></label>
 											<div class="col-sm-9">
-											<select class="form-control required" id="departamento" name="departamento" required>
-											<option requiered>Seleccione...</option>
+											<select class="form-control select2_demo_3 required" id="departamento" name="departamento" >
+											<option value="">Seleccione...</option>
 											<?php include_once 'models/siscv.php';
 															foreach($this->departamentos as $row){
 															$pro=new Siscv();
@@ -179,10 +171,10 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Perfil<span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Perfil <span class="required">*</span></label>
 											<div class="col-sm-9">
-											<select class="form-control required" id="perfil" name="perfil" required>
-											<option requiered>Seleccione...</option>
+											<select class="form-control select2_demo_4 required" id="perfil" name="perfil" >
+											<option value="">Seleccione...</option>
 											<?php include_once 'models/siscv.php';
 															foreach($this->perfiles as $row){
 															$pro=new Siscv();
@@ -193,7 +185,6 @@
 											</div>
 										</div>
 
-							
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Foto <span class="required">*</span></label>
@@ -256,11 +247,6 @@
 
 
 
-
-
-
-
-
 					
 					<!-- end: page -->
                 </section>
@@ -277,7 +263,11 @@
             
         </section>
         
-    
+		
+				
+
+
+
 
 		<!-- Vendor -->
 		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery/jquery.js"></script>
@@ -307,31 +297,38 @@
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
 		<!-- Examples -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/dashboard/examples.dashboard.js"></script>
-    
-		
-		
+    		
 		<!-- Specific Page Vendor -->
 		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-validation/jquery.validate.js"></script>
+	
+		<!--Input mask-->
+		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-maskedinput/jquery.maskedinput.js"></script>
+		<!--Select2-->
+		<script src="<?php echo constant('URL');?>src/assets/vendor/select2/select2.js"></script>
 		
+			<!-- Tomar foto -->
+		<script src="<?php echo constant('URL');?>src/js/camara.js"></script>
+		<!-- Validar el ingreso de letra o numeros en input -->
+		<script src="<?php echo constant('URL');?>src/js/	val_letras.js"></script>
 
-		<!-- Examples -->
-		<script src="<?php echo constant('URL');?>src/assets/javascripts/forms/examples.validation.js"></script>
-
-
-
-
-
-	<!-- Tomar foto -->
-
-
-	<script src="<?php echo constant('URL');?>src/js/camara.js"></script>
-
-
-
-
-	<!--<script src="<?php echo constant('URL');?>src/js/inserta.js"></script>-->
-
-	<script>
+		
+		<script>
+			$(".select2_demo_3").select2({
+                placeholder: "Seleccione",
+                width: "100%",
+                dropdownAutoWidth: true,
+                allowClear: true
+            });
+							     //select no search
+    $(".select2_demo_4").select2({
+                                placeholder: "Seleccione",
+                                width: "100%",
+                                dropdownAutoWidth: true,
+                                allowClear: true,
+                                minimumResultsForSearch: -1
+                            });
+							</script>
+		<script>
 
 
 /*Validar formulario y procesar por Ajax */
@@ -339,10 +336,14 @@
 $(document).ready(function(){
 
 
+//$("#registro-form").unbind('submit').bind('submit', function(){
 
+	$("#registro-form").validate({
+       // event: "blur",rules: {'name': "required",'email': "required email",'message': "required"},
+      //  messages: {'name': "Por favor indica tu nombre",'email': "Por favor, indica una direcci&oacute;n de e-mail v&aacute;lida",'message': "Por favor, dime algo!"},
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
 
-
-$("#registro-form").unbind('submit').bind('submit', function(){
 
 var cedula = $('#cedula').val();
 var nombres = $('#nombres').val();
@@ -383,11 +384,12 @@ if (radio == 0) {
 		}
 	});
 } else if (radio == 1) {
-
+	//var formData = new FormData(this);
+	var formData = new FormData(form);
 	$.ajax({
 		url: '<?php echo constant('URL');?>usuario/Save_img',
 		type: 'POST',
-		data: new FormData(this),
+		data: formData,
 		cache: false,
 		contentType: false,
 		processData: false,
@@ -410,17 +412,42 @@ if (radio == 0) {
 
 return false;
 
-});
+//});
+
+           
+}
+    });
 
 
 
+
+/*Validar Cedula Venezolana */
+//this.value=this.value.toUpperCase();
+
+			var pattern = /\d/,
+			caja = document.getElementById("cedula");
+		
+			caja.addEventListener("keypress", function(e){
+		
+			if (this.value.length === 0 && (!(/(E|V|e|v)/).test(String.fromCharCode(e.keyCode))))
+			e.preventDefault();
+					
+			if (this.value.length > 0 && (!pattern.test(String.fromCharCode(e.keyCode)) || this.value.length == 10))
+			e.preventDefault();
+					
+			if (this.value.length === 1)
+				this.value += "-";
+					}, false); 
+
+			
 
 /**Buscar usuario */
 
 $('#cedula').keyup(function(e) {
+
   e.preventDefault();
   var cl = $(this).val();
-  
+
   $.ajax({
     url: '<?php echo constant('URL');?>usuario/BuscarUsuario',
     type: "POST",
@@ -436,14 +463,28 @@ $('#cedula').keyup(function(e) {
 
 				$('#telefono').val('');
 				$('#correo').val('');
+				/*REmovemos los atributos */
+				$('#nombres').removeAttr('readonly','readonly');
+        $('#apellidos').removeAttr('readonly','readonly');
+        $('#genero').removeAttr('readonly','readonly');
+       
+				//$('#telefono').removeAttr('readonly','readonly');
+        //$('#correo').removeAttr('readonly','readonly');
+				
 
       }else {
         var data = $.parseJSON(response);
 
         $('#nombres').val(data.nombres);
         $('#apellidos').val(data.apellidos);
-        $('#genero').val(data.genero);
-        
+       // $('#genero').val(data.genero);
+       
+				if (data.genero=="M"){// Selecionamos radio button
+						$("input[type='radio'][name='genero'][value='M']").prop('checked',true);
+				}else{
+						$("input[type='radio'][name='genero'][value='F']").prop('checked',true);
+				}
+
 				$('#telefono').val(data.telefono);
         $('#correo').val(data.correo);
 
@@ -452,8 +493,8 @@ $('#cedula').keyup(function(e) {
         $('#apellidos').attr('readonly','readonly');
         $('#genero').attr('readonly','readonly');
        
-				$('#telefono').attr('readonly','readonly');
-        $('#correo').attr('readonly','readonly');
+			//	$('#telefono').attr('readonly','readonly');
+        //$('#correo').attr('readonly','readonly');
       }
     },
     error: function(error) {
@@ -474,6 +515,11 @@ $('#cedula').keyup(function(e) {
 
 
 
+		<!-- Theme Initialization Files -->
+		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
+
+
+	
 
     </body>
 </html>

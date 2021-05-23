@@ -9,10 +9,13 @@ class UsuarioModel extends Model{
     public function Buscar($cedula){
         //   $item=new Dtodito();
            try{
+           
+            list($nacionalidad, $nro_cedula) = explode("-", $cedula);
+
              $query=$this->db->connect()->prepare("SELECT cedper AS cedula, nomper AS nombres, apeper AS apellidos,telmovper AS telefono, sexper AS genero,
              nacper AS nacionalidad, coreleper AS correo, carantper AS cargo
-              FROM sno_personal WHERE cedper=:cedula");
-             $query->execute(['cedula'=>$cedula]);
+              FROM sno_personal WHERE cedper=:cedula AND nacper=:nacionalidad");
+             $query->execute(['cedula'=>$nro_cedula,'nacionalidad'=>$nacionalidad]);
              $row=$query->fetch();
              if(!empty($row)){
                $data=$row;
@@ -62,6 +65,9 @@ public function insert($datos){
 
              //3. hacer toas las consultas 
 
+            //SEPARAMOS CEDULA DE NACIONALIDAD
+             list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
+
              //Guardar foto carturada
              if($datos['file']){
                 $fotos = fwrite($datos['file'], $datos['foto']);
@@ -74,9 +80,9 @@ public function insert($datos){
                   VALUES (:cedula, :nombres, :apellidos, :telefono, :nacionalidad, :genero, 
                 :documento, :id_persona_tipo, :correo);');
           
-            $query->execute(['cedula'=>$datos['cedula'],'nombres'=>$datos['nombres'],
+            $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
             'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
-            'nacionalidad'=>$datos['nacionalidad'],'genero'=>$datos['genero'],
+            'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
             'documento'=>$datos['route_photo'],'id_persona_tipo'=>1,
             'correo'=>$datos['correo']]);
             
@@ -94,7 +100,7 @@ public function insert($datos){
                 :id_usuario_perfil);');
            
             $crypt= new SED();
-            $query->execute(['usuario'=>'ubv'.$datos['cedula'],'password'=>$crypt->encryption($datos['cedula']),
+            $query->execute(['usuario'=>'ubv'.$nro_cedula,'password'=>$crypt->encryption($nro_cedula),
             'fecha_registro'=>date('Y/m/d'),'estatus'=>1,
             'id_departamento'=>$datos['departamento'],'id_persona'=>$persona['id_persona'],
             'id_usuario_perfil'=>$datos['perfil']]);
@@ -117,9 +123,9 @@ public function insert($datos){
                   VALUES (:cedula, :nombres, :apellidos, :telefono, :nacionalidad, :genero, 
                 :documento, :id_persona_tipo, :correo);');
 
-                $query->execute(['cedula'=>$datos['cedula'],'nombres'=>$datos['nombres'],
+                $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
                 'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
-                'nacionalidad'=>$datos['nacionalidad'],'genero'=>$datos['genero'],
+                'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
                 'documento'=>$datos['targetFilePath'],'id_persona_tipo'=>1,
                 'correo'=>$datos['correo']]);
                 
@@ -137,7 +143,7 @@ public function insert($datos){
                     :id_usuario_perfil);');
 
                 $crypt= new SED();
-                $query->execute(['usuario'=>'ubv'.$datos['cedula'],'password'=>$crypt->encryption($datos['cedula']),
+                $query->execute(['usuario'=>'ubv'.$nro_cedula,'password'=>$crypt->encryption($nro_cedula),
                 'fecha_registro'=>date('Y/m/d'),'estatus'=>1,
                 'id_departamento'=>$datos['departamento'],'id_persona'=>$persona['id_persona'],
                 'id_usuario_perfil'=>$datos['perfil']]);

@@ -11,6 +11,7 @@
     }
 
     function Registro(){
+    
       //Tipo de persona
     /*  $tipos=$this->model->getCatalogo('persona_tipo');
       $this->view->tipos=$tipos;*/

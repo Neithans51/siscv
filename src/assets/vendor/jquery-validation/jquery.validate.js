@@ -279,22 +279,22 @@ $.extend($.validator, {
 	},
 
 	messages: {
-		required: "This field is required.",
-		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
+		required: "Este campo es obligatorio.",
+		remote: "Por favor arregla este campo.",
+		email: "Por favor Introduzca una dirección de correo electrónico válida.",
 		url: "Please enter a valid URL.",
 		date: "Please enter a valid date.",
 		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
-		digits: "Please enter only digits.",
+		number: "Por favor ingrese un número valido.",
+		digits: "Por favor ingrese solo dígitos.",
 		creditcard: "Please enter a valid credit card number.",
-		equalTo: "Please enter the same value again.",
-		maxlength: $.validator.format("Please enter no more than {0} characters."),
-		minlength: $.validator.format("Please enter at least {0} characters."),
+		equalTo: "Por favor, introduzca el mismo valor de nuevo.",
+		maxlength: $.validator.format("Por favor no ingrese más de {0} caracteres."),
+		minlength: $.validator.format("Por favor Ingrese al menos {0} caracteres."),
 		rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
-		range: $.validator.format("Please enter a value between {0} and {1}."),
-		max: $.validator.format("Please enter a value less than or equal to {0}."),
-		min: $.validator.format("Please enter a value greater than or equal to {0}.")
+		range: $.validator.format("Por favor Ingrese un valor entre {0} y {1}."),
+		max: $.validator.format("Por favor Ingrese un valor menor o igual que {0}."),
+		min: $.validator.format("Por favor Ingrese un valor mayor o igual que {0}.")
 	},
 
 	autoCreateRanges: false,
