@@ -6,6 +6,8 @@
 		<meta charset="UTF-8">
 
 		<title>Usuario | Sistema para el Control de Visitas UBV</title>
+		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
+
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
 		<meta name="author" content="JSOFT.net">
@@ -85,8 +87,8 @@
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
-											<a href="#" class="fa fa-caret-down"></a>
-											<a href="#" class="fa fa-times"></a>
+										<a title="Volver" href="<?php echo constant ('URL') . "usuario";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+
 										</div>
 
 										<h2 class="panel-title">Registro de Usuario</h2>

@@ -122,7 +122,7 @@
 												</a>
 											</li>
 											<li>
-												<a href="forms-advanced.html">
+												<a href="<?php echo constant('URL');?>usuario">
 													 Usuarios
 												</a>
 											</li>

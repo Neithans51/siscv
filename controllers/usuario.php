@@ -7,6 +7,9 @@
           $this->view->mensaje="";//se agrega esta linea para msj
         }
     function render(){
+        $usuarios=$this->model->getUsuarios('departamento');
+        $this->view->usuarios=$usuarios;
+
         $this->view->render('usuario/index');
     }
 

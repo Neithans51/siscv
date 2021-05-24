@@ -6,7 +6,7 @@ class UsuarioModel extends Model{
     parent::__construct();
     }
 
-    public function Buscar($cedula){
+         public function Buscar($cedula){
         //   $item=new Dtodito();
            try{
            
@@ -54,7 +54,7 @@ class UsuarioModel extends Model{
 
 
 
-public function insert($datos){
+      public function insert($datos){
      
         try{
 
@@ -175,6 +175,44 @@ public function insert($datos){
 
 
 
+                public function getUsuarios($valor){
+                  $items=[];
+                 try{
+                $query=$this->db->connect()->query("SELECT id_usuario,usuario.id_persona, usuario, fecha_registro,
+                 estatus,nombres,apellidos,telefono,correo,usuario_perfil.descripcion AS perfil,
+                  departamento.descripcion AS departamento
+                  FROM usuario,usuario_perfil,departamento,persona WHERE
+                  usuario.id_usuario_perfil = usuario_perfil.id_usuario_perfil
+                  AND usuario.id_departamento=departamento.id_departamento
+                  AND usuario.id_persona=persona.id_persona");
+                
+                while($row=$query->fetch()){
+                $item=new Siscv();
+                $item->id_usuario=$row['id_usuario'];
+                $item->id_persona=$row['id_persona'];
+                $item->usuario=$row['usuario'];
+                $item->fecha_registro=$row['fecha_registro'];
+                $item->perfil=$row['perfil'];
+                $item->departamento=$row['departamento'];
+                $item->estatus=$row['estatus'];
+
+                $item->nombres=$row['nombres'];   
+                $item->apellidos=$row['apellidos'];
+                $item->telefono=$row['telefono'];
+                $item->correo=$row['correo'];
+                
+                
+                array_push($items,$item);
+                
+                }
+                return $items;
+                
+                }catch(PDOException $e){
+                return[];
+                }
+                
+                }
+      
          
 
   
