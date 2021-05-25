@@ -38,27 +38,35 @@
 
 	</head>
 	<body>
+	<style>
+	.log{
+		border-radius: 0px 45px 45px 3px;
+		width: 44%;
+		height: 2%;
+	}
+	</style>
 		<!-- start: page -->
 		<section class="body-sign">
 			<div class="center-sign">
 				<a href="/" class="logo pull-left">
-					<img src="<?php echo constant('URL');?>src/img/logo.png" height="54" alt="Porto Admin" />
+					<img src="<?php echo constant('URL');?>src/img/logoo.png" class="log"  alt="Porto Admin" />
 				</a>
-
+				
 				<div class="panel panel-sign">
 					<div class="panel-title-sign mt-xl text-right">
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Iniciar Sesión</h2>
 					</div>
 					<div class="panel-body">
-						<form>
+					<h2 class="error-explanation text-center">Control de Visitas UBV</h2>
+						<form action="<?php echo constant('URL');?>main/iniciar" method="post" id="form">
 							<div class="form-group mb-lg">
 								<label>Usuario</label>
-								<input name="name" type="text" class="form-control input-lg" />
+								<input name="usuario" type="text" class="form-control input-lg required" maxlength="255"/>
 							</div>
 
 							<div class="form-group mb-lg">
 								<label>Contraseña</label>
-								<input name="email" type="email" class="form-control input-lg" />
+								<input name="contrasena" type="password" class="form-control input-lg required" maxlength="255"/>
 							</div>
 
 							<div class="row">
@@ -83,7 +91,7 @@
 					</div>
 				</div>
 
-				<p class="text-center text-muted mt-md mb-md">&copy; Copyright 2018. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+				<p class="text-center text-muted mt-md mb-md">&copy;<script>document.write(new Date().getFullYear());</script> Universidad Bolivariana de Venezuela - Dirección General de Tecnologías de Información y Telecomunicaciones (DGTIT)</p>
 			</div>
 		</section>
 		<!-- end: page -->
@@ -97,6 +105,9 @@
 		<script src="<?php echo constant('URL');?>src/assets/vendor/magnific-popup/magnific-popup.js"></script>
 		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
 		
+			<!-- Specific Page Vendor -->
+		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-validation/jquery.validate.js"></script>
+	
 		<!-- Theme Base, Components and Settings -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.js"></script>
 		
@@ -106,5 +117,10 @@
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
 
+		<script type="text/javascript">
+		$(document).ready(function() {
+		$("#form").validate();
+		});
+		</script>
 	</body>
 </html>
