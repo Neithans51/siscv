@@ -6,6 +6,8 @@
 		<meta charset="UTF-8">
 
 		<title>Inicio | Sistema para el Control de Visitas UBV</title>
+		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
+
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
 		<meta name="author" content="JSOFT.net">
@@ -47,16 +49,16 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Dashboard</h2>
+						<h2>Inicio</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
 								<li>
-									<a href="index.html">
+									<a href="<?php echo constant('URL');?>home">
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>Dashboard</span></li>
+								<li><span>Inicio</span></li>
 							</ol>
 					
 							<a class="sidebar-right-toggle" data-open=""><i class="fa fa-chevron-left"></i></a>
@@ -445,9 +447,7 @@
 								</div>
 							</section>
 						</div>
-                    
-            
-            
+					
        
                         <?php require 'views/footer.php'; ?>
 
@@ -469,6 +469,41 @@
             
 
 
+  						
+
+
+							<!-- MODAL DE BIENVENIDO-->
+						<div class="modal" tabindex="-1" role="dialog" id="Bienvenido">
+						<div class="modal-dialog" role="document">
+						<section class="panel">
+										<header class="panel-heading">
+											<h2 class="panel-title">Bienvenido!</h2>
+										</header>
+										<div class="panel-body">
+											<div class="modal-wrapper">
+												<div class="modal-icon">
+													<i class="fa fa-check"></i>
+												</div>
+												<div class="modal-text">
+													<h4>Bienvenido</h4>
+													<p>Bienvenido al Sistema para el Control de Visitas UBV</p>
+												</div>
+											</div>
+										</div>
+										<footer class="panel-footer">
+											<div class="row">
+												<div class="col-md-12 text-right">
+												<!--<button class="btn btn-success modal-dismiss">OK</button>-->
+													<button type="button" class="btn btn-success"  data-dismiss="modal">Aceptar</button>
+												</div>
+											</div>
+										</footer>
+									</section>
+						</div>
+						</div>
+						<!-- END MODAL BIENVENIDO -->
+
+
 
             
         </section>
@@ -484,9 +519,9 @@
 
 		
 		<!-- Specific Page Vendor -->
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+	<!--<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
 		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-appear/jquery.appear.js"></script>
+		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-appear/jquery.appear.js"></script>-->
 
 
 		<!-- Theme Base, Components and Settings -->
@@ -495,9 +530,21 @@
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.custom.js"></script>
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
-		<!-- Examples -->
-		<script src="<?php echo constant('URL');?>src/assets/javascripts/dashboard/examples.dashboard.js"></script>
-    
+	
+        <!-- Examples Modal para mensajes -->
+		<script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
+	
+
+<?php 
+if($_SESSION['bienvenido']==1){
+	unset($_SESSION['bienvenido']);?>
+<script>
+	//jQuery.noConflict(); 
+$('#Bienvenido').modal();
+</script>
+<?php }?>
+
+	
     
     </body>
 </html>

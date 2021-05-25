@@ -1,5 +1,5 @@
 <?php
-class Siscv{
+class Cvubv{
 
 public $id;
 public $descripcion;

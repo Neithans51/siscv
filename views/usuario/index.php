@@ -91,13 +91,14 @@
 											<th>Perfil</th>
 											<th>Departamento</th>
 											<th>Estatus</th>
+											<th>Fecha de Registro</th>
 											<th>Acciones</th>
 										</tr>
 									</thead>
 									<tbody>
-									<?php include_once 'models/siscv.php';
+									<?php include_once 'models/cvubv.php';
 															foreach($this->usuarios as $row){
-															$user=new Siscv();
+															$user=new Cvubv();
 															$user=$row;?> 
 										<tr class="gradeX">
 
@@ -117,6 +118,7 @@
 
 										
 											 ?></td>
+											 <td><?php echo date("Y/m/d", strtotime($user->fecha_registro)); ?></td>
 											 <td>
 											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i>Editar</button></a>
 											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;Ver &nbsp;</button></a>
@@ -129,8 +131,11 @@
 										
 									</tbody>
 								</table>
+								
 							</div>
-						</section>				
+						</section>	
+						<?php require 'views/footer.php'; ?>
+						
 					<!-- end: page -->
 
 

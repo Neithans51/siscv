@@ -51,22 +51,23 @@
 				<a href="/" class="logo pull-left">
 					<img src="<?php echo constant('URL');?>src/img/logoo.png" class="log"  alt="Porto Admin" />
 				</a>
-				
+
 				<div class="panel panel-sign">
 					<div class="panel-title-sign mt-xl text-right">
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Iniciar Sesión</h2>
 					</div>
 					<div class="panel-body">
 					<h2 class="error-explanation text-center">Control de Visitas UBV</h2>
+					<?php echo $this->mensaje;?>
 						<form action="<?php echo constant('URL');?>main/iniciar" method="post" id="form">
 							<div class="form-group mb-lg">
 								<label>Usuario</label>
-								<input name="usuario" type="text" class="form-control input-lg required" maxlength="255"/>
+								<input name="usuario" type="text" class="form-control input-lg required" maxlength="45" placeholder="Escriba su Usuario o Correo electrónico"/>
 							</div>
 
 							<div class="form-group mb-lg">
 								<label>Contraseña</label>
-								<input name="contrasena" type="password" class="form-control input-lg required" maxlength="255"/>
+								<input name="contrasena" type="password" class="form-control input-lg required" maxlength="255" placeholder="Escriba su Contraseña"/>
 							</div>
 
 							<div class="row">
@@ -117,6 +118,7 @@
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
 
+	
 		<script type="text/javascript">
 		$(document).ready(function() {
 		$("#form").validate();

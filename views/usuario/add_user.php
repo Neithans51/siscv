@@ -160,9 +160,9 @@
 											<div class="col-sm-9">
 											<select class="form-control select2_demo_3 required" id="departamento" name="departamento" >
 											<option value="">Seleccione...</option>
-											<?php include_once 'models/siscv.php';
+											<?php include_once 'models/cvubv.php';
 															foreach($this->departamentos as $row){
-															$pro=new Siscv();
+															$pro=new Cvubv();
 															$pro=$row;?> 
 														<option value="<?php echo $pro->id;?>" > <?php echo $pro->descripcion;?></option>
 														<?php }?>      
@@ -177,9 +177,9 @@
 											<div class="col-sm-9">
 											<select class="form-control select2_demo_4 required" id="perfil" name="perfil" >
 											<option value="">Seleccione...</option>
-											<?php include_once 'models/siscv.php';
+											<?php include_once 'models/cvubv.php';
 															foreach($this->perfiles as $row){
-															$pro=new Siscv();
+															$pro=new Cvubv();
 															$pro=$row;?> 
 														<option value="<?php echo $pro->id;?>" > <?php echo $pro->descripcion;?></option>
 														<?php }?>      
@@ -244,24 +244,14 @@
 						</div>
 					
 						
+
+						<?php require 'views/footer.php'; ?>
 					</div>
-
-
-
-
 					
 					<!-- end: page -->
                 </section>
                 
-
-                
 			</div>
-
-        
-            
-
-
-
             
         </section>
         

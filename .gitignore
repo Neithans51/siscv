@@ -1,0 +1,7 @@
+config/config.php
+config/*.php
+
+src/fotos/*.jpg
+src/fotos/*.png
+src/fotos/*.jpeg
+

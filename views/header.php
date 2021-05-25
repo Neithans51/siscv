@@ -1,8 +1,68 @@
+
+<script> 
+  setTimeout(function(){ alertFunc(); }, 4000000);
+ 
+  function alertFunc(){
+ 
+ alert("Su Sesion ha estado activa durante 1 hora, Su sesión se cerrara");
+ 
+ location.href='<?php echo constant('URL');?>main/logout/';
+}
+
+      function myconfirm(){
+        location.href='<?php echo constant('URL');?>main/logout/';
+        exi0t();
+  }
+
+  function myconfirm2(){
+    location.href='#';
+  }
+ location.href='#';
+</script>
+									<!-- Modal Cerrar sesión-->
+
+									<div id="CerrarSessionModal" class="modal-block modal-block-primary mfp-hide">
+										<section class="panel">
+											<header class="panel-heading">
+												<h2 class="panel-title">Cerrar Sesión</h2>
+											</header>
+											<div class="panel-body">
+												<div class="modal-wrapper">
+													<div class="modal-icon">
+														<i class="fa fa-question-circle"></i>
+													</div>
+													<div class="modal-text">
+														<h4>Cerrar Sesión</h4>
+														<p>¿Está Seguro que desea Cerrar Sesión?</p>
+													</div>
+												</div>
+											</div>
+											<footer class="panel-footer">
+												<div class="row">
+													<div class="col-md-12 text-right">
+														<button class="btn btn-primary modal-confirm" type="button"  onclick="myconfirm()" data-dismiss="modal">Aceptar</button>
+														<button class="btn btn-default modal-dismiss"  type="button"  onclick="myconfirm2()" data-dismiss="modal">Cancel</button>
+													</div>
+												</div>
+											</footer>
+										</section>
+									</div>
+									<!-- End modal cerrar sesión-->
+
+
+
+	<style>
+	.log{
+		border-radius: 0px 45px 45px 3px;
+		width: 14%;
+		height: 2%;
+	}
+	</style>
 	<!-- start: header -->
     <header class="header">
 				<div class="logo-container">
-					<a href="../" class="logo">
-						<img src="<?php echo constant('URL');?>src/img/logo.png" height="50" alt="JSOFT Admin" />
+					<a href="<?php echo constant('URL');?>home" class="logo">
+						<img src="<?php echo constant('URL');?>src/img/logoo.png" class="log" alt="JSOFT Admin" />
 					</a>
 					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
 						<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -32,8 +92,10 @@
 								<img src="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg" />
 							</figure>
 							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@JSOFT.com">
-								<span class="name">John Doe Junior</span>
-								<span class="role">administrator</span>
+								<?php  list($pnombre, $snombre) = explode(" ", $_SESSION['nombres']);
+								 	   list($papellido, $sapellidos) = explode(" ", $_SESSION['apellidos']);?>
+								<span class="name"><?php echo $pnombre." ".$papellido;?></span>
+								<span class="role"><?php echo  $_SESSION['perfil'];?></span>
 							</div>
 			
 							<i class="fa custom-caret"></i>
@@ -49,7 +111,8 @@
 									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
+								<a class="modal-basic" href="#CerrarSessionModal"><i class="fa fa-power-off"></i> Cerrar Sesión</a>
+								
 								</li>
 							</ul>
 						</div>
@@ -65,7 +128,7 @@
 				
 					<div class="sidebar-header">
 						<div class="sidebar-title">
-							Navigation
+							Navegación
 						</div>
 						<div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
 							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -77,7 +140,7 @@
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
 									<li class="nav-active">
-										<a href="index.html">
+										<a href="<?php echo constant('URL');?>home">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Inicio</span>
 										</a>

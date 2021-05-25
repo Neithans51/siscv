@@ -1,9 +1,9 @@
 <?php
 // CONSTANTES PARA CONECTAR
 
-define('URL','http://localhost/siscv/');
+define('URL','http://localhost/cvubv/');
 define('HOST','localhost');
-define('DB','bd_siscv');
+define('DB','bd_cvubv');
 define('USER','postgres');
 define('PASSWORD','postgres');    
 define('CHARSET','utf8mb4');

@@ -1,5 +1,5 @@
 <?php
-include_once 'models/siscv.php';
+include_once 'models/cvubv.php';
 include_once 'SED.php';
 class UsuarioModel extends Model{
     public function __construct(){
@@ -35,7 +35,7 @@ class UsuarioModel extends Model{
           $query=$this->db->connect()->query("SELECT * FROM ".$valor."");
           
           while($row=$query->fetch()){
-          $item=new Siscv();
+          $item=new Cvubv();
           $item->id=$row['id_'.$valor.''];
           $item->descripcion=$row['descripcion'];
           
@@ -187,7 +187,7 @@ class UsuarioModel extends Model{
                   AND usuario.id_persona=persona.id_persona");
                 
                 while($row=$query->fetch()){
-                $item=new Siscv();
+                $item=new Cvubv();
                 $item->id_usuario=$row['id_usuario'];
                 $item->id_persona=$row['id_persona'];
                 $item->usuario=$row['usuario'];

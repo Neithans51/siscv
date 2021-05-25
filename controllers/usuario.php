@@ -1,5 +1,5 @@
 <?php
-
+  include_once 'session_admin.php';
     class Usuario extends Controller{
         function __construct(){
             parent::__construct();
@@ -29,6 +29,12 @@
 
         $this->view->render('usuario/add_user');
     }
+
+
+    function VerUsuario(){
+        $this->view->render('usuario/detalle');
+    }
+
 
 
     function BuscarUsuario(){
