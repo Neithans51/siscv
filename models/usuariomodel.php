@@ -110,9 +110,15 @@ class UsuarioModel extends Model{
 
              }else if(!empty($datos["archivo"])){ //Guardar foto tomada del sistema
               if (in_array($datos["fileType"], $datos["allowTypes"])) {
-                if(copy($datos["route_temp"], $datos["targetFilePath"])){
+
+                list($url, $extension) = explode(".", $datos["targetFilePath"]);
+              //SE RENOMBRA IMAGEN
+                $url="src/fotos/".$nro_cedula.".".$extension;
+
+                if(copy($datos["route_temp"], $url)){
                   $uploadedFile = $datos["fileName"];
 
+  
 
                 //Tabla persona
                 $query=$pdo->prepare('INSERT INTO persona(
@@ -124,7 +130,7 @@ class UsuarioModel extends Model{
                 $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
                 'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
                 'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
-                'documento'=>$datos['targetFilePath'],'id_persona_tipo'=>1,
+                'documento'=>$url,'id_persona_tipo'=>1,
                 'correo'=>$datos['correo']]);
                 
 

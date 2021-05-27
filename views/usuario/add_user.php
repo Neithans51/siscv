@@ -391,7 +391,8 @@ $(document).ready(function(){
 			var foto_ubv = $('#foto_ubv').val();
 			var radio = $("input[name='radio_select']:checked").val();
 
-
+			var url="<?php echo constant('URL'); ?>";
+			var foto_default="src/assets/images/!logged-user.jpg";
 
 			if (radio == 0) {
 				cxt.drawImage(video, 0, 0, 300, 150);
@@ -410,12 +411,22 @@ $(document).ready(function(){
 					success : function(response) {
 					
 						if (response.success == true) {
-							swal("MENSAJE", response.messages , "success");
-							$("#registro-form")[0].reset();
-							$("#radiosfoto").click();
+							//	swal("MENSAJE", response.messages , "success");
+							$("#registro-form")[0].reset(); //RESETEAR FORM
+
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
+							$('#danger').slideUp(); // OCULTAR ALERTA error
+
+							$('#nombres').removeAttr('readonly','readonly');
+     						$('#apellidos').removeAttr('readonly','readonly');
+							
+							 $('#foto_ubv').val(foto_default); //INPUT
+							 $("#foto_perfil").attr("src",url+foto_default); //IMG
+							 $("#perfil").select2("val", "");
+							 $("#departamento").select2("val", "");
 						} else {
-							swal("MENSAJE", response.messages , "error");
+							//	swal("MENSAJE", response.messages , "error");
+							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
 						}
 					}
@@ -436,12 +447,22 @@ $(document).ready(function(){
 					success: function(response){
 
 						if (response.success == true) {
-							swal("MENSAJE", response.messages , "success");
-							$("#registro-form")[0].reset();
-							$("#radiosfoto").click();
-							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
+						//	swal("MENSAJE", response.messages , "success");
+						$("#registro-form")[0].reset(); //RESETEAR FORM
+
+						$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
+						$('#danger').slideUp(); // OCULTAR ALERTA error
+
+						$('#nombres').removeAttr('readonly','readonly');
+						$('#apellidos').removeAttr('readonly','readonly');
+
+						$('#foto_ubv').val(foto_default); //INPUT
+						$("#foto_perfil").attr("src",url+foto_default); //IMG
+						$("#perfil").select2("val", "");
+						$("#departamento").select2("val", "");
 						} else {
-							swal("MENSAJE", response.messages , "error");
+							//	swal("MENSAJE", response.messages , "error");
+							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
 						}
 					}
@@ -463,13 +484,26 @@ $(document).ready(function(){
 					success : function(response) {
 						if (response.success == true) {
 							console.log("ok");
-							swal("MENSAJE", response.messages , "success");
-							$("#registro-form")[0].reset();
-							$("#radiosfoto").click();
+						//	swal("MENSAJE", response.messages , "success");
+							$("#registro-form")[0].reset(); //RESETEAR FORM
+
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
+							$('#danger').slideUp(); // OCULTAR ALERTA error
+
+							$('#nombres').removeAttr('readonly','readonly');
+     						$('#apellidos').removeAttr('readonly','readonly');
+							
+							 $('#foto_ubv').val(foto_default); //INPUT
+							 $("#foto_perfil").attr("src",url+foto_default); //IMG
+							 $("#perfil").select2("val", "");
+							 $("#departamento").select2("val", "");
+							
+							//$("#radiosfoto").click();
+
 						} else {
 							console.log("no ok");
-							swal("MENSAJE", response.messages , "error");
+						//	swal("MENSAJE", response.messages , "error");
+							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
 						}
 					}
@@ -534,9 +568,9 @@ $('#cedula').keyup(function(e) {
 				$('#correo').val('');
 				/*REmovemos los atributos */
 				$('#nombres').removeAttr('readonly','readonly');
-        $('#apellidos').removeAttr('readonly','readonly');
-        $('#genero').removeAttr('readonly','readonly');
-					$("input[type='radio'][name='genero'][value='F']").prop('checked',false);
+     			$('#apellidos').removeAttr('readonly','readonly');
+        		$('#genero').removeAttr('readonly','readonly');
+				$("input[type='radio'][name='genero'][value='F']").prop('checked',false);
 				$("input[type='radio'][name='genero'][value='M']").prop('checked',false);
 				//$('#telefono').removeAttr('readonly','readonly');
         //$('#correo').removeAttr('readonly','readonly');

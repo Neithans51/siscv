@@ -75,7 +75,7 @@
 
         $mensaje="";
         
-        if($this->model->insert(['file'=>$file,'foto'=>$foto,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
+        if($data=$this->model->insert(['file'=>$file,'foto'=>$foto,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
         'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,
         'perfil'=>$perfil,'route_photo'=>$route_photo,'name_photo'=>$name_photo])){
 
@@ -89,14 +89,16 @@
           ERROR:Ha ocurrido un error al registrar usuario <a class='alert-link' href='#'></a></div>";
 
         }
-        $this->view->mensaje=$mensaje;
-        $this->render();
+        /* $this->view->mensaje=$mensaje;
+            $this->render();*/
+            header('Content-type: application/json; charset=utf-8');
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
     }
   
 
 
 
-    function Save_img(){//Se registra un usuario con foto
+    function Save_img(){//Se registra un usuario con foto tomada del sistema
   
       //Datos genrales
       $cedula = $_POST["cedula"];
@@ -111,6 +113,7 @@
       //Datos para Guaardar una foto 
       $archivo = $_FILES["archivo"]["name"];
       $route_temp=$_FILES["archivo"]["tmp_name"];
+
       $fileName = basename($archivo);
       $targetFilePath = 'src/fotos/'.$fileName;
       $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
@@ -128,7 +131,7 @@
   
           $mensaje="";
           
-          if($this->model->insert(['file'=>$file,'foto'=>$foto,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
+          if($data=$this->model->insert(['file'=>$file,'foto'=>$foto,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
           'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,
           'perfil'=>$perfil,'archivo'=>$archivo,'route_temp'=>$route_temp,'fileName'=>$fileName,'targetFilePath'=>$targetFilePath,
           'fileType'=>$fileType,'allowTypes'=>$allowTypes])){
@@ -143,8 +146,10 @@
             ERROR:Ha ocurrido un error al registrar usuario <a class='alert-link' href='#'></a></div>";
   
           }
-          $this->view->mensaje=$mensaje;
-          $this->render();
+          /* $this->view->mensaje=$mensaje;
+            $this->render();*/
+            header('Content-type: application/json; charset=utf-8');
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
       }
 
 
