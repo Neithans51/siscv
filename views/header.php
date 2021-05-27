@@ -89,11 +89,23 @@
 					<div id="userbox" class="userbox">
 						<a href="#" data-toggle="dropdown">
 							<figure class="profile-picture">
-								<img src="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg" />
-							</figure>
-							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@JSOFT.com">
-								<?php  list($pnombre, $snombre) = explode(" ", $_SESSION['nombres']);
+							<?php  list($pnombre, $snombre) = explode(" ", $_SESSION['nombres']);
 								 	   list($papellido, $sapellidos) = explode(" ", $_SESSION['apellidos']);?>
+
+
+							<?php if(empty($_SESSION['documento'])){ ?>
+								<img src="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg" 
+								alt="" class="img-circle" 
+								data-lock-picture="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg" />
+							<?php }else{?>
+								<img src="<?php echo constant('URL').$_SESSION['documento'];?>" 
+								alt="" class="img-circle" 
+								data-lock-picture="<?php echo constant('URL').$_SESSION['documento'];?>" />
+							<?php }?>
+
+
+							</figure>
+							<div class="profile-info" data-lock-name="<?php echo $pnombre." ".$papellido;?>" data-lock-email="<?php echo  $_SESSION['correo'];?>">
 								<span class="name"><?php echo $pnombre." ".$papellido;?></span>
 								<span class="role"><?php echo  $_SESSION['perfil'];?></span>
 							</div>

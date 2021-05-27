@@ -68,6 +68,7 @@
                 $_SESSION['correo'],
                 $_SESSION['id_perfil'],
                 $_SESSION['perfil'],
+                $_SESSION['documento'],
                 $_SESSION['bienvenido'],
 
                             );

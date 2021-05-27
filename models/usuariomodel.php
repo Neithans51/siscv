@@ -68,8 +68,10 @@ class UsuarioModel extends Model{
             //SEPARAMOS CEDULA DE NACIONALIDAD
              list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
 
-             //Guardar foto carturada
-             if($datos['file']){
+             $validator = array('success' => false, 'messages' => array());
+
+           
+             if(!empty($datos['file'])){  //Guardar foto carturada
                 $fotos = fwrite($datos['file'], $datos['foto']);
                 fclose($datos['file']);
                 
@@ -106,11 +108,7 @@ class UsuarioModel extends Model{
             'id_usuario_perfil'=>$datos['perfil']]);
             
 
-             }
-
-
-             //Guardar foto 
-             if(!empty($datos["archivo"])){
+             }else if(!empty($datos["archivo"])){ //Guardar foto tomada del sistema
               if (in_array($datos["fileType"], $datos["allowTypes"])) {
                 if(copy($datos["route_temp"], $datos["targetFilePath"])){
                   $uploadedFile = $datos["fileName"];
@@ -152,21 +150,59 @@ class UsuarioModel extends Model{
 
                 }
               }
+            }else{ //Guardar foto del sistema (UBV)
+              //Tabla persona
+              $query=$pdo->prepare('INSERT INTO persona(
+                cedula, nombres, apellidos, telefono, nacionalidad, 
+              genero, documento, id_persona_tipo, correo)
+                VALUES (:cedula, :nombres, :apellidos, :telefono, :nacionalidad, :genero, 
+              :documento, :id_persona_tipo, :correo);');
+
+              $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
+              'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
+              'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
+              'documento'=>$datos['foto_ubv'],'id_persona_tipo'=>1,
+              'correo'=>$datos['correo']]);
+              
+
+              //Toma el id de persona
+              $query = $pdo->prepare("SELECT id_persona FROM persona ORDER BY id_persona DESC LIMIT 1");
+              $query ->execute();
+              $persona = $query->fetch();
+              $persona['id_persona'];
+
+                //Tabla usuario
+              $query=$pdo->prepare('INSERT INTO usuario(
+                  usuario, password, fecha_registro, estatus, id_departamento, 
+                  id_persona, id_usuario_perfil) VALUES (:usuario, :password, :fecha_registro, :estatus, :id_departamento, :id_persona, 
+                  :id_usuario_perfil);');
+
+              $crypt= new SED();
+              $query->execute(['usuario'=>'ubv'.$nro_cedula,'password'=>$crypt->encryption($nro_cedula),
+              'fecha_registro'=>date('Y/m/d'),'estatus'=>1,
+              'id_departamento'=>$datos['departamento'],'id_persona'=>$persona['id_persona'],
+              'id_usuario_perfil'=>$datos['perfil']]);
+              
+
             }
 
 
-
+           
+        
 
             // header('Content-type: application/json; charset=utf-8');
        
               //4. consignas la transaccion (en caso de que no suceda ningun fallo)
               $pdo->commit(); 
-            
-                return true;
+              $validator['success'] = true;
+              //header('Content-type: application/json; charset=utf-8');
+              //echo json_encode($validator);
+
+                return $validator;
        
         }catch(PDOException $e){
-            //echo "Matricula duplicada";
-            return false;
+          $validator['success'] = false;
+          return $validator;
                  }
             
                 }

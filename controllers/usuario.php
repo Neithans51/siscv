@@ -56,8 +56,9 @@
     $perfil = $_POST["perfil"];
       
     //Datos para Tomar una foto 
+    list($nacionalidad, $nro_cedula) = explode("-", $cedula);
     $foto = base64_decode($_POST["foto"]);
-    $route_photo = "src/fotos/".$cedula.".jpg";
+    $route_photo = "src/fotos/".$nro_cedula.".jpg";
     $name_photo = $cedula.".jpg";
     $file = fopen($route_photo, "w");
 
@@ -148,6 +149,53 @@
 
 
 
+
+      function Save_img_sis(){//Se registra un usuario con foto del sistema
+  
+        //Datos genrales
+        $cedula = $_POST["cedula"];
+        $nombres = $_POST["nombres"];
+        $apellidos = $_POST["apellidos"];
+        $genero = $_POST["genero"];
+        $telefono = $_POST["telefono"];
+        $correo = $_POST["correo"];
+        $departamento = $_POST["departamento"];
+        $perfil = $_POST["perfil"];
+          
+        //Datos para Guaardar una foto 
+        $foto_ubv = $_POST["foto_ubv"];
+      
+          /*  if($var=$this->model->existe($codigo)){
+              $mensaje="<div class='alert alert-danger alert-dismissable'>
+              <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+              el codigo  <b>" . $var . "</b> <a class='alert-link' href='#'> existe </a>producto ya resgistrado
+              </div>";
+              $this->view->mensaje=$mensaje;
+              $this->render();
+              exit();
+            }*/
+    
+            $mensaje="";
+            
+            if($data=$this->model->insert(['foto_ubv'=>$foto_ubv,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
+            'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,
+            'perfil'=>$perfil])){
+    
+              $mensaje="<div class='alert alert-success alert-dismissable'>
+              <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
+              ¡Felicidades, Usuario registrado  Exitosamente! <a class='alert-link' href='#'></a></div>";
+       
+            }else{
+              $mensaje="<div class='alert alert-danger alert-dismissable'>
+              <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
+              ERROR:Ha ocurrido un error al registrar usuario <a class='alert-link' href='#'></a></div>";
+    
+            }
+           /* $this->view->mensaje=$mensaje;
+            $this->render();*/
+            header('Content-type: application/json; charset=utf-8');
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
 
 
     }

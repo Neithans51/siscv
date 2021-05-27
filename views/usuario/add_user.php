@@ -83,6 +83,13 @@
 					
 						<div class="row">
 						<div class="col-md-12">
+
+
+								
+
+
+
+
 							<form id="registro-form" lass="form-horizontal">
 								<section class="panel">
 									<header class="panel-heading">
@@ -96,8 +103,44 @@
 											Formulario basico para el registro de usuarios.
 										</p>
 									</header>
+
+									
 									<div class="panel-body">
 
+						<!--	 alerts	-->
+									<div class="alert alert-success" style="display: none;" id='success'>
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<strong>Registro Exitoso!</strong> 
+									</div>
+
+
+									<div class="alert alert-danger" style="display:none ;" id='danger'>
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<strong>Ha ocurrido un error</strong> 
+									</div>
+
+									<div class="alert alert-info" >
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<strong>Los campos marcados con <span class="required">*</span> son requeridos</strong> 
+									</div>
+
+							<!--	End alerts	-->
+									<style>
+									.logo-registro{
+											width: 135px;
+											display:block;
+											margin: auto;
+									}
+									</style>
+<!--									<img  src="<?php echo constant('URL').$_SESSION['documento'];?>" 
+								alt="" class="img-circle logo-registro" 
+								data-lock-picture="<?php echo constant('URL').$_SESSION['documento'];?>" />
+-->
+
+									<img id="foto_perfil" class="img-circle logo-registro"  src="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg"/>
+									<input type="hidden" id="foto_ubv" name="foto_ubv" value="">
+
+<br>
 									<div class="form-group">
 											<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
 											<div class="col-sm-9">
@@ -189,7 +232,7 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Foto <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Foto </label>
 											<div class="col-sm-9">
 											
 										
@@ -197,11 +240,11 @@
 											<fieldset class="form-group">
 											<div class="col-md-12">
 													<div class="form-check radio_check checkbox-inline">
-														<input class="form-check-input required" type="radio" name="radio_select" id="radiosfoto" value="1" >
+														<input class="form-check-input" type="radio" name="radio_select" id="radiosfoto" value="1" >
 														<label class="form-check-label" for="radiosfoto">Seleccionar Foto</label>
 													</div>
 													<div class="form-check radio_check checkbox-inline">
-														<input class="form-check-input required" type="radio" name="radio_select" id="radiotfoto" value="0">
+														<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
 														<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
 													</div>
 												</div>
@@ -337,84 +380,115 @@ $(document).ready(function(){
         submitHandler: function(form){
 
 
-var cedula = $('#cedula').val();
-var nombres = $('#nombres').val();
-var apellidos = $('#apellidos').val();
-var genero = $("input[name='genero']:checked").val();
-var telefono = $('#telefono').val();
-var correo = $('#correo').val();
-var departamento = $('#departamento').val();
-var perfil = $('#perfil').val();
+			var cedula = $('#cedula').val();
+			var nombres = $('#nombres').val();
+			var apellidos = $('#apellidos').val();
+			var genero = $("input[name='genero']:checked").val();
+			var telefono = $('#telefono').val();
+			var correo = $('#correo').val();
+			var departamento = $('#departamento').val();
+			var perfil = $('#perfil').val();
+			var foto_ubv = $('#foto_ubv').val();
+			var radio = $("input[name='radio_select']:checked").val();
 
-var radio = $("input[name='radio_select']:checked").val();
 
 
+			if (radio == 0) {
+				cxt.drawImage(video, 0, 0, 300, 150);
+				var data = canvas.toDataURL("image/jpeg");
+				var info = data.split(",", 2);
+				$.ajax({
+					type : "POST",
+					url : "<?php echo constant('URL');?>usuario/Save_photo",
+					data : {foto : info[1],cedula:cedula, nombres: nombres, apellidos: apellidos,
+						genero: genero, telefono: telefono, correo: correo, departamento: departamento,
+						perfil: perfil,radio:radio},
+					dataType : 'json',
+					/*beforeSend: function() {
+						btnSaveLoad();
+					},*/
+					success : function(response) {
+					
+						if (response.success == true) {
+							swal("MENSAJE", response.messages , "success");
+							$("#registro-form")[0].reset();
+							$("#radiosfoto").click();
+							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
+						} else {
+							swal("MENSAJE", response.messages , "error");
+							$('#danger').slideDown(); // MOSTRAR ALERTA error
+						}
+					}
+				});
+			} else if (radio == 1) {
+				//var formData = new FormData(this);
+				var formData = new FormData(form);
+				$.ajax({
+					url: '<?php echo constant('URL');?>usuario/Save_img',
+					type: 'POST',
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
+				/*	beforeSend: function(){
+						btnSaveLoad();
+					},*/
+					success: function(response){
 
-if (radio == 0) {
-	cxt.drawImage(video, 0, 0, 300, 150);
-	var data = canvas.toDataURL("image/jpeg");
-	var info = data.split(",", 2);
-	$.ajax({
-		type : "POST",
-		url : "<?php echo constant('URL');?>usuario/Save_photo",
-		data : {foto : info[1],cedula:cedula, nombres: nombres, apellidos: apellidos,
-			genero: genero, telefono: telefono, correo: correo, departamento: departamento,
-			perfil: perfil,radio:radio},
-		dataType : 'json',
-		/*beforeSend: function() {
-			btnSaveLoad();
-		},*/
-		success : function(response) {
-			btnSave();
-			if (response.success == true) {
-				swal("MENSAJE", response.messages , "success");
-				$("#frm_foto")[0].reset();
-				$("#radiosfoto").click();
-			} else {
-				swal("MENSAJE", response.messages , "error");
+						if (response.success == true) {
+							swal("MENSAJE", response.messages , "success");
+							$("#registro-form")[0].reset();
+							$("#radiosfoto").click();
+							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
+						} else {
+							swal("MENSAJE", response.messages , "error");
+							$('#danger').slideDown(); // MOSTRAR ALERTA error
+						}
+					}
+				});
+
+			}else{ //TOMAMOS LA FOTO DEL SISTEMA
+				
+				$.ajax({
+					type : "POST",
+					url : "<?php echo constant('URL');?>usuario/Save_img_sis",
+					data : {foto_ubv : foto_ubv,cedula:cedula, nombres: nombres, apellidos: apellidos,
+						genero: genero, telefono: telefono, correo: correo, departamento: departamento,
+						perfil: perfil,radio:radio},
+					 dataType : 'json',
+					// async: true,
+					/*beforeSend: function() {
+						btnSaveLoad();
+					},*/
+					success : function(response) {
+						if (response.success == true) {
+							console.log("ok");
+							swal("MENSAJE", response.messages , "success");
+							$("#registro-form")[0].reset();
+							$("#radiosfoto").click();
+							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
+						} else {
+							console.log("no ok");
+							swal("MENSAJE", response.messages , "error");
+							$('#danger').slideDown(); // MOSTRAR ALERTA error
+						}
+					}
+				});
 			}
-		}
-	});
-} else if (radio == 1) {
-	//var formData = new FormData(this);
-	var formData = new FormData(form);
-	$.ajax({
-		url: '<?php echo constant('URL');?>usuario/Save_img',
-		type: 'POST',
-		data: formData,
-		cache: false,
-		contentType: false,
-		processData: false,
-	/*	beforeSend: function(){
-			btnSaveLoad();
-		},*/
-		success: function(response){
-			btnSave();
-			if (response.success == true) {
-				swal("MENSAJE", response.messages , "success");
-				$("#frm_foto")[0].reset();
-				$("#radiosfoto").click();
-			} else {
-				swal("MENSAJE", response.messages , "error");
+
+			return false;
+
+			//});
+
+								
 			}
-		}
-	});
-
-}
-
-return false;
-
-//});
-
-           
-}
-    });
+					});
 
 
 
 
-/*Validar Cedula Venezolana */
-//this.value=this.value.toUpperCase();
+			/*Validar Cedula Venezolana */
+			//this.value=this.value.toUpperCase();
 
 			var pattern = /\d/,
 			caja = document.getElementById("cedula");
@@ -439,6 +513,9 @@ $('#cedula').keyup(function(e) {
 
   e.preventDefault();
   var cl = $(this).val();
+			//PARA MANEJAR IMG PERFIL
+			var url="<?php echo constant('URL'); ?>";
+			var foto_default="src/assets/images/!logged-user.jpg";
 
   $.ajax({
     url: '<?php echo constant('URL');?>usuario/BuscarUsuario',
@@ -459,10 +536,12 @@ $('#cedula').keyup(function(e) {
 				$('#nombres').removeAttr('readonly','readonly');
         $('#apellidos').removeAttr('readonly','readonly');
         $('#genero').removeAttr('readonly','readonly');
-       
+					$("input[type='radio'][name='genero'][value='F']").prop('checked',false);
+				$("input[type='radio'][name='genero'][value='M']").prop('checked',false);
 				//$('#telefono').removeAttr('readonly','readonly');
         //$('#correo').removeAttr('readonly','readonly');
-				
+				$('#foto_ubv').val(foto_default); //INPUT
+				$("#foto_perfil").attr("src",url+foto_default); //IMG
 
       }else {
         var data = $.parseJSON(response);
@@ -480,6 +559,19 @@ $('#cedula').keyup(function(e) {
 				$('#telefono').val(data.telefono);
         $('#correo').val(data.correo);
 
+			//PARA MANEJAR IMG PERFIL
+			var foto_ubv="src/fotos/"+data.cedula+".jpg";
+				//Validamos si la imagen existe
+			if(ImageExist(url+foto_ubv)==true){ 
+				//console.log("Existe");
+				$('#foto_ubv').val(foto_ubv); //INPUT
+				$("#foto_perfil").attr("src",url+foto_ubv); //IMG
+			}else{
+				//console.log("no Existe");
+				$('#foto_ubv').val(foto_default); //INPUT
+				$("#foto_perfil").attr("src",url+foto_default); //IMG
+
+			}
         // Bloque campos
         $('#nombres').attr('readonly','readonly');
         $('#apellidos').attr('readonly','readonly');
@@ -500,7 +592,12 @@ $('#cedula').keyup(function(e) {
 });
 
 
-
+function ImageExist(url) 
+{
+   var img = new Image();
+   img.src = url;
+   return img.height != 0;
+}
 
 	</script>
 
@@ -510,6 +607,9 @@ $('#cedula').keyup(function(e) {
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
 
+   <!-- Examples Modal para mensajes -->
+		<script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
+	
 
 	
 
