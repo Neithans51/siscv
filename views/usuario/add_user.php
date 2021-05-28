@@ -119,6 +119,11 @@
 										<strong>Ha ocurrido un error</strong> 
 									</div>
 
+									<div class="alert alert-danger" style="display: none;" id='registrado'>
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<strong>Usuario registrado</strong> 
+									</div>
+
 									<div class="alert alert-info" >
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 										<strong>Los campos marcados con <span class="required">*</span> son requeridos</strong> 
@@ -132,10 +137,7 @@
 											margin: auto;
 									}
 									</style>
-<!--									<img  src="<?php echo constant('URL').$_SESSION['documento'];?>" 
-								alt="" class="img-circle logo-registro" 
-								data-lock-picture="<?php echo constant('URL').$_SESSION['documento'];?>" />
--->
+
 
 									<img id="foto_perfil" class="img-circle logo-registro"  src="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg"/>
 									<input type="hidden" id="foto_ubv" name="foto_ubv" value="">
@@ -409,24 +411,30 @@ $(document).ready(function(){
 						btnSaveLoad();
 					},*/
 					success : function(response) {
-					
+				
 						if (response.success == true) {
 							//	swal("MENSAJE", response.messages , "success");
 							$("#registro-form")[0].reset(); //RESETEAR FORM
-
+							//CHECKED FOTO
+							$("#radiosfoto").click();
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
+							$('#registrado').slideUp(); // OCULTAR ALERTA error 
 
 							$('#nombres').removeAttr('readonly','readonly');
-     						$('#apellidos').removeAttr('readonly','readonly');
+     					$('#apellidos').removeAttr('readonly','readonly');
 							
 							 $('#foto_ubv').val(foto_default); //INPUT
 							 $("#foto_perfil").attr("src",url+foto_default); //IMG
 							 $("#perfil").select2("val", "");
 							 $("#departamento").select2("val", "");
-						} else {
-							//	swal("MENSAJE", response.messages , "error");
+						}else if(response.registrer == true){
+							$('#registrado').slideDown(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#danger').slideUp(); // MOSTRAR ALERTA error
+						}else{
+							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
 						}
 					}
@@ -449,9 +457,12 @@ $(document).ready(function(){
 						if (response.success == true) {
 						//	swal("MENSAJE", response.messages , "success");
 						$("#registro-form")[0].reset(); //RESETEAR FORM
+						//CHECKED FOTO
+						//$("#radiosfoto").click();
 
 						$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 						$('#danger').slideUp(); // OCULTAR ALERTA error
+						$('#registrado').slideUp(); // OCULTAR ALERTA error 
 
 						$('#nombres').removeAttr('readonly','readonly');
 						$('#apellidos').removeAttr('readonly','readonly');
@@ -460,9 +471,13 @@ $(document).ready(function(){
 						$("#foto_perfil").attr("src",url+foto_default); //IMG
 						$("#perfil").select2("val", "");
 						$("#departamento").select2("val", "");
-						} else {
-							//	swal("MENSAJE", response.messages , "error");
+						}else if(response.registrer == true){
+							$('#registrado').slideDown(); //  MOSTRAR ALERTA error 
 							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#danger').slideUp(); // MOSTRAR ALERTA error
+						}else{
+							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
 						}
 					}
@@ -486,24 +501,31 @@ $(document).ready(function(){
 							console.log("ok");
 						//	swal("MENSAJE", response.messages , "success");
 							$("#registro-form")[0].reset(); //RESETEAR FORM
+							//CHECKED FOTO
+						//	$("#radiosfoto").click();
 
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
+							$('#registrado').slideUp(); // OCULTAR ALERTA error 
 
 							$('#nombres').removeAttr('readonly','readonly');
-     						$('#apellidos').removeAttr('readonly','readonly');
+     					$('#apellidos').removeAttr('readonly','readonly');
 							
 							 $('#foto_ubv').val(foto_default); //INPUT
 							 $("#foto_perfil").attr("src",url+foto_default); //IMG
 							 $("#perfil").select2("val", "");
 							 $("#departamento").select2("val", "");
 							
-							//$("#radiosfoto").click();
 
+						}else if(response.registrer == true){
+							$('#registrado').slideDown(); // OCULTAR ALERTA 
+							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						} else {
-							console.log("no ok");
+						//	console.log("no ok");
 						//	swal("MENSAJE", response.messages , "error");
 							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
 						}
 					}
@@ -568,8 +590,8 @@ $('#cedula').keyup(function(e) {
 				$('#correo').val('');
 				/*REmovemos los atributos */
 				$('#nombres').removeAttr('readonly','readonly');
-     			$('#apellidos').removeAttr('readonly','readonly');
-        		$('#genero').removeAttr('readonly','readonly');
+     		$('#apellidos').removeAttr('readonly','readonly');
+       	$('#genero').removeAttr('readonly','readonly');
 				$("input[type='radio'][name='genero'][value='F']").prop('checked',false);
 				$("input[type='radio'][name='genero'][value='M']").prop('checked',false);
 				//$('#telefono').removeAttr('readonly','readonly');

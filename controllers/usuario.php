@@ -31,8 +31,12 @@
     }
 
 
-    function VerUsuario(){
-        $this->view->render('usuario/detalle');
+    function VerUsuario($param=null){
+      $id_usuario=$param[0];
+
+      $usuario = $this->model->Detalle($id_usuario);
+      $this->view->usuario=$usuario;
+      $this->view->render('usuario/detalle');
     }
 
 
@@ -63,15 +67,15 @@
     $file = fopen($route_photo, "w");
 
   
-      /*  if($var=$this->model->existe($codigo)){
+        if($data=$this->model->existe($nro_cedula)){
           $mensaje="<div class='alert alert-danger alert-dismissable'>
           <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
-          el codigo  <b>" . $var . "</b> <a class='alert-link' href='#'> existe </a>producto ya resgistrado
+          el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
           </div>";
-          $this->view->mensaje=$mensaje;
-          $this->render();
+          header('Content-type: application/json; charset=utf-8');
+          echo json_encode($data,JSON_UNESCAPED_UNICODE);
           exit();
-        }*/
+        }
 
         $mensaje="";
         
@@ -118,16 +122,18 @@
       $targetFilePath = 'src/fotos/'.$fileName;
       $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
       $allowTypes = array('jpg', 'png', 'jpeg');
+
+      list($nacionalidad, $nro_cedula) = explode("-", $cedula);
     
-        /*  if($var=$this->model->existe($codigo)){
-            $mensaje="<div class='alert alert-danger alert-dismissable'>
-            <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
-            el codigo  <b>" . $var . "</b> <a class='alert-link' href='#'> existe </a>producto ya resgistrado
-            </div>";
-            $this->view->mensaje=$mensaje;
-            $this->render();
-            exit();
-          }*/
+      if($data=$this->model->existe($nro_cedula)){
+        $mensaje="<div class='alert alert-danger alert-dismissable'>
+        <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+        el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
+        </div>";
+        header('Content-type: application/json; charset=utf-8');
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        exit();
+      }
   
           $mensaje="";
           
@@ -170,16 +176,18 @@
         //Datos para Guaardar una foto 
         $foto_ubv = $_POST["foto_ubv"];
       
-          /*  if($var=$this->model->existe($codigo)){
-              $mensaje="<div class='alert alert-danger alert-dismissable'>
-              <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
-              el codigo  <b>" . $var . "</b> <a class='alert-link' href='#'> existe </a>producto ya resgistrado
-              </div>";
-              $this->view->mensaje=$mensaje;
-              $this->render();
-              exit();
-            }*/
+          list($nacionalidad, $nro_cedula) = explode("-", $cedula);
     
+      if($data=$this->model->existe($nro_cedula)){
+        $mensaje="<div class='alert alert-danger alert-dismissable'>
+        <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+        el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
+        </div>";
+        header('Content-type: application/json; charset=utf-8');
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        exit();
+      }
+  
             $mensaje="";
             
             if($data=$this->model->insert(['foto_ubv'=>$foto_ubv,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,

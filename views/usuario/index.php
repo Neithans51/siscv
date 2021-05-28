@@ -120,8 +120,8 @@
 											 ?></td>
 											 <td><?php echo date("Y/m/d", strtotime($user->fecha_registro)); ?></td>
 											 <td>
-											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i>Editar</button></a>
-											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;Ver &nbsp;</button></a>
+											<!-- <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i>Editar</button></a>-->
+											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;Ver &nbsp;</button></a>
 
 											 </td>
 										
@@ -162,16 +162,7 @@
 		<script src="<?php echo constant('URL');?>src/assets/vendor/nanoscroller/nanoscroller.js"></script>
 		<script src="<?php echo constant('URL');?>src/assets/vendor/magnific-popup/magnific-popup.js"></script>
 		
-		
-		<!-- Vendor -->
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery/jquery.js"></script>
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-		<script src="<?php echo constant('URL');?>src/assets/vendor/bootstrap/js/bootstrap.js"></script>
-		<script src="<?php echo constant('URL');?>src/assets/vendor/nanoscroller/nanoscroller.js"></script>
-		<script src="<?php echo constant('URL');?>src/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-		<script src="<?php echo constant('URL');?>src/assets/vendor/magnific-popup/magnific-popup.js"></script>
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-		
+
 		<!-- Specific Page Vendor -->
 		<script src="<?php echo constant('URL');?>src/assets/vendor/select2/select2.js"></script>
 		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
@@ -193,6 +184,9 @@
 	<!--	<script src="<?php echo constant('URL');?>src/assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/tables/examples.datatables.tabletools.js"></script>-->
 
+   <!-- Examples Modal para mensajes -->
+	 <script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
+	
 
 
 

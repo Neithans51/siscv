@@ -6,6 +6,82 @@ class UsuarioModel extends Model{
     parent::__construct();
     }
 
+
+        public function existe($nro_cedula){
+          try{
+        
+            $validator = array('registrer' => false, 'messages' => array());
+
+            $sql = $this->db->connect()->prepare("SELECT cedula FROM persona WHERE cedula=:cedula");
+            $sql->execute(['cedula' =>$nro_cedula]);
+            $nombre=$sql->fetch();
+            
+            if($nro_cedula==$nombre['cedula']){
+              $validator['registrer'] = true;
+                return $validator;
+        
+            } 
+            return false;
+          } catch(PDOException $e){
+            return false;
+          }
+        }
+
+
+
+        public function Detalle($id_usuario){
+          $item=new Cvubv();
+         try{
+        $query=$this->db->connect()->prepare("SELECT persona.id_persona,cedula,nombres,apellidos,
+        telefono,nacionalidad,genero,documento,persona.id_persona_tipo,
+        persona_tipo.descripcion AS persona_tipo,correo, usuario.id_usuario,usuario,password,
+        fecha_registro,usuario.estatus,departamento.id_departamento,
+        departamento.descripcion AS departamento,
+        usuario_perfil.id_usuario_perfil,usuario_perfil.descripcion AS usaurio_perfil
+        FROM persona,persona_tipo,usuario,usuario_perfil,departamento 
+        WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
+        AND usuario.id_persona=persona.id_persona
+        AND usuario.id_usuario_perfil=usuario_perfil.id_usuario_perfil
+        AND usuario.id_departamento=departamento.id_departamento
+        AND usuario.id_usuario=:id_usuario");
+        $query->execute(['id_usuario' =>$id_usuario]);
+
+        while($row=$query->fetch()){
+      
+        $item->id_persona=$row['id_persona'];
+        $item->cedula=$row['cedula'];
+        $item->nombres=$row['nombres'];
+        $item->apellidos=$row['apellidos'];
+        $item->telefono=$row['telefono'];
+        $item->nacionalidad=$row['nacionalidad'];
+        $item->genero=$row['genero'];
+        $item->documento=$row['documento'];
+        $item->id_persona_tipo=$row['id_persona_tipo'];
+        $item->persona_tipo=$row['persona_tipo'];
+        $item->correo=$row['correo'];
+
+        $item->id_usuario=$row['id_usuario'];
+        $item->usuario=$row['usuario'];
+        $item->password=$row['password'];
+        $item->fecha_registro=$row['fecha_registro'];
+        $item->estatus=$row['estatus'];
+        $item->id_departamento=$row['id_departamento'];
+
+        $item->departamento=$row['departamento'];
+        $item->id_usuario_perfil=$row['id_usuario_perfil'];
+        $item->usaurio_perfil=$row['usaurio_perfil'];
+
+      
+        
+        }
+        return $item;
+        
+        }catch(PDOException $e){
+        return null;
+        }
+        
+        }
+
          public function Buscar($cedula){
         //   $item=new Dtodito();
            try{
