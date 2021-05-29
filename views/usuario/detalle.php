@@ -60,7 +60,11 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>Usuarios</span></li>
+								<li>
+								<a href="<?php echo constant('URL');?>usuario">
+								<span>Usuarios</span>
+								</a>
+								</li>
 								<li><span>Detalle</span></li>
 							</ol>
 					
@@ -297,10 +301,12 @@
 						
 
 
-						<?php require 'views/footer.php'; ?>
+						
 					</div>
 					<!-- end: page -->			
-                </section>                
+                </section>     
+
+				<?php require 'views/footer.php'; ?>           
 			</div>
                      
         </section>

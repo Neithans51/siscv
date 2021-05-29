@@ -449,8 +449,7 @@
 						</div>
 					
        
-                        <?php require 'views/footer.php'; ?>
-
+                   
 
 
             
@@ -461,6 +460,7 @@
 					<!-- end: page -->
                 </section>
                 
+				<?php require 'views/footer.php'; ?>
 
                 
 			</div>

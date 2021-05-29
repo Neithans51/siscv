@@ -171,12 +171,12 @@
 										</a>
 										<ul class="nav nav-children">
 										  <li>
-												<a href="pages-signin.html">
+												<a href="<?php echo constant('URL');?>admin">
 													 Pases
 												</a>
 											</li>
 											<li>
-												<a href="pages-signup.html">
+												<a href="<?php echo constant('URL');?>admin/Depart">
 													 Departamentos
 												</a>
 											</li>
@@ -215,9 +215,9 @@
 													 Verificar visitante
 												</a>
 											</li>
-											<!--<li>
+										  <!--<li>
 												<a href="forms-advanced.html">
-													 Nuevo visitante
+													 Entradas/Salidas
 												</a>
 											</li>-->
 											<li>

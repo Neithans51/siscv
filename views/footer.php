@@ -1,6 +1,6 @@
 <style>
 .footer{
-background: none repeat scroll 0 0 white;
+  background: none repeat scroll 0 0 white;
 border-top: 1px solid #e7eaec;
 bottom: 0;
 left: 0;

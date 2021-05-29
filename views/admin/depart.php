@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Usuario | Sistema para el Control de Visitas UBV</title>
+		<title>Departamentos | Sistema para el Control de Visitas UBV</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
@@ -46,7 +46,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Usuarios</h2>
+						<h2>Departamentos</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -55,12 +55,17 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
+                                
 								<li>
-								<a href="<?php echo constant('URL');?>usuario">
-								<span>Usuarios</span>
-								</a>
-								</li>
-								<li><span>Lista de Usuarios</span></li>
+                                <a href="<?php echo constant('URL');?>admin/Depart">
+                                <span>Departamentos</span>
+                                </a>
+                                </li>
+
+								<li>
+								<a href="<?php echo constant('URL');?>admin/Departamento">
+								<span>Lista de Departamentos</span>
+								</a></li>
 							</ol>
 					
 							<a class="sidebar-right-toggle" data-open=""><i class="fa fa-chevron-left"></i></a>
@@ -75,63 +80,42 @@
 								<div class="panel-actions">
 									<!--<a href="#" class="fa fa-caret-down"></a>
 									<a href="#" class="fa fa-times"></a>-->
-									<a title="Agregar Usuario" href="<?php echo constant ('URL') . "usuario/Registro";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-pencil"></i> Agregar</button></a>
+									<a title="Agregar Departamento" href="<?php echo constant ('URL') . "admin/Departamento";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-pencil"></i> Agregar</button></a>
 								</div>
 						
-								<h2 class="panel-title">Lista de Usuarios</h2>
+								<h2 class="panel-title">Lista de Departamentos</h2>
 								<p class="panel-subtitle">
-											Usurios registrados en el sistema
+                                Departamentos registrados en el sistema
 								</p>
 							</header>
 							<div class="panel-body">
+							<?php echo $this->mensaje; ?>
 								<table class="table table-bordered table-striped mb-none" id="datatable-default">
 									<thead>
 										<tr>
-											<th>Usuario</th>
-											<th>Nombres</th>
-											<th>Apellidos</th>
-											<th>Teléfono</th>
-											<th>Correo</th>
-											<th>Perfil</th>
-											<th>Departamento</th>
-											<th>Estatus</th>
-											<th>Fecha de Registro</th>
+											<th>Oficina</th>
+											<th>Departamentos</th>
 											<th>Acciones</th>
 										</tr>
 									</thead>
 									<tbody>
 									<?php include_once 'models/cvubv.php';
-															foreach($this->usuarios as $row){
+							
+															foreach($this->departs as $row){
 															$user=new Cvubv();
 															$user=$row;?> 
 										<tr class="gradeX">
-
-											<td><?php echo $user->usuario; ?></td>
-											<td><?php echo $user->nombres; ?></td>
-											<td><?php echo $user->apellidos; ?></td>
-											<td><?php echo $user->telefono; ?></td>
-											<td><?php echo $user->correo; ?></td>
-											<td><?php echo $user->perfil; ?></td>
-											<td><?php echo $user->departamento; ?></td>
-											<td><?php 
-											if($user->estatus=='1'){
-												echo '<span class="label label-success">&nbsp;&nbsp;Activo&nbsp;&nbsp;&nbsp;</span>';
-											}else{
-												echo '<span class="label label-danger">&nbsp;Inactivo&nbsp;</span>';
-											}
-
-										
-											 ?></td>
-											 <td><?php echo date("Y/m/d", strtotime($user->fecha_registro)); ?></td>
+											<td><?php echo $user->ofic; ?></td>
+											<td><?php echo $user->descripcion; ?></td>
+											
 											 <td>
-											<!-- <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i>Editar</button></a>-->
-											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;Ver &nbsp;</button></a>
-
+											 <a href="<?php echo constant ('URL') . "admin/VerDepart/".$user->id_departamento."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i> Editar</button></a>
+											 <!-- <a href="<?php echo constant ('URL') . "usuario/VerPase/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;Ver &nbsp;</button></a>-->
 											 </td>
 										
 										</tr>
 
-										<?php }?> 
+										<?php  } ?> 
 										
 									</tbody>
 								</table>
