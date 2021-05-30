@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Usuario | Sistema para el Control de Visitas UBV</title>
+		<title>Visitantes | Sistema para el Control de Visitas UBV</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="keywords" content="HTML5 Admin Template" />
@@ -51,7 +51,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Usuarios</h2>
+						<h2>Visitantes</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -61,11 +61,11 @@
 									</a>
 								</li>
 								<li>
-								<a href="<?php echo constant('URL');?>usuario">
-								<span>Usuarios</span>
+								<a href="<?php echo constant('URL');?>visitante">
+								<span>Visitantes</span>
 								</a>
 								</li>
-								<li><span>Registrar Usuario</span></li>
+								<li><span>Registrar Visitante</span></li>
 							</ol>
 					
 							<a class="sidebar-right-toggle" data-open=""><i class="fa fa-chevron-left"></i></a>
@@ -102,9 +102,9 @@
 
 										</div>
 
-										<h2 class="panel-title">Registro de Usuario</h2>
+										<h2 class="panel-title">Registro de Visitante</h2>
 										<p class="panel-subtitle">
-											Formulario basico para el registro de usuarios.
+											Formulario basico para el registro de visitantes.
 										</p>
 									</header>
 

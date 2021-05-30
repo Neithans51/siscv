@@ -117,7 +117,7 @@
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> Perfil</a>
+									<a role="menuitem" tabindex="-1" href="<?php echo constant('URL').'usuario/VerUsuario/';?>"><i class="fa fa-user"></i><?php echo $_SESSION['perfil'];?> Perfil</a>
 								</li>
 								<li>
 									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
@@ -180,6 +180,11 @@
 													 Departamentos
 												</a>
 											</li>
+											<li>
+												<a href="<?php echo constant('URL');?>admin/Anf">
+													 Anfitriones
+												</a>
+											</li>
 										
 											
 										</ul>
@@ -210,18 +215,20 @@
 											<span>Visitante</span>
 										</a>
 										<ul class="nav nav-children">
+											  <li>
+												<a href="<?php echo constant('URL');?>visitante/Registro">
+													Nuevo visitante
+												</a>
+											</li>
+
 											<li>
-												<a href="forms-basic.html">
+												<a href="<?php echo constant('URL');?>visitante/Verificar">
 													 Verificar visitante
 												</a>
 											</li>
-										  <!--<li>
-												<a href="forms-advanced.html">
-													 Entradas/Salidas
-												</a>
-											</li>-->
+								
 											<li>
-												<a href="forms-advanced.html">
+												<a href="<?php echo constant('URL');?>visitante">
 													 Visitantes
 												</a>
 											</li>

@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Departamentos | Sistema para el Control de Visitas UBV</title>
+		<title>Anfitriones | Sistema para el Control de Visitas UBV</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="keywords" content="HTML5 Admin Template" />
@@ -51,7 +51,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Departamentos</h2>
+						<h2>Anfitriones</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -61,14 +61,14 @@
 									</a>
 								</li>
 								<li>
-								<a href="<?php echo constant('URL');?>admin/depart">
-								<span>Departamentos</span>
+								<a href="<?php echo constant('URL');?>admin/Anf">
+								<span>Anfitriones</span>
 								</a>								
 								</li>
 								<?php if($this->vista==1){ ?>
-								<li><span>Editar Departamento</span></li>
+								<li><span>Editar Anfitriones</span></li>
 								<?php }else{ ?>
-								<li><span>Registrar Departamento</span></li>
+								<li><span>Registrar Anfitriones</span></li>
 								<?php } ?>
 
 							</ol>
@@ -91,26 +91,26 @@
 
 						<?php if($this->vista==1){ ?>
 						
-							<form id="form-registro" action="<?php echo constant('URL');?>admin/EditarDepart"  method="post" class="form-horizontal">
+							<form id="form-registro" action="<?php echo constant('URL');?>admin/EditarAnf"  method="post" class="form-horizontal">
 						<?php }else{?>
-							<form id="form-registro" action="<?php echo constant('URL');?>admin/RegistrarDepart"  method="post" class="form-horizontal">
+							<form id="form-registro" action="<?php echo constant('URL');?>admin/RegistrarAnf"  method="post" class="form-horizontal">
 						<?php } ?>
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
-										<a title="Volver" href="<?php echo constant ('URL') . "admin/Depart";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+										<a title="Volver" href="<?php echo constant ('URL') . "admin/Anf";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
 
 										</div>
 
 									<?php if($this->vista==1){ ?>
-										<h2 class="panel-title"> Editar Departamento</h2>
+										<h2 class="panel-title"> Editar Anfitriones</h2>
 										<p class="panel-subtitle">
-											Formulario basico para Editar de Departamentos.
+											Formulario basico para Editar de Anfitriones.
 										</p>
 									<?php }else{ ?>
-										<h2 class="panel-title"> Registro de Departamento</h2>
+										<h2 class="panel-title"> Registro de Anfitriones</h2>
 										<p class="panel-subtitle">
-											Formulario basico para el registro de Departamento.
+											Formulario basico para el registro de Anfitriones.
 										</p>
 									<?php }?>
 
@@ -125,22 +125,16 @@
 									</div>
 
 							<!--	End alerts	-->
-											<input type="hidden" name="id_departamento" value="<?php echo $this->depart->id_departamento;?>">
+											<input type="hidden" name="id_anfitrion" value="<?php echo $this->anf->id_anfitrion;?>">
 
 								    	<div class="form-group">
-											<label class="col-sm-3 control-label">Numero de Oficina  <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Anfitrión  <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text"  id="oficina"  name="oficina" value="<?php echo $this->depart->ofic; ?>" class="form-control required " placeholder="Escriba su número de Oficina" maxlength='2' minlength="1" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return valSoloNumeros(event)"/>
+												<input type="text"  id="anfitrion"  name="anfitrion" value="<?php echo $this->anf->descripcion; ?>" class="form-control required" placeholder="Escriba su nombre del anfitrión" maxlength='45' minlength="5" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)"/>
 											</div>
 
 										</div>
-                                        <div class="form-group">
-											<label class="col-sm-3 control-label">Nombre  <span class="required">*</span></label>
-											<div class="col-sm-9">
-												<textarea type="text" cols="30" rows="10"  id="nombre"  name="nombre"  class="form-control required" placeholder="Escriba el nombre de su Oficina" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)"/><?php echo $this->depart->descripcion; ?></textarea>
-                                            </div>
-
-										</div>
+                                        
 
 
 
@@ -235,9 +229,11 @@
 
       });
         </script>
+
+        	<!-- Validar el ingreso de letra o numeros en input -->
+		<script src="<?php echo constant('URL');?>src/js/val_letras.js"></script>
+
 	
-	<!-- Validar el ingreso de letra o numeros en input -->
-	<script src="<?php echo constant('URL');?>src/js/val_letras.js"></script>
 
     </body>
 </html>

@@ -7,6 +7,10 @@ include_once 'session_admin.php';
           $this->view->mensaje="";//se agrega esta linea para msj
         }
     function render(){
+
+        $estadistica=$this->model->getEstadistica();
+        $this->view->estadistica=$estadistica;
+
         $this->view->render('home/index');
     }
 

@@ -1,25 +1,31 @@
 <?php
-
+include_once 'models/cvubv.php';
 class HomeModel extends Model{
     public function __construct(){
     parent::__construct();
     }
 
-    public function insert($datos){
-    //echo "<br>insertar datos";
+    public function getEstadistica(){
+        $item=new Cvubv();
     try{
-        $query=$this->db->connect()->prepare('INSERT INTO alumno(matricula,nombre,apellido) values(:matricula, :nombre, :apellido)');
-       // $query=$this->db->conect()->prepare('INSERT INTO ALUMNO(MATRICULA,NOMBRE,APELLIDO)values(:matricula,:nombre,:apellido)');
-        $query->execute(['matricula'=>$datos['matricula'],'nombre'=>$datos['nombre'],'apellido'=>$datos['apellido']]);
-   return true;
+    $query=$this->db->connect()->query("SELECT * FROM estadisticas()");
+
+    while($row=$query->fetch()){
    
+    $item->pases=$row['pases'];
+    $item->usuarios=$row['usuarios'];
+    $item->visitantes=$row['visitantes'];
+    $item->visitas=$row['visitas'];
+   
+
+    }
+    return $item;
+
     }catch(PDOException $e){
-        //echo "Matricula duplicada";
         return false;
-             }
-    
-    
-            }
+    }
+
+    }
     }
 
     ?>

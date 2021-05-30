@@ -22,10 +22,12 @@ function turnOnCamera() {
                 video.srcObject = null;
             }
         }, function(err){
-            swal("Error", err, "error");
+            //swal("Error", err, "error");
+            alert("Ha ocurrido un Error");
         });
     } else {
-        swal("Mensaje", "User Media No Disponible" , "error");
+        //swal("Mensaje", "User Media No Disponible" , "error");
+        alert("User Media No Disponible");
         return;
     }
 }

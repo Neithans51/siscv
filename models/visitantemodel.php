@@ -1,7 +1,7 @@
 <?php
 include_once 'models/cvubv.php';
 include_once 'SED.php';
-class UsuarioModel extends Model{
+class VisitanteModel extends Model{
     public function __construct(){
     parent::__construct();
     }

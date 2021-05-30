@@ -1,6 +1,6 @@
 <?php
   include_once 'session_admin.php';
-    class Usuario extends Controller{
+    class Visitante extends Controller{
         function __construct(){
             parent::__construct();
           //  $this->view->render('nuevo/index');
@@ -27,7 +27,7 @@
       $perfiles=$this->model->getCatalogo('usuario_perfil');
       $this->view->perfiles=$perfiles;
 
-        $this->view->render('usuario/add_user');
+        $this->view->render('visitante/add_visitante');
     }
 
 

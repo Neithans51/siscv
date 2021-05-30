@@ -59,9 +59,9 @@
 								<a href="<?php echo constant('URL');?>admin">
 								<span>Pases</span>
 								</a><li>
-								<a href="<?php echo constant('URL');?>admin/Pase">
+							
 								<span>Lista de Pases</span>
-								</a></li>
+								</li>
 							</ol>
 					
 							<a class="sidebar-right-toggle" data-open=""><i class="fa fa-chevron-left"></i></a>
@@ -108,7 +108,7 @@
 											<td><?php echo $user->descripcion; ?></td>
 											<td>
 											<?php 
-											if($user->estatus=='1'){
+											if($user->estatus!='1'){
 												echo '<span class="label label-success">Disponible</span>';
 											}else{
 												echo '<span class="label label-warning">&nbsp;Asignado&nbsp;</span>';

@@ -17,6 +17,7 @@
             $this->view->render('admin/add_pase');
           }
 
+
           function VerPase($param=null){//Pases
             $id_pase=$param[0];
             $vista=$param[1];
@@ -126,15 +127,15 @@
           $oficina = $_POST["oficina"];
           $nombre = $_POST["nombre"];
 
-         /* if($data=$this->model->existe($pase)){
+          if($data=$this->model->existeDepart($nombre)){
           $mensaje="<div class='alert alert-danger alert-dismissable'>
           <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
-          El codigo  <b>" . $data . "</b> ya se encuentra registrado
+          El Departamento  <b>" . $data . "</b> ya se encuentra registrado
           </div>";
           $this->view->mensaje=$mensaje;
-          $this->render();
+          $this->Depart();
           exit();
-        }*/
+        }
     
               $mensaje="";
               
@@ -187,6 +188,95 @@
                 }
                 $this->view->mensaje=$mensaje;
                 $this->Depart();
+                
+            }
+    
+
+
+
+            function Anf(){//Anfitrion
+              $departs=$this->model->getAnf();
+              $this->view->departs=$departs;
+              $this->view->render('admin/anf');
+            }
+  
+  
+            function VerAnf($param=null){//Ver Anfitrion
+              $id_anfitrion=$param[0];
+              $vista=$param[1];
+              $anf = $this->model->DetalleAnf($id_anfitrion);
+              $this->view->vista=$vista;
+              $this->view->anf=$anf;
+  
+              $this->view->render('admin/add_anf');
+            }
+  
+        
+         
+          function RegistrarAnf(){ //Anfitrion
+          //Datos Pases
+          $anfitrion = $_POST["anfitrion"];
+         
+          if($data=$this->model->existeAnf($anfitrion)){
+          $mensaje="<div class='alert alert-danger alert-dismissable'>
+          <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+          El Anfitrión  <b>" . $data . "</b> ya se encuentra registrado
+          </div>";
+          $this->view->mensaje=$mensaje;
+          $this->Anf();
+          exit();
+        }
+    
+              $mensaje="";
+              
+              if($this->model->insertAnf(['anfitrion'=>$anfitrion])){
+      
+                $mensaje="<div class='alert alert-success alert-dismissable'>
+                <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
+                ¡Felicidades, registro  Exitoso! <a class='alert-link' href='#'></a></div>";
+         
+              }else{
+                $mensaje="<div class='alert alert-danger alert-dismissable'>
+                <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
+                ERROR:Ha ocurrido un error al realizar su registro <a class='alert-link' href='#'></a></div>";
+      
+              }
+              $this->view->mensaje=$mensaje;
+              $this->Anf();
+              
+          }
+  
+          function EditarAnf(){ //Anfitrion
+            //Datos Pases
+            $id_anfitrion = $_POST["id_anfitrion"];
+            $anfitrion = $_POST["anfitrion"];
+    
+           /* if($data=$this->model->existe($pase)){
+            $mensaje="<div class='alert alert-danger alert-dismissable'>
+            <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+            El codigo  <b>" . $data . "</b> ya se encuentra registrado
+            </div>";
+            $this->view->mensaje=$mensaje;
+            $this->render();
+            exit();
+          }*/
+      
+                $mensaje="";
+                
+                if($this->model->editAnf(['id_anfitrion'=>$id_anfitrion,'anfitrion'=>$anfitrion])){
+        
+                  $mensaje="<div class='alert alert-success alert-dismissable'>
+                  <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
+                  ¡Felicidades, registro editado Exitosamente! <a class='alert-link' href='#'></a></div>";
+           
+                }else{
+                  $mensaje="<div class='alert alert-danger alert-dismissable'>
+                  <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
+                  ERROR:Ha ocurrido un error al editar su registro <a class='alert-link' href='#'></a></div>";
+        
+                }
+                $this->view->mensaje=$mensaje;
+                $this->Anf();
                 
             }
     

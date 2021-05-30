@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Departamentos | Sistema para el Control de Visitas UBV</title>
+		<title>Anfitriones | Sistema para el Control de Visitas UBV</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
@@ -46,7 +46,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Departamentos</h2>
+						<h2>Anfitriones</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -57,13 +57,13 @@
 								</li>
                                 
 								<li>
-                                <a href="<?php echo constant('URL');?>admin/Depart">
-                                <span>Departamentos</span>
+                                <a href="<?php echo constant('URL');?>admin/Anf">
+                                <span>Anfitriones</span>
                                 </a>
                                 </li>
 
 								<li>
-								<span>Lista de Departamentos</span>
+								<span>Lista de Anfitriones</span>
 							    </li>
 							</ol>
 					
@@ -79,12 +79,12 @@
 								<div class="panel-actions">
 									<!--<a href="#" class="fa fa-caret-down"></a>
 									<a href="#" class="fa fa-times"></a>-->
-									<a title="Agregar Departamento" href="<?php echo constant ('URL') . "admin/Departamento";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-pencil"></i> Agregar</button></a>
+									<a title="Agregar Anfitrión" href="<?php echo constant ('URL') . "admin/VerAnf";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-pencil"></i> Agregar</button></a>
 								</div>
 						
-								<h2 class="panel-title">Lista de Departamentos</h2>
+								<h2 class="panel-title">Lista de Anfitriones</h2>
 								<p class="panel-subtitle">
-                                Departamentos registrados en el sistema
+                                Anfitriones registrados en el sistema
 								</p>
 							</header>
 							<div class="panel-body">
@@ -92,8 +92,7 @@
 								<table class="table table-bordered table-striped mb-none" id="datatable-default">
 									<thead>
 										<tr>
-											<th>Oficina</th>
-											<th>Departamentos</th>
+											<th>Nombre</th>
 											<th>Acciones</th>
 										</tr>
 									</thead>
@@ -104,11 +103,10 @@
 															$user=new Cvubv();
 															$user=$row;?> 
 										<tr class="gradeX">
-											<td><?php echo $user->ofic; ?></td>
 											<td><?php echo $user->descripcion; ?></td>
 											
 											 <td>
-											 <a href="<?php echo constant ('URL') . "admin/VerDepart/".$user->id_departamento."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i> Editar</button></a>
+											 <a href="<?php echo constant ('URL') . "admin/VerAnf/".$user->id_anfitrion."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i> Editar</button></a>
 											 <!-- <a href="<?php echo constant ('URL') . "usuario/VerPase/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;Ver &nbsp;</button></a>-->
 											 </td>
 										
