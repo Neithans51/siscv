@@ -10,20 +10,18 @@
         $usuarios=$this->model->getUsuarios('departamento');
         $this->view->usuarios=$usuarios;
 
-        $this->view->render('usuario/index');
+        $this->view->render('visitante/index');
     }
 
     function Registro(){
-    
        //Departamento
       $departamentos=$this->model->getCatalogo('departamento');
       $this->view->departamentos=$departamentos;
-
-      //Perfil
+      //Anfitrion
       $perfiles=$this->model->getCatalogo('anfitrion');
       $this->view->perfiles=$perfiles;
 
-        $this->view->render('visitante/add_visitante');
+      $this->view->render('visitante/add_visitante');
     }
 
 
@@ -166,7 +164,9 @@
 
       function Save_img_sis(){//Se registra un usuario con foto del sistema
   
-        //Datos genrales
+        //Datos genrales anfitrion motivo procedencia paquete observacion
+        $id_persona = $_POST["id_persona"];
+
         $cedula = $_POST["cedula"];
         $nombres = $_POST["nombres"];
         $apellidos = $_POST["apellidos"];
@@ -175,13 +175,20 @@
         $correo = $_POST["correo"];
         $departamento = $_POST["departamento"];
         $perfil = $_POST["perfil"];
+        //DATOS DE LA VISITAS
+        $anfitrion = $_POST["anfitrion"];
+        $motivo = $_POST["motivo"];
+        $procedencia = $_POST["procedencia"];
+        $paquete = $_POST["paquete"];
+        $observacion = $_POST["observacion"];
           
         //Datos para Guaardar una foto 
         $foto_ubv = $_POST["foto_ubv"];
       
           list($nacionalidad, $nro_cedula) = explode("-", $cedula);
     
-      if($data=$this->model->existe($nro_cedula)){
+          //Consultar pases disponibles
+     /* if($data=$this->model->existe($nro_cedula)){
         $mensaje="<div class='alert alert-danger alert-dismissable'>
         <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
         el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
@@ -189,13 +196,25 @@
         header('Content-type: application/json; charset=utf-8');
         echo json_encode($data,JSON_UNESCAPED_UNICODE);
         exit();
-      }
+      }*/
+        //consultar si la persona tiene pase asignado
+         /* if($data=$this->model->existe($nro_cedula)){
+        $mensaje="<div class='alert alert-danger alert-dismissable'>
+        <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+        el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
+        </div>";
+        header('Content-type: application/json; charset=utf-8');
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        exit();
+      }*/
+
   
             $mensaje="";
             
             if($data=$this->model->insert(['foto_ubv'=>$foto_ubv,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
             'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,
-            'perfil'=>$perfil])){
+            'perfil'=>$perfil,'anfitrion'=>$anfitrion,'motivo'=>$motivo,'procedencia'=>$procedencia,
+            'paquete'=>$paquete,'observacion'=>$observacion,'id_persona'=>$id_persona])){
     
               $mensaje="<div class='alert alert-success alert-dismissable'>
               <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>

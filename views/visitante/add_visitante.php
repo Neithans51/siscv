@@ -98,7 +98,7 @@
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
-										<a title="Volver" href="<?php echo constant ('URL') . "usuario";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+										<a title="Volver" href="<?php echo constant ('URL') . "visitante";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
 
 										</div>
 
@@ -150,6 +150,7 @@
 									<div class="form-group">
 											<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
 											<div class="col-sm-9">
+												<input type="hidden" name="id_persona" id="id_persona">
 												<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula Ej. V-00000000 o E-00000000" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
 											</div>
 
@@ -416,7 +417,7 @@ $(document).ready(function(){
         debug: true,errorElement: "label",
         submitHandler: function(form){
 
-
+			var id_persona = $('#id_persona').val();
 			var cedula = $('#cedula').val();
 			var nombres = $('#nombres').val();
 			var apellidos = $('#apellidos').val();
@@ -428,7 +429,7 @@ $(document).ready(function(){
 			var foto_ubv = $('#foto_ubv').val();
 			var radio = $("input[name='radio_select']:checked").val();
 
-			//Visitante
+			//Visitante 
 			var anfitrion = $('#anfitrion').val();
 			var motivo = $('#motivo').val();
 			var procedencia = $('#procedencia').val();
@@ -529,10 +530,11 @@ $(document).ready(function(){
 				
 				$.ajax({
 					type : "POST",
-					url : "<?php echo constant('URL');?>usuario/Save_img_sis",
+					url : "<?php echo constant('URL');?>visitante/Save_img_sis",
 					data : {foto_ubv : foto_ubv,cedula:cedula, nombres: nombres, apellidos: apellidos,
 						genero: genero, telefono: telefono, correo: correo, departamento: departamento,
-						perfil: perfil,radio:radio,},
+						perfil: perfil,radio:radio,anfitrion:anfitrion, motivo:motivo, procedencia:procedencia,
+						 paquete:paquete, observacion:observacion,id_persona:id_persona},
 					 dataType : 'json',
 					// async: true,
 					/*beforeSend: function() {
@@ -616,14 +618,15 @@ $('#cedula').keyup(function(e) {
 			var foto_default="src/assets/images/!logged-user.jpg";
 
   $.ajax({
-    url: '<?php echo constant('URL');?>usuario/BuscarUsuario',
+    url: '<?php echo constant('URL');?>visitante/BuscarUsuario',
     type: "POST",
     async: true,
     data: {ci:cl},
     success: function(response) {
-		
+
       if ( response == 0) {
-        
+
+				$('#id_persona').val('');
         $('#nombres').val('');
         $('#apellidos').val('');
         $('#genero').val('');
@@ -643,7 +646,8 @@ $('#cedula').keyup(function(e) {
 
       }else {
         var data = $.parseJSON(response);
-
+		
+				$('#id_persona').val(data.id_persona);
         $('#nombres').val(data.nombres);
         $('#apellidos').val(data.apellidos);
        // $('#genero').val(data.genero);

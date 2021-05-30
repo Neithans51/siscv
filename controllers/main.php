@@ -56,6 +56,11 @@
             try{
                 if($this->model->getLogin(['usuario'=> $usuario, 'contrasena' => $contrasena])){
                 
+
+
+                  $estadistica=$this->model->getEstadistica();
+                  $this->view->estadistica=$estadistica;
+
                   $this->view->mensaje=$mensaje;
                   $this->view->render('home/index');
             
