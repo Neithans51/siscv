@@ -306,16 +306,16 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Teléfono <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Teléfono </label>
 											<div class="col-md-8">
 												<input type="text" id="telefono" name="telefono"  data-plugin-masked-input data-input-mask="(9999) 999-9999" class="form-control required" placeholder="Escriba su numero de teléfono"  value="<?php echo $this->usuario->telefono; ?>"/>
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Correo <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Correo </label>
 											<div class="col-md-8">
-													<input type="email" id="correo" name="correo" class="form-control required" placeholder="Escriba su correo electrónico" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toLowerCase();"  value="<?php echo $this->usuario->correo; ?>"/>
+													<input type="email" id="correo" name="correo" class="form-control" placeholder="Escriba su correo electrónico" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toLowerCase();"  value="<?php echo $this->usuario->correo; ?>"/>
 											</div>
 										</div>	
 										<div class="form-group">

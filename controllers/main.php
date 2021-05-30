@@ -19,10 +19,39 @@
         function iniciar(){
             
             session_start();
-         
+            $captcha = $_POST['captcha'];
             $usuario=$_POST["usuario"];
             $contrasena=$_POST["contrasena"];
             $mensaje="";
+
+
+            $check = false;
+        
+            if (isset($_SESSION['captcha'])) {
+                // Case sensitive Matching
+                if ($captcha == $_SESSION['captcha']) {
+                    $check = true;
+                   // var_dump('paso');
+                }else if($check==false){
+                    //var_dump('no paso');
+    
+                    $mensaje="<div class='alert alert-danger alert-dismissable'>
+                    <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+                    Error en validación de Captcha.
+                    </div>";
+    
+                //Recuperamos los datos ingresados  por el cedper en caso de responder equivocarse con el captcha
+                //    $login = new Oferta_academica();
+                    $login->usuario=$usuario;
+                    $login->contrasena=$contrasena;
+                    $this->view->login=$login;
+                 
+                    $this->view->mensaje=$mensaje;
+                    $this->render();
+                    exit();
+                }
+                unset($_SESSION['captcha']);
+            }
 
             try{
                 if($this->model->getLogin(['usuario'=> $usuario, 'contrasena' => $contrasena])){

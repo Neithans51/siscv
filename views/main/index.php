@@ -62,13 +62,28 @@
 						<form action="<?php echo constant('URL');?>main/iniciar" method="post" id="form">
 							<div class="form-group mb-lg">
 								<label>Usuario</label>
-								<input name="usuario" type="text" class="form-control input-lg required" maxlength="45" placeholder="Escriba su Usuario o Correo electrónico"/>
+								<input name="usuario" type="text" class="form-control input-lg required" maxlength="45" placeholder="Escriba su Usuario o Correo electrónico" value="<?php echo $this->login->usuario; ?>"/>
 							</div>
 
 							<div class="form-group mb-lg">
 								<label>Contraseña</label>
-								<input name="contrasena" type="password" class="form-control input-lg required" maxlength="255" placeholder="Escriba su Contraseña"/>
+								<input name="contrasena" type="password" class="form-control input-lg required" maxlength="255" placeholder="Escriba su Contraseña" value="<?php echo $this->login->contrasena; ?>"/>
 							</div>
+
+
+							<div class="form-group mb-lg">
+							<br>
+							<img src="<?php echo constant ('URL');?>src/captcha/captcha.php" alt="Captcha Image" maxlength="6" size="6" style="width: 199px; height: 51px;">
+							<br>	<br>
+							<input autocomplete="off" style="text-align:center;" type="text" name="captcha" maxlength="15" placeholder="Ingrese el Captcha" class="form-control required">
+							</div>
+
+
+
+
+				
+
+
 
 							<div class="row">
 								<div class="col-sm-8">

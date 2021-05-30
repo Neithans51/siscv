@@ -15,16 +15,12 @@
 
     function Registro(){
     
-      //Tipo de persona
-    /*  $tipos=$this->model->getCatalogo('persona_tipo');
-      $this->view->tipos=$tipos;*/
-
        //Departamento
       $departamentos=$this->model->getCatalogo('departamento');
       $this->view->departamentos=$departamentos;
 
       //Perfil
-      $perfiles=$this->model->getCatalogo('usuario_perfil');
+      $perfiles=$this->model->getCatalogo('anfitrion');
       $this->view->perfiles=$perfiles;
 
         $this->view->render('visitante/add_visitante');

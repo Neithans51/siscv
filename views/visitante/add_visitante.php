@@ -145,7 +145,7 @@
 
 									<img id="foto_perfil" class="img-circle logo-registro"  src="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg"/>
 									<input type="hidden" id="foto_ubv" name="foto_ubv" value="">
-
+									<h4 class="mb-xlg">Información personal</h4>
 							<br>
 									<div class="form-group">
 											<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
@@ -189,20 +189,21 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Teléfono <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Teléfono </label>
 											<div class="col-sm-9">
-												<input type="text" id="telefono" name="telefono"  data-plugin-masked-input data-input-mask="(9999) 999-9999" class="form-control required" placeholder="Escriba su numero de teléfono" />
+												<input type="text" id="telefono" name="telefono"  data-plugin-masked-input data-input-mask="(9999) 999-9999" class="form-control" placeholder="Escriba su numero de teléfono" />
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Correo <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Correo </label>
 											<div class="col-sm-9">
-													<input type="email" id="correo" name="correo" class="form-control required" placeholder="Escriba su correo electrónico" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toLowerCase();"/>
+													<input type="email" id="correo" name="correo" class="form-control " placeholder="Escriba su correo electrónico" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toLowerCase();"/>
 											</div>
 										</div>
 														
-
+										<hr class="dotted tall">
+											<h4 class="mb-xlg">Informacción de la visita</h4>
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Departamento <span class="required">*</span></label>
@@ -222,9 +223,9 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Perfil <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Anfitrión <span class="required">*</span></label>
 											<div class="col-sm-9">
-											<select class="form-control select2_demo_4 required" id="perfil" name="perfil" >
+											<select class="form-control select2_demo_3 required" id="anfitrion" name="anfitrion" >
 											<option value="">Seleccione...</option>
 											<?php include_once 'models/cvubv.php';
 															foreach($this->perfiles as $row){
@@ -233,6 +234,38 @@
 														<option value="<?php echo $pro->id;?>" > <?php echo $pro->descripcion;?></option>
 														<?php }?>      
 											</select>  		
+											</div>
+										</div>
+
+
+													
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Motivo <span class="required">*</span></label>
+											<div class="col-sm-9">
+											<textarea name="motivo" id="motivo" cols="30" rows="2" class="form-control required" placeholder="Escriba el motivo de la visita" maxlength='145'  onkeyup="javascript:this.value=this.value.toUpperCase();" ></textarea>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Procedencia </label>
+											<div class="col-sm-9">
+												<input type="text" id="procedencia" name="procedencia" placeholder="Escriba la procedencia del visitante" class="form-control" placeholder="Escriba sus nombres" maxlength='45' minlength="5"  onkeyup="javascript:this.value=this.value.toUpperCase();"  />
+											</div>
+										</div>
+														
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Paquete </label>
+											<div class="col-sm-9">
+												<input type="text" id="paquete" name="paquete" placeholder="Escriba sobre los paquetes que tre consigo el visitante" class="form-control" placeholder="Escriba sus nombres" maxlength='45' minlength="5"   onkeyup="javascript:this.value=this.value.toUpperCase();"  />
+											</div>
+										</div>
+
+														
+									
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Observaciones </label>
+											<div class="col-sm-9">
+											<textarea name="observacion" id="observacion" cols="30" rows="2" class="form-control" placeholder="Escriba sus observaciones" maxlength='145'  onkeyup="javascript:this.value=this.value.toUpperCase();" ></textarea>
 											</div>
 										</div>
 
@@ -395,6 +428,13 @@ $(document).ready(function(){
 			var foto_ubv = $('#foto_ubv').val();
 			var radio = $("input[name='radio_select']:checked").val();
 
+			//Visitante
+			var anfitrion = $('#anfitrion').val();
+			var motivo = $('#motivo').val();
+			var procedencia = $('#procedencia').val();
+			var paquete = $('#paquete').val();
+			var observacion = $('#observacion').val();
+
 			var url="<?php echo constant('URL'); ?>";
 			var foto_default="src/assets/images/!logged-user.jpg";
 
@@ -492,7 +532,7 @@ $(document).ready(function(){
 					url : "<?php echo constant('URL');?>usuario/Save_img_sis",
 					data : {foto_ubv : foto_ubv,cedula:cedula, nombres: nombres, apellidos: apellidos,
 						genero: genero, telefono: telefono, correo: correo, departamento: departamento,
-						perfil: perfil,radio:radio},
+						perfil: perfil,radio:radio,},
 					 dataType : 'json',
 					// async: true,
 					/*beforeSend: function() {
@@ -519,7 +559,7 @@ $(document).ready(function(){
 							 $("#departamento").select2("val", "");
 							
 
-						}else if(response.registrer == true){
+						}else if(response.registrer == true){ //REALIZAR PARA PASES Y VALIDAR PERSONA INTERNAMENTE
 							$('#registrado').slideDown(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
