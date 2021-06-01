@@ -75,17 +75,24 @@ class VisitanteModel extends Model{
         public function Detalle($id_visitante){
           $item=new Cvubv();
          try{
-        $query=$this->db->connect()->prepare("SELECT  persona.id_persona,cedula,nombres,apellidos,
+        $query=$this->db->connect()->prepare("SELECT visitante.id_visitante, persona.id_persona,cedula,nombres,apellidos,
         telefono,nacionalidad,genero,documento,persona.id_persona_tipo,
-        persona_tipo.descripcion AS persona_tipo,correo,id_visitante
-        FROM persona,persona_tipo,visitante
+        persona_tipo.descripcion AS persona_tipo,correo,id_visitante,departamento.id_departamento,
+        departamento.descripcion AS departamento,motivo,paquete,observacion,
+        procedencia,pase.descripcion AS pase,pase.id_pase,anfitrion.id_anfitrion,
+        anfitrion.descripcion AS anfitrion		
+        FROM persona,persona_tipo,visitante,departamento,pase,anfitrion
         WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
         AND persona.id_persona=visitante.id_persona
+        AND visitante.id_departamento=departamento.id_departamento
+        AND visitante.id_pase=pase.id_pase
+        AND visitante.id_anfitrion=anfitrion.id_anfitrion
         AND id_visitante=:id_visitante");
         $query->execute(['id_visitante' =>$id_visitante]);
 
         while($row=$query->fetch()){
-      
+        //DATOS PERSONALES
+        $item->id_visitante=$row['id_visitante'];
         $item->id_persona=$row['id_persona'];
         $item->cedula=$row['cedula'];
         $item->nombres=$row['nombres'];
@@ -98,18 +105,22 @@ class VisitanteModel extends Model{
         $item->persona_tipo=$row['persona_tipo'];
         $item->correo=$row['correo'];
 
-        $item->id_usuario=$row['id_usuario'];
-        $item->usuario=$row['usuario'];
-        $item->password=$row['password'];
-        $item->fecha_registro=$row['fecha_registro'];
-        $item->estatus=$row['estatus'];
+        //DATOS DE LA VISTIA
         $item->id_departamento=$row['id_departamento'];
-
         $item->departamento=$row['departamento'];
-        $item->id_usuario_perfil=$row['id_usuario_perfil'];
-        $item->usaurio_perfil=$row['usaurio_perfil'];
+        $item->motivo=$row['motivo'];
+        $item->paquete=$row['paquete'];
+        $item->observacion=$row['observacion'];
+        $item->procedencia=$row['procedencia'];
+        $item->pase=$row['pase'];
+        $item->id_pase=$row['id_pase'];
+        $item->anfitrion=$row['anfitrion'];
 
-      
+       //ENTRDADAS / SALIDAS
+       $item->fecha_ingreso=$this->Obtener_fecha(1,$row['id_visitante']); //ENTRADA
+
+       $item->fecha_salida=$this->Obtener_fecha(0,$row['id_visitante']); //SALIDA
+        
         
         }
         return $item;
@@ -750,6 +761,10 @@ class VisitanteModel extends Model{
                 }
                 
                 }
+
+
+
+                
       
          
                 public function Obtener_fecha($estatus,$id_visitante){//Valisa si el usuario tiene un pase asignado

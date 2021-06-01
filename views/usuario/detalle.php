@@ -117,7 +117,7 @@
 										}else{
 											echo '<span class="label label-danger">&nbsp;Inactivo&nbsp;</span>';
 										}
-									?>></li>
+									?></li>
 												
 											
 											</ul>

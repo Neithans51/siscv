@@ -106,19 +106,16 @@
 									<div class="widget-toggle-expand mb-md">
 										
 								
-									<h6 class="text-muted">Perfil</h6>
+									<h6 class="text-muted">Contacto</h6>
 										<div class="widget-content-expanded">
 											<ul class="simple-todo-list">
-												<li class="completed"><?php echo $this->usuario->usuario; ?></li>
-												<li class="completed"><?php echo $this->usuario->usaurio_perfil; ?></li>
-												<li class="completed"><?php 
-										if($this->usuario->estatus=='1'){
-											echo '<span class="label label-success">&nbsp;&nbsp;Activo&nbsp;&nbsp;&nbsp;</span>';
-										}else{
-											echo '<span class="label label-danger">&nbsp;Inactivo&nbsp;</span>';
-										}
-									?>></li>
-												
+												<?php if(!empty($this->usuario->telefono)){?>
+												<li class="completed"><?php echo $this->usuario->telefono;  ?></li>
+												<?php }?>
+
+												<?php if(!empty($this->usuario->correo)){ ?>
+												<li class="completed"><?php echo $this->usuario->correo;  ?></li>
+												<?php }?>
 											
 											</ul>
 										</div>
@@ -136,29 +133,32 @@
 						</div>
 						<div class="col-md-8 col-lg-9">
 						<div class="panel-actions">
-										<a title="Volver" href="<?php echo constant ('URL') . "usuario";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+										<a title="Volver" href="<?php echo constant ('URL') . "visitante/Verificar";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
 
 						</div>
 						<br>
 							<div class="tabs">
 								<ul class="nav nav-tabs tabs-primary">
 									<li class="active">
-										<a href="#overview" data-toggle="tab">Perfil</a>
+										<a href="#overview" data-toggle="tab">Datos personales</a>
 									</li>
+									
+									<li class="">
+										<a href="#visita" data-toggle="tab">Datos de la visita</a>
+									</li>
+
 									<li class="">
 										<a href="#edit" data-toggle="tab">Editar</a>
 									</li>
 								</ul>
 								<div class="tab-content">
 									<div id="overview" class="tab-pane active">
-										<h4 class="mb-md">Perfil</h4>
+										<h4 class="mb-md">Datos Personales</h4>
 
 									
 										<div class="timeline timeline-simple mt-xlg mb-md">
 											<div class="tm-body">
-												<div class="tm-title">Fecha de registro
-													<h3 class="h5 text-uppercase"><?php echo date("Y/m/d", strtotime($this->usuario->fecha_registro)); ?></h3>
-												</div>
+												
 												<ol class="tm-items">
 													<li>
 														<div class="tm-box">
@@ -173,7 +173,7 @@
 															<?php if($this->usuario->nacionalidad=="V"){ 
 																echo "Venezolano";
 																}else{
-															    echo "Extranjero";
+																echo "Extranjero";
 																}
 															?>
 															</p>
@@ -195,25 +195,10 @@
 															?>
 															</p>
 
-
-															<p class="text-muted mb-none">Teléfono</p>
-															<p>
-															<?php echo $this->usuario->telefono; ?>
-															</p>
-
-
-
-															<p class="text-muted mb-none">Correo</p>
-															<p>
-															<?php echo $this->usuario->correo; ?>
-															</p>
-
-
-
-															<p class="text-muted mb-none">Departamento</p>
+															<!--<p class="text-muted mb-none">Departamento</p>
 															<p>
 															<?php echo $this->usuario->departamento; ?>
-															</p>
+															</p>-->
 
 
 														</div>
@@ -234,6 +219,97 @@
 																</a>
 															</div>
 														</div>
+													</li>
+												</ol>
+											</div>
+										</div>
+									</div>
+									<div id="visita" class="tab-pane">
+										<h4 class="mb-md">Datos de la Visita</h4>
+
+									
+										<div class="timeline timeline-simple mt-xlg mb-md">
+											<div class="tm-body">
+												
+												<ol class="tm-items">
+													<li>
+														<div class="tm-box">
+
+															<p class="text-muted mb-none">Departamento</p>
+															<p>
+															<?php echo $this->usuario->departamento; ?>
+															</p>
+
+
+														</div>
+													</li>
+
+													<li>
+														<div class="tm-box">
+
+														<p class="text-muted mb-none"></p>
+														
+														
+															<p class="text-muted mb-none">Motivo</p>
+															<p>
+															<?php echo $this->usuario->motivo; ?>
+															</p>
+
+															<p class="text-muted mb-none">Paquete</p>
+															<p>
+															<?php echo $this->usuario->paquete; ?>
+															</p>
+
+															<p class="text-muted mb-none">Procedencia</p>
+															<p>
+															<?php echo $this->usuario->procedencia; ?>
+															</p>
+															
+															<p class="text-muted mb-none">Anfitrión</p>
+															<p>
+															<?php echo $this->usuario->anfitrion; ?>
+															</p>
+
+
+
+
+														</div>
+													</li>
+													
+													<li>
+														
+														<div class="tm-box">
+															<p class="text-muted mb-none"></p>
+														
+															<p class="text-muted mb-none">Cod. Pase</p>
+															<p>
+															<?php echo $this->usuario->pase; ?>
+															</p>
+
+														
+															<p class="text-muted mb-none">Entrada</p>
+															<p>
+															<?php echo date("d/m/Y H:i", strtotime($this->usuario->fecha_ingreso)); ?>
+															</p>
+
+
+															<p class="text-muted mb-none">Salida</p>
+
+															<?php if(!empty($this->usuario->fecha_salida)){
+																echo '<p>'.date("d/m/Y H:i", strtotime($this->usuario->fecha_salida)).'<p>';
+															}else{
+																echo '<p>No disponible<p>';
+															} ?>
+															
+
+
+															<p class="text-muted mb-none">Observaciones</p>
+															<p>
+															<?php echo $this->usuario->observacion; ?>
+															</p>
+
+														</div>
+
 													</li>
 												</ol>
 											</div>

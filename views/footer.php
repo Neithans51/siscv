@@ -5,7 +5,7 @@ border-top: 1px solid #e7eaec;
 bottom: 0;
 left: 0;
 padding: 10px 20px;
-position: relative; /*fixed, absolute*/
+position: fixed; /*relative,fixed, absolute*/
 right: 0;
 
 }
