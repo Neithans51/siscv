@@ -7,17 +7,40 @@ class VisitanteModel extends Model{
     }
 
 
-        public function existe($nro_cedula){
+        public function existePaseAsignado($nro_cedula){//Valisa si el usuario tiene un pase asignado
           try{
         
-            $validator = array('registrer' => false, 'messages' => array());
+            $validator = array('asig_pase' => false, 'messages' => array());
 
-            $sql = $this->db->connect()->prepare("SELECT cedula FROM persona WHERE cedula=:cedula");
-            $sql->execute(['cedula' =>$nro_cedula]);
+            $sql = $this->db->connect()->prepare("SELECT pase.id_pase FROM visitante,pase WHERE
+            visitante.id_persona=(SELECT id_persona FROM persona WHERE cedula=:cedula)
+            AND visitante.id_pase=pase.id_pase 
+            AND estatus =:estatus LIMIT 1");
+            $sql->execute(['cedula' =>$nro_cedula,'estatus' =>1]);
             $nombre=$sql->fetch();
             
-            if($nro_cedula==$nombre['cedula']){
-              $validator['registrer'] = true;
+            if(!empty($nombre['id_pase'])){
+              $validator['asig_pase'] = true;
+                return $validator;
+        
+            } 
+            return false;
+          } catch(PDOException $e){
+            return false;
+          }
+        }
+
+        public function existePases(){ //VAlida si hay pases para asignar
+          try{
+        
+            $validator = array('no_pase' => false, 'messages' => array());
+
+            $sql = $this->db->connect()->prepare("SELECT id_pase FROM pase WHERE estatus=:estatus LIMIT 1");
+            $sql->execute(['estatus' =>0]);
+            $nombre=$sql->fetch();
+            
+            if(empty($nombre['id_pase'])){
+              $validator['no_pase'] = true;
                 return $validator;
         
             } 
@@ -28,6 +51,26 @@ class VisitanteModel extends Model{
         }
 
 
+
+       /* public function ValVisitante(){ //VAlida si hay pases para asignar
+          try{
+        
+            $validator = array('no_pase' => false, 'messages' => array());
+
+            $sql = $this->db->connect()->prepare("SELECT id_pase FROM pase WHERE estatus=:estatus LIMIT 1");
+            $sql->execute(['estatus' =>0]);
+            $nombre=$sql->fetch();
+            
+            if(empty($nombre['id_pase'])){
+              $validator['no_pase'] = true;
+                return $validator;
+        
+            } 
+            return false;
+          } catch(PDOException $e){
+            return false;
+          }
+        }*/
 
         public function Detalle($id_usuario){
           $item=new Cvubv();
@@ -167,37 +210,89 @@ class VisitanteModel extends Model{
                 $fotos = fwrite($datos['file'], $datos['foto']);
                 fclose($datos['file']);
                 
-                //Tabla persona
-             $query=$pdo->prepare('INSERT INTO persona(
-                 cedula, nombres, apellidos, telefono, nacionalidad, 
+               //////////////////////////////////////////////////////////              
+                if(empty($datos['id_persona'])){ //USUARIO NO REGISTRADO lo REGISTRAMOS
+                
+                  //TABLA SIGAD (VALIDAMOS SI EL USUARIO EXIsTE PRA CAMBIAR SU TIPO )
+  
+                  $query=$pdo->prepare('SELECT cedper FROM sno_personal WHERE cedper=:cedula');
+                  $query->execute(['cedula'=>$nro_cedula]);
+                  $tipo_persona = $query->fetch();
+                  $tipo=$tipo_persona['cedper'];
+  
+                  if(!empty($tipo)){
+                    //REGISTRO EXIsTE
+                    $tipo_persona=1;// Personal UBV
+                  }else{
+                    $tipo_persona=2;// Visitante
+  
+                  }
+  
+                  //TABLA PERSONA
+                $query=$pdo->prepare('INSERT INTO persona(
+                  cedula, nombres, apellidos, telefono, nacionalidad, 
                 genero, documento, id_persona_tipo, correo)
                   VALUES (:cedula, :nombres, :apellidos, :telefono, :nacionalidad, :genero, 
                 :documento, :id_persona_tipo, :correo);');
-          
-            $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
-            'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
-            'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
-            'documento'=>$datos['route_photo'],'id_persona_tipo'=>1,
-            'correo'=>$datos['correo']]);
-            
+  
+                $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
+                'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
+                'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
+                'documento'=>$datos['foto_ubv'],'id_persona_tipo'=>$tipo_persona,
+                'correo'=>$datos['correo']]);
+  
+                //Toma el id de persona
+                $query = $pdo->prepare("SELECT id_persona FROM persona ORDER BY id_persona DESC LIMIT 1");
+                $query ->execute();
+                $persona = $query->fetch();
+                $id_persona=$persona['id_persona'];
+                }else{
+                 $id_persona=$datos['id_persona'];
+                }
+  
+                //SELECIONAMOS EL PASE
+                $query=$pdo->prepare('SELECT id_pase FROM pase WHERE estatus=:estatus LIMIT 1');
+                $query->execute(['estatus'=>0]);
+                $pase = $query->fetch();
+                $pase['id_pase'];
+  
+  
+                $query=$pdo->prepare('INSERT INTO visitante(
+                   motivo, paquete, observacion, id_departamento, 
+                  id_persona, id_pase, procedencia, id_anfitrion)
+                  VALUES  (:motivo, :paquete, :observacion, :id_departamento,
+                   :id_persona, :id_pase, 
+                :procedencia, :id_anfitrion);');
+  
+                $query->execute(['motivo'=>$datos['motivo'],'paquete'=>$datos['paquete'],
+                'observacion'=>$datos['observacion'],'id_departamento'=>$datos['departamento'],
+                'id_persona'=>$id_persona,'id_pase'=> $pase['id_pase'],
+                'procedencia'=>$datos['procedencia'],
+                'id_anfitrion'=>$datos['anfitrion']]);
+  
+                 //Toma el id del visitante
+                 $query = $pdo->prepare("SELECT id_visitante FROM visitante ORDER BY id_visitante DESC LIMIT 1");
+                 $query ->execute();
+                 $persona = $query->fetch();
+                 $persona['id_visitante'];
+  
+                  //ACTUALIZAMOS EL ESTATUS DEL PASE SELECIONADO 
+                  $query=$pdo->prepare('UPDATE pase SET estatus=:estatus WHERE id_pase=:id_pase ');
+                  $query->execute(['estatus'=>1,'id_pase'=> $pase['id_pase']]);
+  
+  
+                  //REGISTRAMOS LA ENTRADA DEL VISITANTE A LA INSTITUCION
+  
+                  $query=$pdo->prepare('INSERT INTO visitante_detalle(
+                     estatus, fecha, id_visitante, id_usuario)
+                   VALUES  (:estatus, :fecha, :id_visitante, :id_usuario);');
+                //Estatus 1 entro 0 salio
+                 $query->execute(['estatus'=>1,'fecha'=>date('Y-m-d h:i:s', time()),
+                 'id_visitante'=>$persona['id_visitante'],'id_usuario'=>$_SESSION['id_usuario']]);
+   
+                //////////////////////////////////////////////////////////
 
-            //Toma el id de persona
-            $query = $pdo->prepare("SELECT id_persona FROM persona ORDER BY id_persona DESC LIMIT 1");
-            $query ->execute();
-            $persona = $query->fetch();
-            $persona['id_persona'];
 
-              //Tabla usuario
-            $query=$pdo->prepare('INSERT INTO usuario(
-                usuario, password, fecha_registro, estatus, id_departamento, 
-                id_persona, id_usuario_perfil) VALUES (:usuario, :password, :fecha_registro, :estatus, :id_departamento, :id_persona, 
-                :id_usuario_perfil);');
-           
-            $crypt= new SED();
-            $query->execute(['usuario'=>'ubv'.$nro_cedula,'password'=>$crypt->encryption($nro_cedula),
-            'fecha_registro'=>date('Y/m/d'),'estatus'=>1,
-            'id_departamento'=>$datos['departamento'],'id_persona'=>$persona['id_persona'],
-            'id_usuario_perfil'=>$datos['perfil']]);
             
 
              }else if(!empty($datos["archivo"])){ //Guardar foto tomada del sistema
@@ -210,43 +305,95 @@ class VisitanteModel extends Model{
                 if(copy($datos["route_temp"], $url)){
                   $uploadedFile = $datos["fileName"];
 
-                //Tabla persona
-                $query=$pdo->prepare('INSERT INTO persona(
-                  cedula, nombres, apellidos, telefono, nacionalidad, 
-                genero, documento, id_persona_tipo, correo)
-                  VALUES (:cedula, :nombres, :apellidos, :telefono, :nacionalidad, :genero, 
-                :documento, :id_persona_tipo, :correo);');
-
-                $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
-                'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
-                'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
-                'documento'=>$url,'id_persona_tipo'=>1,
-                'correo'=>$datos['correo']]);
+           
+                  //////////////////////////////////////////////////////////
+                  if(empty($datos['id_persona'])){ //USUARIO NO REGISTRADO lo REGISTRAMOS
                 
+                    //TABLA SIGAD (VALIDAMOS SI EL USUARIO EXIsTE PRA CAMBIAR SU TIPO )
+    
+                    $query=$pdo->prepare('SELECT cedper FROM sno_personal WHERE cedper=:cedula');
+                    $query->execute(['cedula'=>$nro_cedula]);
+                    $tipo_persona = $query->fetch();
+                    $tipo=$tipo_persona['cedper'];
+    
+                    if(!empty($tipo)){
+                      //REGISTRO EXIsTE
+                      $tipo_persona=1;// Personal UBV
+                    }else{
+                      $tipo_persona=2;// Visitante
+    
+                    }
+    
+                    //TABLA PERSONA
+                  $query=$pdo->prepare('INSERT INTO persona(
+                    cedula, nombres, apellidos, telefono, nacionalidad, 
+                  genero, documento, id_persona_tipo, correo)
+                    VALUES (:cedula, :nombres, :apellidos, :telefono, :nacionalidad, :genero, 
+                  :documento, :id_persona_tipo, :correo);');
+    
+                  $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
+                  'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
+                  'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
+                  'documento'=>$datos['foto_ubv'],'id_persona_tipo'=>$tipo_persona,
+                  'correo'=>$datos['correo']]);
+    
+                  //Toma el id de persona
+                  $query = $pdo->prepare("SELECT id_persona FROM persona ORDER BY id_persona DESC LIMIT 1");
+                  $query ->execute();
+                  $persona = $query->fetch();
+                  $id_persona=$persona['id_persona'];
+                  }else{
+                   $id_persona=$datos['id_persona'];
+                  }
+    
+                  //SELECIONAMOS EL PASE
+                  $query=$pdo->prepare('SELECT id_pase FROM pase WHERE estatus=:estatus LIMIT 1');
+                  $query->execute(['estatus'=>0]);
+                  $pase = $query->fetch();
+                  $pase['id_pase'];
+    
+    
+                  $query=$pdo->prepare('INSERT INTO visitante(
+                     motivo, paquete, observacion, id_departamento, 
+                    id_persona, id_pase, procedencia, id_anfitrion)
+                    VALUES  (:motivo, :paquete, :observacion, :id_departamento,
+                     :id_persona, :id_pase, 
+                  :procedencia, :id_anfitrion);');
+    
+                  $query->execute(['motivo'=>$datos['motivo'],'paquete'=>$datos['paquete'],
+                  'observacion'=>$datos['observacion'],'id_departamento'=>$datos['departamento'],
+                  'id_persona'=>$id_persona,'id_pase'=> $pase['id_pase'],
+                  'procedencia'=>$datos['procedencia'],
+                  'id_anfitrion'=>$datos['anfitrion']]);
+    
+                   //Toma el id del visitante
+                   $query = $pdo->prepare("SELECT id_visitante FROM visitante ORDER BY id_visitante DESC LIMIT 1");
+                   $query ->execute();
+                   $persona = $query->fetch();
+                   $persona['id_visitante'];
+    
+                    //ACTUALIZAMOS EL ESTATUS DEL PASE SELECIONADO 
+                    $query=$pdo->prepare('UPDATE pase SET estatus=:estatus WHERE id_pase=:id_pase ');
+                    $query->execute(['estatus'=>1,'id_pase'=> $pase['id_pase']]);
+    
+    
+                    //REGISTRAMOS LA ENTRADA DEL VISITANTE A LA INSTITUCION
+    
+                    $query=$pdo->prepare('INSERT INTO visitante_detalle(
+                       estatus, fecha, id_visitante, id_usuario)
+                     VALUES  (:estatus, :fecha, :id_visitante, :id_usuario);');
+                  //Estatus 1 entro 0 salio
+                   $query->execute(['estatus'=>1,'fecha'=>date('Y-m-d h:i:s', time()),
+                   'id_visitante'=>$persona['id_visitante'],'id_usuario'=>$_SESSION['id_usuario']]);
+                    //////////////////////////////////////////////////////////
 
-                //Toma el id de persona
-                $query = $pdo->prepare("SELECT id_persona FROM persona ORDER BY id_persona DESC LIMIT 1");
-                $query ->execute();
-                $persona = $query->fetch();
-                $persona['id_persona'];
 
-                  //Tabla usuario
-                $query=$pdo->prepare('INSERT INTO usuario(
-                    usuario, password, fecha_registro, estatus, id_departamento, 
-                    id_persona, id_usuario_perfil) VALUES (:usuario, :password, :fecha_registro, :estatus, :id_departamento, :id_persona, 
-                    :id_usuario_perfil);');
-
-                $crypt= new SED();
-                $query->execute(['usuario'=>'ubv'.$nro_cedula,'password'=>$crypt->encryption($nro_cedula),
-                'fecha_registro'=>date('Y/m/d'),'estatus'=>1,
-                'id_departamento'=>$datos['departamento'],'id_persona'=>$persona['id_persona'],
-                'id_usuario_perfil'=>$datos['perfil']]);
                 
                 }
               }
             }else{ //Guardar foto del sistema (UBV)
               //Tabla persona
-              
+              //////////////////////////////////////////////////////////
               if(empty($datos['id_persona'])){ //USUARIO NO REGISTRADO lo REGISTRAMOS
                 
                 //TABLA SIGAD (VALIDAMOS SI EL USUARIO EXIsTE PRA CAMBIAR SU TIPO )
@@ -326,7 +473,7 @@ class VisitanteModel extends Model{
                $query->execute(['estatus'=>1,'fecha'=>date('Y-m-d h:i:s', time()),
                'id_visitante'=>$persona['id_visitante'],'id_usuario'=>$_SESSION['id_usuario']]);
  
-
+                //////////////////////////////////////////////////////////
 
 
             }              
@@ -340,6 +487,8 @@ class VisitanteModel extends Model{
                 return $validator;
        
         }catch(PDOException $e){
+          	//5. regresas a un estado anterior en caso de error
+				$pdo->rollBack();
           $validator['success'] = false;
           return $validator;
                  }
@@ -505,6 +654,8 @@ class VisitanteModel extends Model{
                           return $validator;
                  
                   }catch(PDOException $e){
+                    	//5. regresas a un estado anterior en caso de error
+				            $pdo->rollBack();
                     $validator['success'] = false;
                     return $validator;
                            }
@@ -512,13 +663,13 @@ class VisitanteModel extends Model{
                           }
 
 
-                public function getUsuarios($valor){
+                public function getUsuarios(){
                   $items=[];
                  try{
                 $query=$this->db->connect()->query("SELECT DISTINCT persona.id_persona,nacionalidad,cedula,
                 nombres,apellidos,telefono,persona_tipo.descripcion AS persona_tipo, 
                 motivo,pase.descripcion AS pase,
-                visitante_detalle.fecha AS fecha_ingreso
+                DATE(visitante_detalle.fecha) AS fecha_ingreso,visitante.id_visitante
                   FROM persona,visitante,pase,persona_tipo,visitante_detalle
                  WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
                  AND persona.id_persona=visitante.id_persona 
@@ -528,6 +679,8 @@ class VisitanteModel extends Model{
                 while($row=$query->fetch()){
                 $item=new Cvubv();
                 $item->id_persona=$row['id_persona'];
+                $item->id_visitante=$row['id_visitante'];
+                
                 $item->nacionalidad=$row['nacionalidad'];
                 $item->cedula=$row['cedula'];
                 $item->nombres=$row['nombres'];
@@ -549,8 +702,111 @@ class VisitanteModel extends Model{
                 }
                 
                 }
+
+
+             
+        
+
+                public function getUsuariosFecha(){
+                  $items=[];
+                 try{
+                $query=$this->db->connect()->query("SELECT DISTINCT persona.id_persona,nacionalidad,cedula,
+                nombres,apellidos,telefono,persona_tipo.descripcion AS persona_tipo, 
+                motivo,pase.descripcion AS pase,visitante.id_visitante
+                  FROM persona,visitante,pase,persona_tipo,visitante_detalle
+                 WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
+                 AND persona.id_persona=visitante.id_persona 
+                 AND visitante.id_pase=pase.id_pase 
+                 AND visitante.id_visitante=visitante_detalle.id_visitante  AND  CURRENT_DATE = date(fecha)");
+                
+
+              
+                
+                while($row=$query->fetch()){
+                $item=new Cvubv();
+                $item->id_persona=$row['id_persona'];
+                $item->nacionalidad=$row['nacionalidad'];
+                $item->cedula=$row['cedula'];
+                $item->nombres=$row['nombres'];
+                $item->apellidos=$row['apellidos'];
+                $item->telefono=$row['telefono'];
+                $item->persona_tipo=$row['persona_tipo'];
+
+                $item->motivo=$row['motivo'];   
+                $item->pase=$row['pase'];
+                //$item->estatus=$row['estatus'];
+                //$item->fecha_ingreso=$row['fecha_ingreso'];
+
+                // OBTENEMOS FECHAS DE ENTRADA Y SALIDA A LA INTITUCION
+
+                $item->id_visitante=$row['id_visitante'];
+
+                $item->fecha_ingreso=$this->Obtener_fecha(1,$row['id_visitante']); //ENTRADA
+
+                $item->fecha_salida=$this->Obtener_fecha(0,$row['id_visitante']); //SALIDA
+                
+                array_push($items,$item);
+                
+                }
+                return $items;
+                
+                }catch(PDOException $e){
+                return[];
+                }
+                
+                }
       
          
+                public function Obtener_fecha($estatus,$id_visitante){//Valisa si el usuario tiene un pase asignado
+                  try{
+                    
+                    $query =$this->db->connect()->prepare("SELECT fecha FROM visitante_detalle WHERE estatus=:estatus AND id_visitante=:id_visitante ");
+                    $query->execute(['estatus'=>$estatus,'id_visitante'=>$id_visitante]);
+                    $visita = $query->fetch();
+
+                    return  $visita['fecha'];
+                  } catch(PDOException $e){
+                    return null;
+                  }
+                }
+
+                public function cambio($id_visitante){
+                  try{
+                  //1. guardas el objeto pdo en una variable
+                  $pdo=$this->db->connect();
+                 //2. comienzas transaccion
+                  $pdo->beginTransaction();
+          
+                 //3. hacer toas las consultas 
+
+                  //CAMBIAR ESTATUS DEL PASE
+                  $query = $pdo->prepare("UPDATE pase SET estatus=:estatus WHERE
+                   id_pase=(SELECT id_pase FROM visitante WHERE id_visitante=:id_visitante)");
+                  $query->execute(['estatus'=>0,'id_visitante'=>$id_visitante]);
+
+
+                 //INSERTAR NUEVO DETALLE VISITANTE
+                 $query=$pdo->prepare('INSERT INTO visitante_detalle(
+                  estatus, fecha, id_visitante, id_usuario)
+                  VALUES  (:estatus, :fecha, :id_visitante, :id_usuario);');
+                //Estatus 1 entro 0 salio
+                 $query->execute(['estatus'=>0,'fecha'=>date('Y-m-d h:i:s', time()),
+              'id_visitante'=>$id_visitante,'id_usuario'=>$_SESSION['id_usuario']]);
+
+               //////////////////////////////////////////////////////////
+
+                      //4. consignas la transaccion (en caso de que no suceda ningun fallo)
+                      $pdo->commit(); 
+                      return true;
+              
+                      }catch(PDOException $e){
+                       	//5. regresas a un estado anterior en caso de error
+			              	$pdo->rollBack();
+                        return false;
+                        }
+              
+              
+                  }
 
   
     }

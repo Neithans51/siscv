@@ -7,11 +7,42 @@
           $this->view->mensaje="";//se agrega esta linea para msj
         }
     function render(){
-        $usuarios=$this->model->getUsuarios('departamento');
+        $usuarios=$this->model->getUsuarios();
         $this->view->usuarios=$usuarios;
 
         $this->view->render('visitante/index');
     }
+
+
+    function CambiarEstatus($param=null){
+      $id_visitante=$param[0];
+
+    /*  if($data=$this->model->ValVisitante($id_visitante)){
+        $mensaje="<div class='alert alert-danger alert-dismissable'>
+        <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+        el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
+        </div>";
+        header('Content-type: application/json; charset=utf-8');
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        exit();
+      }*/
+
+     if($this->model->cambio($id_visitante)){
+      $mensaje="<div class='alert alert-success alert-dismissable'>
+      <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
+       Registro Actualizado! <a class='alert-link' href='#'></a></div>";
+
+     }else{
+      $mensaje="<div class='alert alert-danger alert-dismissable'>
+      <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
+      ERROR: Ha ocurrido un error al actualizar registror <a class='alert-link' href='#'></a></div>";
+
+     }
+     $this->view->mensaje=$mensaje;
+     $this->Verificar();
+  }
+
+
 
     function Registro(){
        //Departamento
@@ -22,6 +53,13 @@
       $this->view->perfiles=$perfiles;
 
       $this->view->render('visitante/add_visitante');
+    }
+
+    function Verificar(){
+      $usuarios=$this->model->getUsuariosFecha();
+      $this->view->usuarios=$usuarios;
+
+      $this->view->render('visitante/verificar');
     }
 
 
@@ -59,6 +97,13 @@
     $correo = $_POST["correo"];
     $departamento = $_POST["departamento"];
     $perfil = $_POST["perfil"];
+
+    //DATOS DE LA VISITAS
+    $anfitrion = $_POST["anfitrion"];
+    $motivo = $_POST["motivo"];
+    $procedencia = $_POST["procedencia"];
+    $paquete = $_POST["paquete"];
+    $observacion = $_POST["observacion"];
       
     //Datos para Tomar una foto 
     list($nacionalidad, $nro_cedula) = explode("-", $cedula);
@@ -68,21 +113,34 @@
     $file = fopen($route_photo, "w");
 
   
-        if($data=$this->model->existe($nro_cedula)){
-          $mensaje="<div class='alert alert-danger alert-dismissable'>
-          <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
-          el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
-          </div>";
-          header('Content-type: application/json; charset=utf-8');
-          echo json_encode($data,JSON_UNESCAPED_UNICODE);
-          exit();
-        }
+            //Consultar pases disponibles
+            if($data=$this->model->existePases()){
+              $mensaje="<div class='alert alert-danger alert-dismissable'>
+              <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+              el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
+              </div>";
+              header('Content-type: application/json; charset=utf-8');
+              echo json_encode($data,JSON_UNESCAPED_UNICODE);
+              exit();
+            }
+              //consultar si la persona tiene pase asignado
+                if($data=$this->model->existePaseAsignado($nro_cedula)){
+              $mensaje="<div class='alert alert-danger alert-dismissable'>
+              <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+              el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
+              </div>";
+              header('Content-type: application/json; charset=utf-8');
+              echo json_encode($data,JSON_UNESCAPED_UNICODE);
+              exit();
+            }
+      
 
         $mensaje="";
         
         if($data=$this->model->insert(['file'=>$file,'foto'=>$foto,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
         'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,
-        'perfil'=>$perfil,'route_photo'=>$route_photo,'name_photo'=>$name_photo])){
+        'perfil'=>$perfil,'route_photo'=>$route_photo,'name_photo'=>$name_photo,'anfitrion'=>$anfitrion,'motivo'=>$motivo,'procedencia'=>$procedencia,
+        'paquete'=>$paquete,'observacion'=>$observacion,'id_persona'=>$id_persona])){
 
           $mensaje="<div class='alert alert-success alert-dismissable'>
           <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
@@ -115,6 +173,14 @@
       $departamento = $_POST["departamento"];
       $perfil = $_POST["perfil"];
         
+
+       //DATOS DE LA VISITAS
+       $anfitrion = $_POST["anfitrion"];
+       $motivo = $_POST["motivo"];
+       $procedencia = $_POST["procedencia"];
+       $paquete = $_POST["paquete"];
+       $observacion = $_POST["observacion"];
+
       //Datos para Guaardar una foto 
       $archivo = $_FILES["archivo"]["name"];
       $route_temp=$_FILES["archivo"]["tmp_name"];
@@ -126,22 +192,35 @@
 
       list($nacionalidad, $nro_cedula) = explode("-", $cedula);
     
-      if($data=$this->model->existe($nro_cedula)){
-        $mensaje="<div class='alert alert-danger alert-dismissable'>
-        <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
-        el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
-        </div>";
-        header('Content-type: application/json; charset=utf-8');
-        echo json_encode($data,JSON_UNESCAPED_UNICODE);
-        exit();
-      }
+           //Consultar pases disponibles
+           if($data=$this->model->existePases()){
+            $mensaje="<div class='alert alert-danger alert-dismissable'>
+            <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+            el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
+            </div>";
+            header('Content-type: application/json; charset=utf-8');
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            exit();
+          }
+            //consultar si la persona tiene pase asignado
+              if($data=$this->model->existePaseAsignado($nro_cedula)){
+            $mensaje="<div class='alert alert-danger alert-dismissable'>
+            <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
+            el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
+            </div>";
+            header('Content-type: application/json; charset=utf-8');
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            exit();
+          }
+    
   
           $mensaje="";
           
           if($data=$this->model->insert(['file'=>$file,'foto'=>$foto,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
           'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,
           'perfil'=>$perfil,'archivo'=>$archivo,'route_temp'=>$route_temp,'fileName'=>$fileName,'targetFilePath'=>$targetFilePath,
-          'fileType'=>$fileType,'allowTypes'=>$allowTypes])){
+          'fileType'=>$fileType,'allowTypes'=>$allowTypes,'anfitrion'=>$anfitrion,'motivo'=>$motivo,'procedencia'=>$procedencia,
+          'paquete'=>$paquete,'observacion'=>$observacion,'id_persona'=>$id_persona])){
   
             $mensaje="<div class='alert alert-success alert-dismissable'>
             <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
@@ -188,7 +267,7 @@
           list($nacionalidad, $nro_cedula) = explode("-", $cedula);
     
           //Consultar pases disponibles
-     /* if($data=$this->model->existe($nro_cedula)){
+      if($data=$this->model->existePases()){
         $mensaje="<div class='alert alert-danger alert-dismissable'>
         <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
         el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
@@ -196,9 +275,9 @@
         header('Content-type: application/json; charset=utf-8');
         echo json_encode($data,JSON_UNESCAPED_UNICODE);
         exit();
-      }*/
+      }
         //consultar si la persona tiene pase asignado
-         /* if($data=$this->model->existe($nro_cedula)){
+          if($data=$this->model->existePaseAsignado($nro_cedula)){
         $mensaje="<div class='alert alert-danger alert-dismissable'>
         <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
         el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
@@ -206,7 +285,7 @@
         header('Content-type: application/json; charset=utf-8');
         echo json_encode($data,JSON_UNESCAPED_UNICODE);
         exit();
-      }*/
+      }
 
   
             $mensaje="";

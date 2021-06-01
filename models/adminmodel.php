@@ -217,6 +217,8 @@
                     return true;
            
             }catch(PDOException $e){
+              	//5. regresas a un estado anterior en caso de error
+			            	$pdo->rollBack();
                    return false;
                      }
                 
@@ -247,6 +249,8 @@
                                 return true;
                        
                         }catch(PDOException $e){
+                          	//5. regresas a un estado anterior en caso de error
+				                      $pdo->rollBack();
                                return false;
                                  }
                             
@@ -276,6 +280,8 @@
                                             return true;
                                    
                                     }catch(PDOException $e){
+                                      	//5. regresas a un estado anterior en caso de error
+				                                $pdo->rollBack();
                                            return false;
                                              }
                                         
@@ -306,6 +312,8 @@
                                                         return true;
                                                
                                                 }catch(PDOException $e){
+                                                  	//5. regresas a un estado anterior en caso de error
+				                                            $pdo->rollBack();
                                                        return false;
                                                          }
                                                     
@@ -337,6 +345,8 @@
                                                                   return true;
                                                          
                                                           }catch(PDOException $e){
+                                                            	//5. regresas a un estado anterior en caso de error
+				                                                        $pdo->rollBack();
                                                                  return false;
                                                                    }
                                                               
@@ -368,6 +378,8 @@
                                                                             return true;
                                                                    
                                                                     }catch(PDOException $e){
+                                                                      	//5. regresas a un estado anterior en caso de error
+				                                                                  $pdo->rollBack();
                                                                            return false;
                                                                              }
                                                                         

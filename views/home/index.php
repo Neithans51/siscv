@@ -114,7 +114,7 @@
 														</div>
 													</div>
 													<div class="summary-footer">
-														<a href="<?php echo constant('URL');?>visitante" class="text-muted text-uppercase">Ver Más</a>
+														<a href="<?php echo constant('URL');?>visitante/Verificar" class="text-muted text-uppercase">Ver Más</a>
 													</div>
 												</div>
 											</div>

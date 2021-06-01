@@ -114,19 +114,25 @@
 						<!--	 alerts	-->
 									<div class="alert alert-success" style="display: none;" id='success'>
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Registro Exitoso!</strong> 
+										<strong>Registro Exitoso! Consulte su Cod. Pase haciendo <a href="<?php echo constant ('URL') . "visitante/Verificar";?>">Click aqui</a></strong> 
 									</div>
-
+									
 
 									<div class="alert alert-danger" style="display:none ;" id='danger'>
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 										<strong>Ha ocurrido un error</strong> 
 									</div>
 
-									<div class="alert alert-danger" style="display: none;" id='registrado'>
+									<div class="alert alert-warning" style="display: none;" id='no_pase'>
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Usuario registrado</strong> 
+										<strong>No se encontraron pases disponnibles, Por favor contacte su el administrador </strong> 
 									</div>
+
+									<div class="alert alert-warning" style="display: none;" id='asig_pase'>
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<strong>Usuario ya posee un pase asignado haga  <a title="Visitante" href="<?php echo constant ('URL') . "visitante";?>">click aqui</a> para verificar </strong> 
+									</div>
+
 
 									<div class="alert alert-info" >
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -445,10 +451,11 @@ $(document).ready(function(){
 				var info = data.split(",", 2);
 				$.ajax({
 					type : "POST",
-					url : "<?php echo constant('URL');?>usuario/Save_photo",
+					url : "<?php echo constant('URL');?>visitante/Save_photo",
 					data : {foto : info[1],cedula:cedula, nombres: nombres, apellidos: apellidos,
 						genero: genero, telefono: telefono, correo: correo, departamento: departamento,
-						perfil: perfil,radio:radio},
+						perfil: perfil,radio:radio,anfitrion:anfitrion, motivo:motivo, procedencia:procedencia,
+						 paquete:paquete, observacion:observacion,id_persona:id_persona},
 					dataType : 'json',
 					/*beforeSend: function() {
 						btnSaveLoad();
@@ -462,7 +469,8 @@ $(document).ready(function(){
 							$("#radiosfoto").click();
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
-							$('#registrado').slideUp(); // OCULTAR ALERTA error 
+							$('#no_pase').slideUp(); // OCULTAR ALERTA 
+							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
 
 							$('#nombres').removeAttr('readonly','readonly');
      					$('#apellidos').removeAttr('readonly','readonly');
@@ -471,14 +479,24 @@ $(document).ready(function(){
 							 $("#foto_perfil").attr("src",url+foto_default); //IMG
 							 $("#perfil").select2("val", "");
 							 $("#departamento").select2("val", "");
-						}else if(response.registrer == true){
-							$('#registrado').slideDown(); // OCULTAR ALERTA 
+						}else if(response.no_pase == true){ //PARA SABER SI HAY PASES DISPONIBLES PARA ASIGNAR 
+							$('#no_pase').slideDown(); // OCULTAR ALERTA 
+							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
-						}else{
+						}else if(response.asig_pase == true){ //SABER SI EL USUARIO TIENE UN PASE ASIGNADO 
+							$('#asig_pase').slideDown(); // OCULTAR ALERTA 
+							$('#no_pase').slideUp(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#registrado').slideUp(); // OCULTAR ALERTA 
+							$('#danger').slideUp(); // MOSTRAR ALERTA error
+						} else {
+						//	console.log("no ok");
+						//	swal("MENSAJE", response.messages , "error");
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
+							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#no_pase').slideUp(); // OCULTAR ALERTA 
+							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
+				
 						}
 					}
 				});
@@ -486,7 +504,7 @@ $(document).ready(function(){
 				//var formData = new FormData(this);
 				var formData = new FormData(form);
 				$.ajax({
-					url: '<?php echo constant('URL');?>usuario/Save_img',
+					url: '<?php echo constant('URL');?>visitante/Save_img',
 					type: 'POST',
 					data: formData,
 					cache: false,
@@ -505,7 +523,8 @@ $(document).ready(function(){
 
 						$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 						$('#danger').slideUp(); // OCULTAR ALERTA error
-						$('#registrado').slideUp(); // OCULTAR ALERTA error 
+						$('#no_pase').slideUp(); // OCULTAR ALERTA 
+						$('#asig_pase').slideUp(); // OCULTAR ALERTA 
 
 						$('#nombres').removeAttr('readonly','readonly');
 						$('#apellidos').removeAttr('readonly','readonly');
@@ -514,14 +533,24 @@ $(document).ready(function(){
 						$("#foto_perfil").attr("src",url+foto_default); //IMG
 						$("#perfil").select2("val", "");
 						$("#departamento").select2("val", "");
-						}else if(response.registrer == true){
-							$('#registrado').slideDown(); //  MOSTRAR ALERTA error 
+						}else if(response.no_pase == true){ //PARA SABER SI HAY PASES DISPONIBLES PARA ASIGNAR 
+							$('#no_pase').slideDown(); // OCULTAR ALERTA 
+							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
-						}else{
+						}else if(response.asig_pase == true){ //SABER SI EL USUARIO TIENE UN PASE ASIGNADO 
+							$('#asig_pase').slideDown(); // OCULTAR ALERTA 
+							$('#no_pase').slideUp(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#registrado').slideUp(); // OCULTAR ALERTA 
+							$('#danger').slideUp(); // MOSTRAR ALERTA error
+						} else {
+						//	console.log("no ok");
+						//	swal("MENSAJE", response.messages , "error");
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
+							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#no_pase').slideUp(); // OCULTAR ALERTA 
+							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
+				
 						}
 					}
 				});
@@ -541,6 +570,7 @@ $(document).ready(function(){
 						btnSaveLoad();
 					},*/
 					success : function(response) {
+					
 						if (response.success == true) {
 							console.log("ok");
 						//	swal("MENSAJE", response.messages , "success");
@@ -550,7 +580,8 @@ $(document).ready(function(){
 
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
-							$('#registrado').slideUp(); // OCULTAR ALERTA error 
+							$('#asig_pase').slideUp(); // OCULTAR ALERTA error 
+							$('#no_pase').slideUp(); // OCULTAR ALERTA error 
 
 							$('#nombres').removeAttr('readonly','readonly');
      					$('#apellidos').removeAttr('readonly','readonly');
@@ -561,16 +592,24 @@ $(document).ready(function(){
 							 $("#departamento").select2("val", "");
 							
 
-						}else if(response.registrer == true){ //REALIZAR PARA PASES Y VALIDAR PERSONA INTERNAMENTE
-							$('#registrado').slideDown(); // OCULTAR ALERTA 
+						}else if(response.no_pase == true){ //PARA SABER SI HAY PASES DISPONIBLES PARA ASIGNAR 
+							$('#no_pase').slideDown(); // OCULTAR ALERTA 
+							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
+							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#danger').slideUp(); // MOSTRAR ALERTA error
+						}else if(response.asig_pase == true){ //SABER SI EL USUARIO TIENE UN PASE ASIGNADO 
+							$('#asig_pase').slideDown(); // OCULTAR ALERTA 
+							$('#no_pase').slideUp(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						} else {
 						//	console.log("no ok");
 						//	swal("MENSAJE", response.messages , "error");
-							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
+							$('#success').slideUp(); // OCULTAR ALERTA 
+							$('#no_pase').slideUp(); // OCULTAR ALERTA 
+							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
+				
 						}
 					}
 				});

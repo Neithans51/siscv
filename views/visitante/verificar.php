@@ -78,22 +78,26 @@
 									<a title="Agregar Visitante" href="<?php echo constant ('URL') . "visitante/Registro";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-pencil"></i> Agregar</button></a>
 								</div>
 						
-								<h2 class="panel-title">Lista de Visitantes</h2>
+								<h2 class="panel-title">Lista de Visitantes <?php echo date('d/m/Y')?></h2>
 								<p class="panel-subtitle">
 											Visitantes registrados en el sistema
 								</p>
 							</header>
 							<div class="panel-body">
+                            <?php echo $this->mensaje; ?>
 								<table class="table table-bordered table-striped mb-none" id="datatable-default">
 									<thead>
 										<tr>
 											<th>Cod. Pase</th>
-											<th>Fecha Asignación</th>
-											<th>Motivo</th>
+                                            <th>Estatus</th>
+											<th>Hora Entrada</th>
+											<th>Hora Salida</th>
+                                            <th>Motivo</th>
 											<th>Cedula</th>
-											<th>Nombres</th>
+                                            
+											<!--<th>Nombres</th>
                                             <th>Apellidos</th>
-											<th>Telefono</th>
+											<th>Telefono</th>-->
 											<th>Tipo</th>
 											<th>Acciones</th>
 										</tr>
@@ -106,18 +110,42 @@
 										<tr class="gradeX">
 
 											<td><b><?php echo $user->pase; ?></b></td>
-                                            <td><?php echo date("Y/m/d", strtotime($user->fecha_ingreso)); ?></td>
-											<td><?php echo substr($user->motivo, 0,40); ?></td>
+                                            <td>
+                                            <?php 
+											if(empty($user->fecha_salida)){
+												echo '<span class="label label-success">&nbsp;&nbsp;Entrada&nbsp;&nbsp;&nbsp;</span>';
+											}else{
+												echo '<span class="label label-danger">&nbsp;&nbsp;&nbsp;&nbsp;Salida&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+											}
+
+										
+											 ?>
+                                            </td>
+                                            <td><?php echo date("H:i", strtotime($user->fecha_ingreso)); ?></td>
+											<td>
+											<?php 
+											if(!empty($user->fecha_salida)){
+											 echo date("H:i", strtotime($user->fecha_salida));
+											}
+											 ?>
+											
+											</td>
+                                          
+                                        	<td><?php echo substr($user->motivo, 0,40); ?></td>
 											<td><?php echo $user->nacionalidad."-".$user->cedula; ?></td>
 										
-											<td><?php echo $user->nombres; ?></td>
+                                        <!--<td><?php echo $user->nombres; ?></td>
                                             <td><?php echo $user->apellidos; ?></td>
-                                            <td><?php echo $user->telefono; ?></td>
+                                            <td><?php echo $user->telefono; ?></td>-->
 											<td><?php echo $user->persona_tipo; ?></td>
 											
 											 <td>
 											<!-- <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i>Editar</button></a>-->
-											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;Ver &nbsp;</button></a>
+											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;&nbsp; Ver  &nbsp;&nbsp;&nbsp;</button></a>
+                                             <!--<a title="Cambiar Estatus" href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-refresh"></i> Estatus</button></a>-->
+                                        <?php if(empty($user->fecha_salida)){ ?>
+										     <a type="button" class="" data-id="<?php echo constant ('URL') . "visitante/CambiarEstatus/".$user->id_visitante;?>" data-toggle="modal" data-target="#ModalDelete" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><button data-toggle="tooltip" type="button" class="mb-xs mt-xs mr-xs btn btn-primary"  title="Cambiar Estatus"><i class="fa fa-refresh"></i> Estatus</i></button></a>
+										<?php }?>
 
 											 </td>
 										
@@ -147,6 +175,42 @@
         
 		
 				
+
+
+
+
+
+
+                                        <div class="modal" tabindex="-1" role="dialog" id="ModalDelete">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <header class="panel-heading">
+												<h2 class="panel-title">Cambiar Estatus</h2>
+											</header>
+											<div class="panel-body">
+												<div class="modal-wrapper">
+													<div class="modal-icon">
+														<i class="fa fa-question-circle"></i>
+													</div>
+													<div class="modal-text">
+														<h4>Cambiar Estatus</h4>
+														<p>¿Está Seguro que desea Cambiar el estatus de este registro?</p>
+													</div>
+												</div>
+											</div>
+											<footer class="panel-footer">
+												<div class="row">
+													<div class="col-md-12 text-right">
+													<a id="borrar" href=""> <button class="btn btn-primary" >Aceptar</button></a>
+                                                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                	</div>
+												</div>
+											</footer>
+                                        
+                                            </div>
+                                        </div>
+                                        </div>
+
 
 
 
@@ -185,7 +249,14 @@
 	
 
 
-
+<!--eliminar registro-->
+<script>
+	$('#ModalDelete').on('show.bs.modal', function(e) {
+		var product = $(e.relatedTarget).data('id');
+		$("#borrar").attr("href",product);
+	});  
+	</script>
+  <!--end eliminar registro-->
 	
 
     </body>

@@ -272,6 +272,8 @@ class UsuarioModel extends Model{
                 return $validator;
        
         }catch(PDOException $e){
+          	//5. regresas a un estado anterior en caso de error
+				$pdo->rollBack();
           $validator['success'] = false;
           return $validator;
                  }
@@ -437,6 +439,8 @@ class UsuarioModel extends Model{
                           return $validator;
                  
                   }catch(PDOException $e){
+                    	//5. regresas a un estado anterior en caso de error
+				            $pdo->rollBack();
                     $validator['success'] = false;
                     return $validator;
                            }
