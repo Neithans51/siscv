@@ -63,19 +63,20 @@
     }
 
 
-    function VerUsuario($param=null){
-      $id_usuario=$param[0];
+    function VerVisitante($param=null){
+      $id_visitante=$param[0];
       
-      $departamentos=$this->model->getCatalogo('departamento');
+     /* $departamentos=$this->model->getCatalogo('departamento');
       $this->view->departamentos=$departamentos;
 
       //Perfil
       $perfiles=$this->model->getCatalogo('usuario_perfil');
-      $this->view->perfiles=$perfiles;
+      $this->view->perfiles=$perfiles;*/
 
-      $usuario = $this->model->Detalle($id_usuario);
+      $usuario = $this->model->Detalle($id_visitante);
       $this->view->usuario=$usuario;
-      $this->view->render('usuario/detalle');
+     
+      $this->view->render('visitante/detalle');
     }
 
 

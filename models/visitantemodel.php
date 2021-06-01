@@ -72,22 +72,17 @@ class VisitanteModel extends Model{
           }
         }*/
 
-        public function Detalle($id_usuario){
+        public function Detalle($id_visitante){
           $item=new Cvubv();
          try{
-        $query=$this->db->connect()->prepare("SELECT persona.id_persona,cedula,nombres,apellidos,
+        $query=$this->db->connect()->prepare("SELECT  persona.id_persona,cedula,nombres,apellidos,
         telefono,nacionalidad,genero,documento,persona.id_persona_tipo,
-        persona_tipo.descripcion AS persona_tipo,correo, usuario.id_usuario,usuario,password,
-        fecha_registro,usuario.estatus,departamento.id_departamento,
-        departamento.descripcion AS departamento,
-        usuario_perfil.id_usuario_perfil,usuario_perfil.descripcion AS usaurio_perfil
-        FROM persona,persona_tipo,usuario,usuario_perfil,departamento 
+        persona_tipo.descripcion AS persona_tipo,correo,id_visitante
+        FROM persona,persona_tipo,visitante
         WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
-        AND usuario.id_persona=persona.id_persona
-        AND usuario.id_usuario_perfil=usuario_perfil.id_usuario_perfil
-        AND usuario.id_departamento=departamento.id_departamento
-        AND usuario.id_usuario=:id_usuario");
-        $query->execute(['id_usuario' =>$id_usuario]);
+        AND persona.id_persona=visitante.id_persona
+        AND id_visitante=:id_visitante");
+        $query->execute(['id_visitante' =>$id_visitante]);
 
         while($row=$query->fetch()){
       

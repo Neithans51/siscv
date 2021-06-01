@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Visitantes | Sistema para el Control de Visitas UBV</title>
+		<title>Usuario | Sistema para el Control de Visitas UBV</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="keywords" content="HTML5 Admin Template" />
@@ -51,7 +51,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Visitantes</h2>
+						<h2>Usuarios</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -61,11 +61,11 @@
 									</a>
 								</li>
 								<li>
-								<a href="<?php echo constant('URL');?>visitante">
-								<span>Visitantes</span>
+								<a href="<?php echo constant('URL');?>usuario">
+								<span>Usuarios</span>
 								</a>
 								</li>
-								<li><span>Registrar Visitante</span></li>
+								<li><span>Detalle</span></li>
 							</ol>
 					
 							<a class="sidebar-right-toggle" data-open=""><i class="fa fa-chevron-left"></i></a>
@@ -81,56 +81,176 @@
 	display: none !important;
 }
 					</style>
+	
+            
 
-					<!-- start: page -->
-	<!--Validar campos-->			
-					
-						<div class="row">
-						<div class="col-md-12">
+<!-- start: page -->
 
+<div class="row">
+						<div class="col-md-4 col-lg-3">
 
-								
+							<section class="panel">
+								<div class="panel-body">
+									<div class="thumb-info mb-md">
+										<img src="<?php echo constant ('URL') .$this->usuario->documento; ?>" class="rounded img-responsive" alt="John Doe">
+										<div class="thumb-info-title">
 
+										<?php  list($pnombre, $snombre) = explode(" ", $this->usuario->nombres);
+											   list($papellido, $sapellido) = explode(" ", $this->usuario->apellidos); ?>
 
-
-
-							<form id="registro-form" lass="form-horizontal">
-								<section class="panel">
-									<header class="panel-heading">
-										<div class="panel-actions">
-										<a title="Volver" href="<?php echo constant ('URL') . "visitante";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
-
+											<span class="thumb-info-inner"><?php echo $pnombre." ".$papellido; ?></span>
+											<span class="thumb-info-type"><?php echo $this->usuario->persona_tipo; ?></span>
 										</div>
-
-										<h2 class="panel-title">Registro de Visitante</h2>
-										<p class="panel-subtitle">
-											Formulario basico para el registro de visitantes.
-										</p>
-									</header>
-
-									
-									<div class="panel-body">
-
-						<!--	 alerts	-->
-									<div class="alert alert-success" style="display: none;" id='success'>
-										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Registro Exitoso! Consulte su Cod. Pase haciendo <a href="<?php echo constant ('URL') . "visitante/Verificar";?>">Click aqui</a></strong> 
 									</div>
+
+									<div class="widget-toggle-expand mb-md">
+										
+								
+									<h6 class="text-muted">Perfil</h6>
+										<div class="widget-content-expanded">
+											<ul class="simple-todo-list">
+												<li class="completed"><?php echo $this->usuario->usuario; ?></li>
+												<li class="completed"><?php echo $this->usuario->usaurio_perfil; ?></li>
+												<li class="completed"><?php 
+										if($this->usuario->estatus=='1'){
+											echo '<span class="label label-success">&nbsp;&nbsp;Activo&nbsp;&nbsp;&nbsp;</span>';
+										}else{
+											echo '<span class="label label-danger">&nbsp;Inactivo&nbsp;</span>';
+										}
+									?>></li>
+												
+											
+											</ul>
+										</div>
+									</div>
+
+									<hr class="dotted short">
+
 									
+
+								</div>
+							</section>
+
+
+						
+						</div>
+						<div class="col-md-8 col-lg-9">
+						<div class="panel-actions">
+										<a title="Volver" href="<?php echo constant ('URL') . "usuario";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+
+						</div>
+						<br>
+							<div class="tabs">
+								<ul class="nav nav-tabs tabs-primary">
+									<li class="active">
+										<a href="#overview" data-toggle="tab">Perfil</a>
+									</li>
+									<li class="">
+										<a href="#edit" data-toggle="tab">Editar</a>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div id="overview" class="tab-pane active">
+										<h4 class="mb-md">Perfil</h4>
+
+									
+										<div class="timeline timeline-simple mt-xlg mb-md">
+											<div class="tm-body">
+												<div class="tm-title">Fecha de registro
+													<h3 class="h5 text-uppercase"><?php echo date("Y/m/d", strtotime($this->usuario->fecha_registro)); ?></h3>
+												</div>
+												<ol class="tm-items">
+													<li>
+														<div class="tm-box">
+
+															<p class="text-muted mb-none">Cedula</p>
+															<p>
+															<?php echo $this->usuario->cedula; ?>
+															</p>
+
+															<p class="text-muted mb-none">Nacionalidad</p>
+															<p>
+															<?php if($this->usuario->nacionalidad=="V"){ 
+																echo "Venezolano";
+																}else{
+															    echo "Extranjero";
+																}
+															?>
+															</p>
+
+															<p class="text-muted mb-none">Nombre</p>
+															<p>
+															<?php echo $this->usuario->nombres." ".$this->usuario->apellidos; ?>
+															</p>
+
+																										
+
+															<p class="text-muted mb-none">Genero</p>
+															<p>
+															<?php if($this->usuario->genero=="F"){ 
+																echo "Femenino";
+																}else{
+															    echo "Masculino";
+																}
+															?>
+															</p>
+
+
+															<p class="text-muted mb-none">Teléfono</p>
+															<p>
+															<?php echo $this->usuario->telefono; ?>
+															</p>
+
+
+
+															<p class="text-muted mb-none">Correo</p>
+															<p>
+															<?php echo $this->usuario->correo; ?>
+															</p>
+
+
+
+															<p class="text-muted mb-none">Departamento</p>
+															<p>
+															<?php echo $this->usuario->departamento; ?>
+															</p>
+
+
+														</div>
+													</li>
+													
+													<li>
+														<div class="tm-box">
+															<p class="text-muted mb-none"></p>
+															<p>
+																Foto
+															</p>
+															<div class="thumbnail-gallery">
+																<a class="img-thumbnail lightbox" href="<?php echo constant ('URL') .$this->usuario->documento; ?>" data-plugin-options='{ "type":"image" }'>
+																	<img class="img-responsive" width="215" src="<?php echo constant ('URL') .$this->usuario->documento; ?>">
+																	<span class="zoom">
+																		<i class="fa fa-search"></i>
+																	</span>
+																</a>
+															</div>
+														</div>
+													</li>
+												</ol>
+											</div>
+										</div>
+									</div>
+									<div id="edit" class="tab-pane ">
+
+								<!--	 alerts	-->
+								<div class="alert alert-success" style="display: none;" id='success'>
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<strong>Registro Editado Exitososamente!</strong> 
+									</div>
+
 
 									<div class="alert alert-danger" style="display:none ;" id='danger'>
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 										<strong>Ha ocurrido un error</strong> 
-									</div>
-
-									<div class="alert alert-warning" style="display: none;" id='no_pase'>
-										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>No se encontraron pases disponnibles, Por favor contacte su el administrador </strong> 
-									</div>
-
-									<div class="alert alert-warning" style="display: none;" id='asig_pase'>
-										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Usuario ya posee un pase asignado haga  <a title="Visitante" href="<?php echo constant ('URL') . "visitante";?>">click aqui</a> para verificar </strong> 
 									</div>
 
 
@@ -140,42 +260,32 @@
 									</div>
 
 							<!--	End alerts	-->
-									<style>
-									.logo-registro{
-											width: 135px;
-											display:block;
-											margin: auto;
-									}
-									</style>
-
-
-									<img id="foto_perfil" class="img-circle logo-registro"  src="<?php echo constant('URL');?>src/assets/images/!logged-user.jpg"/>
-									<input type="hidden" id="foto_ubv" name="foto_ubv" value="">
-									<h4 class="mb-xlg">Información personal</h4>
-							<br>
-									<div class="form-group">
-											<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
-											<div class="col-sm-9">
-												<input type="hidden" name="id_persona" id="id_persona">
-												<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula Ej. V-00000000 o E-00000000" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
-											</div>
-
-										</div>
-
-							
 									
-										<div class="form-group">
+										<form class="form-horizontal" id="registro-form">
+											<h4 class="mb-xlg">Información personal</h4>
+											<fieldset>
+
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
+												<div class="col-md-8">
+													<input type="hidden"  id="id_usuario"  name="id_usuario" value="<?php echo $this->usuario->id_usuario; ?>"/>
+													<input type="hidden"  id="id_persona"  name="id_persona" value="<?php echo $this->usuario->id_persona; ?>"/>
+													<input type="hidden" id="foto_ubv" name="foto_ubv" value="<?php echo $this->usuario->documento; ?>">
+													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula Ej. V-00000000 o E-00000000" onkeyup="javascript:this.value=this.value.toUpperCase();"  value="<?php echo $this->usuario->nacionalidad."-".$this->usuario->cedula; ?>"/>
+												</div>
+											</div>
+											<div class="form-group">
 											<label class="col-sm-3 control-label">Nombres <span class="required">*</span></label>
-											<div class="col-sm-9">
-												<input type="text" id="nombres" name="nombres" class="form-control required" placeholder="Escriba sus nombres" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)"  onkeyup="javascript:this.value=this.value.toUpperCase();"  />
+											<div class="col-md-8">
+												<input type="text" id="nombres" name="nombres" class="form-control required" placeholder="Escriba sus nombres" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)"  onkeyup="javascript:this.value=this.value.toUpperCase();" value="<?php echo $this->usuario->nombres; ?>" />
 											</div>
 										</div>
 
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Apellidos <span class="required">*</span></label>
-											<div class="col-sm-9">
-												<input type="text" id="apellidos" name="apellidos" class="form-control required" placeholder="Escriba sus apellidos" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+											<div class="col-md-8">
+												<input type="text" id="apellidos" name="apellidos" class="form-control required" placeholder="Escriba sus apellidos" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)" onkeyup="javascript:this.value=this.value.toUpperCase();" value="<?php echo $this->usuario->apellidos; ?>"/>
 											</div>
 										</div>
 
@@ -185,10 +295,10 @@
 												<label class="col-md-3 control-label" for="inputSuccess">Genero <span class="required">*</span></label>
 												<div class="col-md-6">
 													<label class="checkbox-inline">
-														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="F"> Femenino
+														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="F" <?php if($this->usuario->genero == "F") print "checked"?>> Femenino
 													</label>
 													<label class="checkbox-inline">
-														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="M"> Masculino
+														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="M" <?php if($this->usuario->genero == "M") print "checked"?>> Masculino
 													</label>
 													
 												</div>
@@ -197,31 +307,27 @@
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Teléfono </label>
-											<div class="col-sm-9">
-												<input type="text" id="telefono" name="telefono"  data-plugin-masked-input data-input-mask="(9999) 999-9999" class="form-control" placeholder="Escriba su numero de teléfono" />
+											<div class="col-md-8">
+												<input type="text" id="telefono" name="telefono"  data-plugin-masked-input data-input-mask="(9999) 999-9999" class="form-control required" placeholder="Escriba su numero de teléfono"  value="<?php echo $this->usuario->telefono; ?>"/>
 											</div>
 										</div>
 
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Correo </label>
-											<div class="col-sm-9">
-													<input type="email" id="correo" name="correo" class="form-control " placeholder="Escriba su correo electrónico" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toLowerCase();"/>
+											<div class="col-md-8">
+													<input type="email" id="correo" name="correo" class="form-control" placeholder="Escriba su correo electrónico" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toLowerCase();"  value="<?php echo $this->usuario->correo; ?>"/>
 											</div>
-										</div>
-														
-										<hr class="dotted tall">
-											<h4 class="mb-xlg">Informacción de la visita</h4>
-
+										</div>	
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Departamento <span class="required">*</span></label>
-											<div class="col-sm-9">
+											<div class="col-md-8">
 											<select class="form-control select2_demo_3 required" id="departamento" name="departamento" >
 											<option value="">Seleccione...</option>
 											<?php include_once 'models/cvubv.php';
 															foreach($this->departamentos as $row){
 															$pro=new Cvubv();
 															$pro=$row;?> 
-														<option value="<?php echo $pro->id;?>" > <?php echo $pro->descripcion;?></option>
+														<option value="<?php echo $pro->id;?>" <?php if($this->usuario->id_departamento==$pro->id) print "selected=selected"?>  > <?php echo $pro->descripcion;?></option>
 														<?php }?>      
 											</select>  		
 											</div>
@@ -230,56 +336,38 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Anfitrión <span class="required">*</span></label>
-											<div class="col-sm-9">
-											<select class="form-control select2_demo_3 required" id="anfitrion" name="anfitrion" >
+											<label class="col-sm-3 control-label">Perfil <span class="required">*</span></label>
+											<div class="col-md-8">
+											<select class="form-control select2_demo_4 required" id="perfil" name="perfil" >
 											<option value="">Seleccione...</option>
 											<?php include_once 'models/cvubv.php';
 															foreach($this->perfiles as $row){
 															$pro=new Cvubv();
 															$pro=$row;?> 
-														<option value="<?php echo $pro->id;?>" > <?php echo $pro->descripcion;?></option>
+														<option value="<?php echo $pro->id;?>" <?php if($this->usuario->id_usuario_perfil==$pro->id) print "selected=selected"?>> <?php echo $pro->descripcion;?></option>
 														<?php }?>      
 											</select>  		
 											</div>
 										</div>
 
 
-													
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Motivo <span class="required">*</span></label>
-											<div class="col-sm-9">
-											<textarea name="motivo" id="motivo" cols="30" rows="2" class="form-control required" placeholder="Escriba el motivo de la visita" maxlength='145'  onkeyup="javascript:this.value=this.value.toUpperCase();" ></textarea>
+											<label class="col-sm-3 control-label">Estatus <span class="required">*</span></label>
+											<div class="col-md-8">
+											<select class="form-control select2_demo_4 required" id="estatus" name="estatus" >
+											<option value="">Seleccione...</option>
+											<option value="1" <?php if($this->usuario->estatus=="1") print "selected=selected"?> >Activo</option>
+											<option value="0" <?php if($this->usuario->estatus=="0") print "selected=selected"?>>Inactivo</option>
+											</select>  		
 											</div>
 										</div>
 
-										<div class="form-group">
-											<label class="col-sm-3 control-label">Procedencia </label>
-											<div class="col-sm-9">
-												<input type="text" id="procedencia" name="procedencia" placeholder="Escriba la procedencia del visitante" class="form-control" placeholder="Escriba sus nombres" maxlength='45' minlength="5"  onkeyup="javascript:this.value=this.value.toUpperCase();"  />
-											</div>
-										</div>
-														
-										<div class="form-group">
-											<label class="col-sm-3 control-label">Paquete </label>
-											<div class="col-sm-9">
-												<input type="text" id="paquete" name="paquete" placeholder="Escriba sobre los paquetes que tre consigo el visitante" class="form-control" placeholder="Escriba sus nombres" maxlength='45' minlength="5"   onkeyup="javascript:this.value=this.value.toUpperCase();"  />
-											</div>
-										</div>
+							
 
-														
 									
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Observaciones </label>
-											<div class="col-sm-9">
-											<textarea name="observacion" id="observacion" cols="30" rows="2" class="form-control" placeholder="Escriba sus observaciones" maxlength='145'  onkeyup="javascript:this.value=this.value.toUpperCase();" ></textarea>
-											</div>
-										</div>
-
-
-										<div class="form-group">
 											<label class="col-sm-3 control-label">Foto </label>
-											<div class="col-sm-9">
+											<div class="col-md-8">
 										
 											<fieldset class="form-group">
 											<div class="col-md-12">
@@ -294,52 +382,68 @@
 												</div>
 											</fieldset>
 
-										<br>
+								
 										<div class="container_radio">
 											<input type="file" class="form-control-file video_container none" name="archivo" id="subirfoto" accept="image/*">
 											<video id="video" autoplay="autoplay" class="video_container none"></video>
 										</div>
-										
-
 
 										   </div>
 										</div>
 
-			
+
+											</fieldset>
+										
+
+											<hr class="dotted tall">
+											<h4 class="mb-xlg">Cambiar contraseña</h4>
+											<fieldset class="mb-xl">
+												<div class="form-group">
+													<label class="col-md-3 control-label" for="">Nueva Contraseña</label>
+													<div class="col-md-8">
+														<input type="password" class="form-control" id="password" name="password" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-3 control-label" for="">Repita su nueva contraseña</label>
+													<div class="col-md-8">
+														<input type="password" class="form-control" id="c_password" name="c_password">
+													</div>
+												</div>
+
+
+											</fieldset>
+											<div class="panel-footer">
+												<div class="row">
+													<div class="col-md-9 col-md-offset-3">
+														<button type="submit" class="btn btn-primary">Guardar</button>
+														<button type="reset" class="btn btn-default">Cancelar</button>
+													</div>
+												</div>
+											</div>
+											<canvas id="canvas" class="none"></canvas>
+
+										</form>
 
 									</div>
-
-
-
-									<footer class="panel-footer">
-										<div class="row">
-											<div class="col-sm-9 col-sm-offset-3">
-												<button type="submit" class="btn btn-primary" >Guardar</button>
-												<button type="reset" class="btn btn-default">Cancelar</button>
-											</div>
-										</div>
-
-										<canvas id="canvas" class="none"></canvas>
-
-										
-									</footer>
-								</section>
-							</form>
-
-
+									
+								</div>
+								
+							</div>
 							
 						</div>
-					
 						
 
-					
+
+						
 					</div>
 					
-					<!-- end: page -->
-                </section>
-								<?php require 'views/footer.php'; ?>
+					<!-- end: page -->			
+                </section>     
+				<?php require 'views/footer.php'; ?>  
+			         
 			</div>
-            
+                     
         </section>
         
 		
@@ -377,6 +481,7 @@
 		<!-- Examples -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/dashboard/examples.dashboard.js"></script>
     		
+	
 		<!-- Specific Page Vendor -->
 		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-validation/jquery.validate.js"></script>
 	
@@ -418,12 +523,22 @@ $(document).ready(function(){
 //$("#registro-form").unbind('submit').bind('submit', function(){
 
 	$("#registro-form").validate({
-       // event: "blur",rules: {'name': "required",'email': "required email",'message': "required"},
+        event: "blur",rules: {
+			password: { 
+                 minlength: 5
+          }, 
+          c_password: { 
+                 equalTo: "#password", minlength: 5
+          }, 
+		},//'name': "required",'email': "required email",'message': "required"},
       //  messages: {'name': "Por favor indica tu nombre",'email': "Por favor, indica una direcci&oacute;n de e-mail v&aacute;lida",'message': "Por favor, dime algo!"},
         debug: true,errorElement: "label",
         submitHandler: function(form){
-
+			var id_usuario = $('#id_usuario').val();
 			var id_persona = $('#id_persona').val();
+			var estatus = $('#estatus').val();
+			var password=$('#password').val();
+
 			var cedula = $('#cedula').val();
 			var nombres = $('#nombres').val();
 			var apellidos = $('#apellidos').val();
@@ -435,13 +550,6 @@ $(document).ready(function(){
 			var foto_ubv = $('#foto_ubv').val();
 			var radio = $("input[name='radio_select']:checked").val();
 
-			//Visitante 
-			var anfitrion = $('#anfitrion').val();
-			var motivo = $('#motivo').val();
-			var procedencia = $('#procedencia').val();
-			var paquete = $('#paquete').val();
-			var observacion = $('#observacion').val();
-
 			var url="<?php echo constant('URL'); ?>";
 			var foto_default="src/assets/images/!logged-user.jpg";
 
@@ -451,11 +559,10 @@ $(document).ready(function(){
 				var info = data.split(",", 2);
 				$.ajax({
 					type : "POST",
-					url : "<?php echo constant('URL');?>visitante/Save_photo",
+					url : "<?php echo constant('URL');?>usuario/Save_photo_Edit",
 					data : {foto : info[1],cedula:cedula, nombres: nombres, apellidos: apellidos,
 						genero: genero, telefono: telefono, correo: correo, departamento: departamento,
-						perfil: perfil,radio:radio,anfitrion:anfitrion, motivo:motivo, procedencia:procedencia,
-						 paquete:paquete, observacion:observacion,id_persona:id_persona},
+						perfil: perfil,radio:radio,estatus:estatus,id_usuario:id_usuario,id_persona:id_persona,password:password},
 					dataType : 'json',
 					/*beforeSend: function() {
 						btnSaveLoad();
@@ -464,39 +571,29 @@ $(document).ready(function(){
 				
 						if (response.success == true) {
 							//	swal("MENSAJE", response.messages , "success");
-							$("#registro-form")[0].reset(); //RESETEAR FORM
+						//	$("#registro-form")[0].reset(); //RESETEAR FORM
 							//CHECKED FOTO
-							$("#radiosfoto").click();
+							//$("#radiosfoto").click();
+							setTimeout(refrescar, 10000);//Refrescar en 10 min
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
-							$('#no_pase').slideUp(); // OCULTAR ALERTA 
-							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
+							$('#registrado').slideUp(); // OCULTAR ALERTA error 
 
-							$('#nombres').removeAttr('readonly','readonly');
-     					$('#apellidos').removeAttr('readonly','readonly');
+							/*$('#nombres').removeAttr('readonly','readonly');
+     						$('#apellidos').removeAttr('readonly','readonly');
 							
 							 $('#foto_ubv').val(foto_default); //INPUT
 							 $("#foto_perfil").attr("src",url+foto_default); //IMG
 							 $("#perfil").select2("val", "");
-							 $("#departamento").select2("val", "");
-						}else if(response.no_pase == true){ //PARA SABER SI HAY PASES DISPONIBLES PARA ASIGNAR 
-							$('#no_pase').slideDown(); // OCULTAR ALERTA 
-							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
+							 $("#departamento").select2("val", "");*/
+						}else if(response.registrer == true){
+							$('#registrado').slideDown(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
-						}else if(response.asig_pase == true){ //SABER SI EL USUARIO TIENE UN PASE ASIGNADO 
-							$('#asig_pase').slideDown(); // OCULTAR ALERTA 
-							$('#no_pase').slideUp(); // OCULTAR ALERTA 
+						}else{
 							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#danger').slideUp(); // MOSTRAR ALERTA error
-						} else {
-						//	console.log("no ok");
-						//	swal("MENSAJE", response.messages , "error");
+							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
-							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#no_pase').slideUp(); // OCULTAR ALERTA 
-							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
-				
 						}
 					}
 				});
@@ -504,7 +601,7 @@ $(document).ready(function(){
 				//var formData = new FormData(this);
 				var formData = new FormData(form);
 				$.ajax({
-					url: '<?php echo constant('URL');?>visitante/Save_img',
+					url: '<?php echo constant('URL');?>usuario/Save_img_Edit',
 					type: 'POST',
 					data: formData,
 					cache: false,
@@ -517,40 +614,29 @@ $(document).ready(function(){
 
 						if (response.success == true) {
 						//	swal("MENSAJE", response.messages , "success");
-						$("#registro-form")[0].reset(); //RESETEAR FORM
+						//$("#registro-form")[0].reset(); //RESETEAR FORM
 						//CHECKED FOTO
 						//$("#radiosfoto").click();
-
+						setTimeout(refrescar, 10000);//Refrescar en 10 min
 						$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 						$('#danger').slideUp(); // OCULTAR ALERTA error
-						$('#no_pase').slideUp(); // OCULTAR ALERTA 
-						$('#asig_pase').slideUp(); // OCULTAR ALERTA 
+						$('#registrado').slideUp(); // OCULTAR ALERTA error 
 
-						$('#nombres').removeAttr('readonly','readonly');
+					/*	$('#nombres').removeAttr('readonly','readonly');
 						$('#apellidos').removeAttr('readonly','readonly');
 
 						$('#foto_ubv').val(foto_default); //INPUT
 						$("#foto_perfil").attr("src",url+foto_default); //IMG
 						$("#perfil").select2("val", "");
-						$("#departamento").select2("val", "");
-						}else if(response.no_pase == true){ //PARA SABER SI HAY PASES DISPONIBLES PARA ASIGNAR 
-							$('#no_pase').slideDown(); // OCULTAR ALERTA 
-							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
+						$("#departamento").select2("val", "");*/
+						}else if(response.registrer == true){
+							$('#registrado').slideDown(); //  MOSTRAR ALERTA error 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
-						}else if(response.asig_pase == true){ //SABER SI EL USUARIO TIENE UN PASE ASIGNADO 
-							$('#asig_pase').slideDown(); // OCULTAR ALERTA 
-							$('#no_pase').slideUp(); // OCULTAR ALERTA 
+						}else{
 							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#danger').slideUp(); // MOSTRAR ALERTA error
-						} else {
-						//	console.log("no ok");
-						//	swal("MENSAJE", response.messages , "error");
+							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
-							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#no_pase').slideUp(); // OCULTAR ALERTA 
-							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
-				
 						}
 					}
 				});
@@ -559,57 +645,46 @@ $(document).ready(function(){
 				
 				$.ajax({
 					type : "POST",
-					url : "<?php echo constant('URL');?>visitante/Save_img_sis",
+					url : "<?php echo constant('URL');?>usuario/Save_img_sis_Edit",
 					data : {foto_ubv : foto_ubv,cedula:cedula, nombres: nombres, apellidos: apellidos,
 						genero: genero, telefono: telefono, correo: correo, departamento: departamento,
-						perfil: perfil,radio:radio,anfitrion:anfitrion, motivo:motivo, procedencia:procedencia,
-						 paquete:paquete, observacion:observacion,id_persona:id_persona},
+						perfil: perfil,radio:radio,estatus:estatus,id_usuario:id_usuario,id_persona:id_persona,password:password},
 					 dataType : 'json',
 					// async: true,
 					/*beforeSend: function() {
 						btnSaveLoad();
 					},*/
 					success : function(response) {
-					
 						if (response.success == true) {
 							console.log("ok");
 						//	swal("MENSAJE", response.messages , "success");
-							$("#registro-form")[0].reset(); //RESETEAR FORM
+						//	$("#registro-form")[0].reset(); //RESETEAR FORM
 							//CHECKED FOTO
 						//	$("#radiosfoto").click();
-
+							setTimeout(refrescar, 10000);//Refrescar en 10 min
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
-							$('#asig_pase').slideUp(); // OCULTAR ALERTA error 
-							$('#no_pase').slideUp(); // OCULTAR ALERTA error 
+							$('#registrado').slideUp(); // OCULTAR ALERTA error 
 
-							$('#nombres').removeAttr('readonly','readonly');
-     					$('#apellidos').removeAttr('readonly','readonly');
+						//	$('#nombres').removeAttr('readonly','readonly');
+     					//	$('#apellidos').removeAttr('readonly','readonly');
 							
-							 $('#foto_ubv').val(foto_default); //INPUT
-							 $("#foto_perfil").attr("src",url+foto_default); //IMG
-							 $("#perfil").select2("val", "");
-							 $("#departamento").select2("val", "");
+						//	 $('#foto_ubv').val(foto_default); //INPUT
+						//	 $("#foto_perfil").attr("src",url+foto_default); //IMG
+						//	 $("#perfil").select2("val", "");
+						//	 $("#departamento").select2("val", "");
 							
 
-						}else if(response.no_pase == true){ //PARA SABER SI HAY PASES DISPONIBLES PARA ASIGNAR 
-							$('#no_pase').slideDown(); // OCULTAR ALERTA 
-							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
-							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#danger').slideUp(); // MOSTRAR ALERTA error
-						}else if(response.asig_pase == true){ //SABER SI EL USUARIO TIENE UN PASE ASIGNADO 
-							$('#asig_pase').slideDown(); // OCULTAR ALERTA 
-							$('#no_pase').slideUp(); // OCULTAR ALERTA 
+						}else if(response.registrer == true){
+							$('#registrado').slideDown(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						} else {
 						//	console.log("no ok");
 						//	swal("MENSAJE", response.messages , "error");
-							$('#danger').slideDown(); // MOSTRAR ALERTA error
 							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#no_pase').slideUp(); // OCULTAR ALERTA 
-							$('#asig_pase').slideUp(); // OCULTAR ALERTA 
-				
+							$('#registrado').slideUp(); // OCULTAR ALERTA 
+							$('#danger').slideDown(); // MOSTRAR ALERTA error
 						}
 					}
 				});
@@ -648,87 +723,6 @@ $(document).ready(function(){
 
 /**Buscar usuario */
 
-$('#cedula').keyup(function(e) {
-
-  e.preventDefault();
-  var cl = $(this).val();
-			//PARA MANEJAR IMG PERFIL
-			var url="<?php echo constant('URL'); ?>";
-			var foto_default="src/assets/images/!logged-user.jpg";
-
-  $.ajax({
-    url: '<?php echo constant('URL');?>visitante/BuscarUsuario',
-    type: "POST",
-    async: true,
-    data: {ci:cl},
-    success: function(response) {
-
-      if ( response == 0) {
-
-				$('#id_persona').val('');
-        $('#nombres').val('');
-        $('#apellidos').val('');
-        $('#genero').val('');
-
-				$('#telefono').val('');
-				$('#correo').val('');
-				/*REmovemos los atributos */
-				$('#nombres').removeAttr('readonly','readonly');
-     		$('#apellidos').removeAttr('readonly','readonly');
-       	$('#genero').removeAttr('readonly','readonly');
-				$("input[type='radio'][name='genero'][value='F']").prop('checked',false);
-				$("input[type='radio'][name='genero'][value='M']").prop('checked',false);
-				//$('#telefono').removeAttr('readonly','readonly');
-        //$('#correo').removeAttr('readonly','readonly');
-				$('#foto_ubv').val(foto_default); //INPUT
-				$("#foto_perfil").attr("src",url+foto_default); //IMG
-
-      }else {
-        var data = $.parseJSON(response);
-		
-				$('#id_persona').val(data.id_persona);
-        $('#nombres').val(data.nombres);
-        $('#apellidos').val(data.apellidos);
-       // $('#genero').val(data.genero);
-       
-				if (data.genero=="M"){// Selecionamos radio button
-						$("input[type='radio'][name='genero'][value='M']").prop('checked',true);
-				}else{
-						$("input[type='radio'][name='genero'][value='F']").prop('checked',true);
-				}
-
-				$('#telefono').val(data.telefono);
-        $('#correo').val(data.correo);
-
-			//PARA MANEJAR IMG PERFIL
-			var foto_ubv="src/fotos/"+data.cedula+".jpg";
-				//Validamos si la imagen existe
-			if(ImageExist(url+foto_ubv)==true){ 
-				//console.log("Existe");
-				$('#foto_ubv').val(foto_ubv); //INPUT
-				$("#foto_perfil").attr("src",url+foto_ubv); //IMG
-			}else{
-				//console.log("no Existe");
-				$('#foto_ubv').val(foto_default); //INPUT
-				$("#foto_perfil").attr("src",url+foto_default); //IMG
-
-			}
-        // Bloque campos
-        $('#nombres').attr('readonly','readonly');
-        $('#apellidos').attr('readonly','readonly');
-        $('#genero').attr('readonly','readonly');
-       
-			//	$('#telefono').attr('readonly','readonly');
-        //$('#correo').attr('readonly','readonly');
-      }
-    },
-    error: function(error) {
-      $('#danger').slideDown(); // muestra ALERTA error
-    }
-  });
-
-});
-
 
 });
 
@@ -739,6 +733,11 @@ function ImageExist(url)
    img.src = url;
    return img.height != 0;
 }
+
+function refrescar(){
+    //Actualiza la página
+    location.reload();
+  }
 
 	</script>
 
@@ -753,6 +752,7 @@ function ImageExist(url)
 	
 
 	
+
 
     </body>
 </html>

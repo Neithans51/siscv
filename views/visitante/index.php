@@ -117,7 +117,7 @@
 											
 											 <td>
 											<!-- <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i>Editar</button></a>-->
-											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;Ver &nbsp;</button></a>
+											 <a href="<?php echo constant ('URL') . "visitante/VerVisitante/".$user->id_visitante;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;Ver &nbsp;</button></a>
 
 											 </td>
 										

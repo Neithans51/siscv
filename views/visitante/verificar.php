@@ -141,7 +141,7 @@
 											
 											 <td>
 											<!-- <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i>Editar</button></a>-->
-											 <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;&nbsp; Ver  &nbsp;&nbsp;&nbsp;</button></a>
+											 <a href="<?php echo constant ('URL') . "visitante/VerVisitante/".$user->id_visitante;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;&nbsp; Ver  &nbsp;&nbsp;&nbsp;</button></a>
                                              <!--<a title="Cambiar Estatus" href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-refresh"></i> Estatus</button></a>-->
                                         <?php if(empty($user->fecha_salida)){ ?>
 										     <a type="button" class="" data-id="<?php echo constant ('URL') . "visitante/CambiarEstatus/".$user->id_visitante;?>" data-toggle="modal" data-target="#ModalDelete" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><button data-toggle="tooltip" type="button" class="mb-xs mt-xs mr-xs btn btn-primary"  title="Cambiar Estatus"><i class="fa fa-refresh"></i> Estatus</i></button></a>
