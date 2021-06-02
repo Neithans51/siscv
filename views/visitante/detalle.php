@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Usuario | Sistema para el Control de Visitas UBV</title>
+		<title>Visitantes | Sistema para el Control de Visitas UBV</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="keywords" content="HTML5 Admin Template" />
@@ -51,7 +51,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Usuarios</h2>
+						<h2>Visitantes</h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -61,8 +61,8 @@
 									</a>
 								</li>
 								<li>
-								<a href="<?php echo constant('URL');?>usuario">
-								<span>Usuarios</span>
+								<a href="<?php echo constant('URL');?>visitante/Verificar#">
+								<span>Visitantes</span>
 								</a>
 								</li>
 								<li><span>Detalle</span></li>
@@ -133,8 +133,12 @@
 						</div>
 						<div class="col-md-8 col-lg-9">
 						<div class="panel-actions">
-										<a title="Volver" href="<?php echo constant ('URL') . "visitante/Verificar";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
 
+						<?php if($this->vista=='1'){?>
+							<a title="Volver" href="<?php echo constant ('URL') . "visitante/VerVisita/".$this->usuario->id_persona;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+						<?php }else{ ?>
+					   <a title="Volver" href="<?php echo constant ('URL') . "visitante/Verificar";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+						<?php } ?>
 						</div>
 						<br>
 							<div class="tabs">
@@ -255,16 +259,20 @@
 															<?php echo $this->usuario->motivo; ?>
 															</p>
 
+															<?php if(!empty($this->usuario->paquete)){?>
 															<p class="text-muted mb-none">Paquete</p>
 															<p>
 															<?php echo $this->usuario->paquete; ?>
 															</p>
+															<?php }?>
 
+															<?php if(!empty($this->usuario->procedencia)){?>
 															<p class="text-muted mb-none">Procedencia</p>
 															<p>
 															<?php echo $this->usuario->procedencia; ?>
 															</p>
-															
+															<?php }?>
+
 															<p class="text-muted mb-none">Anfitrión</p>
 															<p>
 															<?php echo $this->usuario->anfitrion; ?>
@@ -287,27 +295,27 @@
 															</p>
 
 														
-															<p class="text-muted mb-none">Entrada</p>
+															<p class="text-muted mb-none">Entrada / Recibido Por :</p>
 															<p>
-															<?php echo date("d/m/Y H:i", strtotime($this->usuario->fecha_ingreso)); ?>
+															<?php echo date("d/m/Y H:i", strtotime($this->usuario->fecha_ingreso)) ."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ". $this->usuario->recibido_ingreso; ?>
 															</p>
 
 
-															<p class="text-muted mb-none">Salida</p>
+															<p class="text-muted mb-none">Salida / Recibido Por :</p>
 
 															<?php if(!empty($this->usuario->fecha_salida)){
-																echo '<p>'.date("d/m/Y H:i", strtotime($this->usuario->fecha_salida)).'<p>';
+																echo '<p>'.date("d/m/Y H:i", strtotime($this->usuario->fecha_salida))."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ". $this->usuario->recibido_salida.'<p>';
 															}else{
 																echo '<p>No disponible<p>';
 															} ?>
 															
 
-
+															<?php if(!empty( $this->usuario->observacion)){ ?>
 															<p class="text-muted mb-none">Observaciones</p>
 															<p>
 															<?php echo $this->usuario->observacion; ?>
 															</p>
-
+															<?php 	} ?>
 														</div>
 
 													</li>
@@ -344,7 +352,7 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
 												<div class="col-md-8">
-													<input type="hidden"  id="id_usuario"  name="id_usuario" value="<?php echo $this->usuario->id_usuario; ?>"/>
+													<input type="hidden"  id="id_visitante"  name="id_visitante" value="<?php echo $this->usuario->id_visitante; ?>"/>
 													<input type="hidden"  id="id_persona"  name="id_persona" value="<?php echo $this->usuario->id_persona; ?>"/>
 													<input type="hidden" id="foto_ubv" name="foto_ubv" value="<?php echo $this->usuario->documento; ?>">
 													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula Ej. V-00000000 o E-00000000" onkeyup="javascript:this.value=this.value.toUpperCase();"  value="<?php echo $this->usuario->nacionalidad."-".$this->usuario->cedula; ?>"/>
@@ -394,24 +402,10 @@
 													<input type="email" id="correo" name="correo" class="form-control" placeholder="Escriba su correo electrónico" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toLowerCase();"  value="<?php echo $this->usuario->correo; ?>"/>
 											</div>
 										</div>	
-										<div class="form-group">
-											<label class="col-sm-3 control-label">Departamento <span class="required">*</span></label>
-											<div class="col-md-8">
-											<select class="form-control select2_demo_3 required" id="departamento" name="departamento" >
-											<option value="">Seleccione...</option>
-											<?php include_once 'models/cvubv.php';
-															foreach($this->departamentos as $row){
-															$pro=new Cvubv();
-															$pro=$row;?> 
-														<option value="<?php echo $pro->id;?>" <?php if($this->usuario->id_departamento==$pro->id) print "selected=selected"?>  > <?php echo $pro->descripcion;?></option>
-														<?php }?>      
-											</select>  		
-											</div>
-										</div>
+									
 
 
-
-										<div class="form-group">
+									<!--	<div class="form-group">
 											<label class="col-sm-3 control-label">Perfil <span class="required">*</span></label>
 											<div class="col-md-8">
 											<select class="form-control select2_demo_4 required" id="perfil" name="perfil" >
@@ -436,14 +430,86 @@
 											<option value="0" <?php if($this->usuario->estatus=="0") print "selected=selected"?>>Inactivo</option>
 											</select>  		
 											</div>
-										</div>
+										</div>-->
 
 							
 
 									
+
+											<hr class="dotted tall">
+											<h4 class="mb-xlg">Informacción de la visita</h4>
+
+
+
+
+											<div class="form-group">
+											<label class="col-sm-3 control-label">Departamento <span class="required">*</span></label>
+											<div class="col-md-9">
+											<select class="form-control select2_demo_3 required" id="departamento" name="departamento" >
+											<option value="">Seleccione...</option>
+											<?php include_once 'models/cvubv.php';
+															foreach($this->departamentos as $row){
+															$pro=new Cvubv();
+															$pro=$row;?> 
+														<option value="<?php echo $pro->id;?>" <?php if($this->usuario->id_departamento==$pro->id) print "selected=selected"?>  > <?php echo $pro->descripcion;?></option>
+														<?php }?>      
+											</select>  		
+											</div>
+										</div>
+
+									
+
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Anfitrión <span class="required">*</span></label>
+											<div class="col-sm-9">
+											<select class="form-control select2_demo_3 required" id="anfitrion" name="anfitrion" >
+											<option value="">Seleccione...</option>
+											<?php include_once 'models/cvubv.php';
+															foreach($this->anfitriones as $row){
+															$pro=new Cvubv();
+															$pro=$row;?> 
+														<option value="<?php echo $pro->id;?>" <?php if($this->usuario->id_anfitrion==$pro->id) print "selected=selected"?> > <?php echo $pro->descripcion;?></option>
+														<?php }?>      
+											</select>  		
+											</div>
+										</div>
+
+
+													
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Motivo <span class="required">*</span></label>
+											<div class="col-sm-9">
+											<textarea name="motivo" id="motivo" cols="30" rows="2" class="form-control required" placeholder="Escriba el motivo de la visita" maxlength='145'  onkeyup="javascript:this.value=this.value.toUpperCase();" ><?php echo $this->usuario->motivo; ?></textarea>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Procedencia </label>
+											<div class="col-sm-9">
+												<input type="text" id="procedencia" name="procedencia" placeholder="Escriba la procedencia del visitante" class="form-control" placeholder="Escriba sus nombres" maxlength='45' minlength="5"  onkeyup="javascript:this.value=this.value.toUpperCase();" value="<?php echo $this->usuario->procedencia; ?>"  />
+											</div>
+										</div>
+														
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Paquete </label>
+											<div class="col-sm-9">
+												<input type="text" id="paquete" name="paquete" placeholder="Escriba sobre los paquetes que tre consigo el visitante" class="form-control" placeholder="Escriba sus nombres" maxlength='45' minlength="5"   onkeyup="javascript:this.value=this.value.toUpperCase();" value="<?php echo $this->usuario->paquete; ?>" />
+											</div>
+										</div>
+
+														
+									
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Observaciones </label>
+											<div class="col-sm-9">
+											<textarea name="observacion" id="observacion" cols="30" rows="2" class="form-control" placeholder="Escriba sus observaciones" maxlength='145'  onkeyup="javascript:this.value=this.value.toUpperCase();" ><?php echo $this->usuario->observacion; ?></textarea>
+											</div>
+										</div>
+
+
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Foto </label>
-											<div class="col-md-8">
+											<div class="col-sm-9">
 										
 											<fieldset class="form-group">
 											<div class="col-md-12">
@@ -458,37 +524,18 @@
 												</div>
 											</fieldset>
 
-								
+										<br>
 										<div class="container_radio">
 											<input type="file" class="form-control-file video_container none" name="archivo" id="subirfoto" accept="image/*">
 											<video id="video" autoplay="autoplay" class="video_container none"></video>
 										</div>
+										
+
 
 										   </div>
 										</div>
 
-
-											</fieldset>
-										
-
-											<hr class="dotted tall">
-											<h4 class="mb-xlg">Cambiar contraseña</h4>
-											<fieldset class="mb-xl">
-												<div class="form-group">
-													<label class="col-md-3 control-label" for="">Nueva Contraseña</label>
-													<div class="col-md-8">
-														<input type="password" class="form-control" id="password" name="password" >
-													</div>
-												</div>
-												<div class="form-group">
-													<label class="col-md-3 control-label" for="">Repita su nueva contraseña</label>
-													<div class="col-md-8">
-														<input type="password" class="form-control" id="c_password" name="c_password">
-													</div>
-												</div>
-
-
-											</fieldset>
+			
 											<div class="panel-footer">
 												<div class="row">
 													<div class="col-md-9 col-md-offset-3">
@@ -610,10 +657,15 @@ $(document).ready(function(){
       //  messages: {'name': "Por favor indica tu nombre",'email': "Por favor, indica una direcci&oacute;n de e-mail v&aacute;lida",'message': "Por favor, dime algo!"},
         debug: true,errorElement: "label",
         submitHandler: function(form){
-			var id_usuario = $('#id_usuario').val();
 			var id_persona = $('#id_persona').val();
-			var estatus = $('#estatus').val();
-			var password=$('#password').val();
+			var id_visitante = $('#id_visitante').val();
+			//Visitante 
+			var anfitrion = $('#anfitrion').val();
+			var motivo = $('#motivo').val();
+			var procedencia = $('#procedencia').val();
+			var paquete = $('#paquete').val();
+			var observacion = $('#observacion').val();
+
 
 			var cedula = $('#cedula').val();
 			var nombres = $('#nombres').val();
@@ -635,10 +687,11 @@ $(document).ready(function(){
 				var info = data.split(",", 2);
 				$.ajax({
 					type : "POST",
-					url : "<?php echo constant('URL');?>usuario/Save_photo_Edit",
+					url : "<?php echo constant('URL');?>visitante/Save_photo_Edit",
 					data : {foto : info[1],cedula:cedula, nombres: nombres, apellidos: apellidos,
 						genero: genero, telefono: telefono, correo: correo, departamento: departamento,
-						perfil: perfil,radio:radio,estatus:estatus,id_usuario:id_usuario,id_persona:id_persona,password:password},
+						anfitrion:anfitrion, motivo:motivo, procedencia:procedencia,
+						 paquete:paquete, observacion:observacion,id_persona:id_persona,id_visitante:id_visitante},
 					dataType : 'json',
 					/*beforeSend: function() {
 						btnSaveLoad();
@@ -653,7 +706,6 @@ $(document).ready(function(){
 							setTimeout(refrescar, 10000);//Refrescar en 10 min
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
-							$('#registrado').slideUp(); // OCULTAR ALERTA error 
 
 							/*$('#nombres').removeAttr('readonly','readonly');
      						$('#apellidos').removeAttr('readonly','readonly');
@@ -662,13 +714,8 @@ $(document).ready(function(){
 							 $("#foto_perfil").attr("src",url+foto_default); //IMG
 							 $("#perfil").select2("val", "");
 							 $("#departamento").select2("val", "");*/
-						}else if(response.registrer == true){
-							$('#registrado').slideDown(); // OCULTAR ALERTA 
-							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						}else{
 							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
 						}
 					}
@@ -677,7 +724,7 @@ $(document).ready(function(){
 				//var formData = new FormData(this);
 				var formData = new FormData(form);
 				$.ajax({
-					url: '<?php echo constant('URL');?>usuario/Save_img_Edit',
+					url: '<?php echo constant('URL');?>visitante/Save_img_Edit',
 					type: 'POST',
 					data: formData,
 					cache: false,
@@ -696,7 +743,6 @@ $(document).ready(function(){
 						setTimeout(refrescar, 10000);//Refrescar en 10 min
 						$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 						$('#danger').slideUp(); // OCULTAR ALERTA error
-						$('#registrado').slideUp(); // OCULTAR ALERTA error 
 
 					/*	$('#nombres').removeAttr('readonly','readonly');
 						$('#apellidos').removeAttr('readonly','readonly');
@@ -705,10 +751,6 @@ $(document).ready(function(){
 						$("#foto_perfil").attr("src",url+foto_default); //IMG
 						$("#perfil").select2("val", "");
 						$("#departamento").select2("val", "");*/
-						}else if(response.registrer == true){
-							$('#registrado').slideDown(); //  MOSTRAR ALERTA error 
-							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						}else{
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#registrado').slideUp(); // OCULTAR ALERTA 
@@ -721,10 +763,11 @@ $(document).ready(function(){
 				
 				$.ajax({
 					type : "POST",
-					url : "<?php echo constant('URL');?>usuario/Save_img_sis_Edit",
+					url : "<?php echo constant('URL');?>visitante/Save_img_sis_Edit",
 					data : {foto_ubv : foto_ubv,cedula:cedula, nombres: nombres, apellidos: apellidos,
 						genero: genero, telefono: telefono, correo: correo, departamento: departamento,
-						perfil: perfil,radio:radio,estatus:estatus,id_usuario:id_usuario,id_persona:id_persona,password:password},
+						radio:radio,anfitrion:anfitrion, motivo:motivo, procedencia:procedencia,
+						 paquete:paquete, observacion:observacion,id_persona:id_persona,id_visitante:id_visitante},
 					 dataType : 'json',
 					// async: true,
 					/*beforeSend: function() {
@@ -740,7 +783,6 @@ $(document).ready(function(){
 							setTimeout(refrescar, 10000);//Refrescar en 10 min
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
-							$('#registrado').slideUp(); // OCULTAR ALERTA error 
 
 						//	$('#nombres').removeAttr('readonly','readonly');
      					//	$('#apellidos').removeAttr('readonly','readonly');
@@ -751,15 +793,10 @@ $(document).ready(function(){
 						//	 $("#departamento").select2("val", "");
 							
 
-						}else if(response.registrer == true){
-							$('#registrado').slideDown(); // OCULTAR ALERTA 
-							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						} else {
 						//	console.log("no ok");
 						//	swal("MENSAJE", response.messages , "error");
 							$('#success').slideUp(); // OCULTAR ALERTA 
-							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
 						}
 					}

@@ -98,8 +98,12 @@
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
+										<?php if($this->vista=='1'){?>
 										<a title="Volver" href="<?php echo constant ('URL') . "visitante";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
-
+										<?php }else{ ?>
+											<a title="Volver" href="<?php echo constant ('URL') . "visitante/Verificar";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+									
+										<?php }?>
 										</div>
 
 										<h2 class="panel-title">Registro de Visitante</h2>

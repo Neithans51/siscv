@@ -16,16 +16,23 @@
 
     function CambiarEstatus($param=null){
       $id_visitante=$param[0];
+      $vista=$param[1];
+      $id_persona=$param[2];
 
-    /*  if($data=$this->model->ValVisitante($id_visitante)){
+
+      if($data=$this->model->ValVisitante($id_visitante)){
         $mensaje="<div class='alert alert-danger alert-dismissable'>
         <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
-        el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
+        El Cod pase <a class='alert-link' href='#'> " . $data . "</a> Yas Se encuentra actualizado 
         </div>";
-        header('Content-type: application/json; charset=utf-8');
-        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        $this->view->mensaje=$mensaje;
+        if($vista=='1'){
+          $this->VerVisita($id_persona);
+         }else{
+          $this->Verificar();
+         }
         exit();
-      }*/
+      }
 
      if($this->model->cambio($id_visitante)){
       $mensaje="<div class='alert alert-success alert-dismissable'>
@@ -39,18 +46,28 @@
 
      }
      $this->view->mensaje=$mensaje;
-     $this->Verificar();
+
+     if($vista=='1'){
+      $this->VerVisita($id_persona);
+     }else{
+      $this->Verificar();
+     }
+
+    
   }
 
 
 
-    function Registro(){
+    function Registro($param=null){
+      $vista=$param[0];
        //Departamento
       $departamentos=$this->model->getCatalogo('departamento');
       $this->view->departamentos=$departamentos;
       //Anfitrion
       $perfiles=$this->model->getCatalogo('anfitrion');
       $this->view->perfiles=$perfiles;
+
+      $this->view->vista=$vista;
 
       $this->view->render('visitante/add_visitante');
     }
@@ -65,18 +82,38 @@
 
     function VerVisitante($param=null){
       $id_visitante=$param[0];
+      $vista=$param[1];
       
       $departamentos=$this->model->getCatalogo('departamento');
       $this->view->departamentos=$departamentos;
 
-      //Perfil
-     /* $perfiles=$this->model->getVisita('usuario_perfil');
-      $this->view->perfiles=$perfiles;*/
+      //anfitrion
+      $anfitriones=$this->model->getCatalogo('anfitrion');
+      $this->view->anfitriones=$anfitriones;
 
       $usuario = $this->model->Detalle($id_visitante);
       $this->view->usuario=$usuario;
+
+      $this->view->vista=$vista;
      
       $this->view->render('visitante/detalle');
+    }
+
+    function VerVisita($param=null){ // MUESTRA TODAS LAS VISITAS DE UN USUARIO
+      $id_persona=$param[0];
+      
+     /* $departamentos=$this->model->getCatalogo('departamento');
+      $this->view->departamentos=$departamentos;
+
+      //anfitrion
+      $anfitriones=$this->model->getCatalogo('anfitrion');
+      $this->view->anfitriones=$anfitriones;*/
+
+      $usuarios = $this->model->DetalleVisitante($id_persona);
+      $this->view->usuarios=$usuarios;
+   
+     
+      $this->view->render('visitante/visita');
     }
 
 
@@ -318,10 +355,15 @@
         function Save_photo_Edit(){//Se registra un usuario con foto
   
           //Datos genrales
-          $id_usuario = $_POST["id_usuario"];
+          $id_visitante = $_POST["id_visitante"];
           $id_persona = $_POST["id_persona"];
-          $estatus = $_POST["estatus"];
-          $password=$_POST['password'];
+                      
+          //DATOS DE LA VISITAS
+          $anfitrion = $_POST["anfitrion"];
+          $motivo = $_POST["motivo"];
+          $procedencia = $_POST["procedencia"];
+          $paquete = $_POST["paquete"];
+          $observacion = $_POST["observacion"];
 
           $cedula = $_POST["cedula"];
           $nombres = $_POST["nombres"];
@@ -354,7 +396,9 @@
               
               if($data=$this->model->edit(['file'=>$file,'foto'=>$foto,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
               'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,
-              'perfil'=>$perfil,'route_photo'=>$route_photo,'name_photo'=>$name_photo,'estatus'=>$estatus,'password'=>$password,'id_persona'=>$id_persona,'id_usuario'=>$id_usuario])){
+              'perfil'=>$perfil,'route_photo'=>$route_photo,'name_photo'=>$name_photo,'anfitrion'=>$anfitrion,'motivo'=>$motivo,
+              'procedencia'=>$procedencia,'paquete'=>$paquete,'observacion'=>$observacion,
+              'id_persona'=>$id_persona,'id_visitante'=>$id_visitante])){
       
                 $mensaje="<div class='alert alert-success alert-dismissable'>
                 <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
@@ -375,11 +419,16 @@
           function Save_img_Edit(){//Se registra un usuario con foto tomada del sistema
   
             //Datos genrales
-
-            $id_usuario = $_POST["id_usuario"];
+            $id_visitante = $_POST["id_visitante"];
             $id_persona = $_POST["id_persona"];
-            $estatus = $_POST["estatus"];
-            $password=$_POST['password'];
+            
+            
+                    //DATOS DE LA VISITAS
+            $anfitrion = $_POST["anfitrion"];
+            $motivo = $_POST["motivo"];
+            $procedencia = $_POST["procedencia"];
+            $paquete = $_POST["paquete"];
+            $observacion = $_POST["observacion"];
   
             $cedula = $_POST["cedula"];
             $nombres = $_POST["nombres"];
@@ -416,7 +465,9 @@
                 if($data=$this->model->edit(['file'=>$file,'foto'=>$foto,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
                 'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,
                 'perfil'=>$perfil,'archivo'=>$archivo,'route_temp'=>$route_temp,'fileName'=>$fileName,'targetFilePath'=>$targetFilePath,
-                'fileType'=>$fileType,'allowTypes'=>$allowTypes,'estatus'=>$estatus,'password'=>$password,'id_persona'=>$id_persona,'id_usuario'=>$id_usuario])){
+                'fileType'=>$fileType,'allowTypes'=>$allowTypes,'anfitrion'=>$anfitrion,'motivo'=>$motivo,
+                'procedencia'=>$procedencia,'paquete'=>$paquete,'observacion'=>$observacion,
+                'id_persona'=>$id_persona,'id_visitante'=>$id_visitante])){
         
                   $mensaje="<div class='alert alert-success alert-dismissable'>
                   <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>
@@ -438,10 +489,16 @@
             function Save_img_sis_Edit(){//Se registra un usuario con foto del sistema
   
               //Datos genrales
-              $id_usuario = $_POST["id_usuario"];
+              $id_visitante = $_POST["id_visitante"];
               $id_persona = $_POST["id_persona"];
-              $estatus = $_POST["estatus"];
-              $password=$_POST['password'];
+              
+              
+                      //DATOS DE LA VISITAS
+              $anfitrion = $_POST["anfitrion"];
+              $motivo = $_POST["motivo"];
+              $procedencia = $_POST["procedencia"];
+              $paquete = $_POST["paquete"];
+              $observacion = $_POST["observacion"];
 
               $cedula = $_POST["cedula"];
               $nombres = $_POST["nombres"];
@@ -450,7 +507,6 @@
               $telefono = $_POST["telefono"];
               $correo = $_POST["correo"];
               $departamento = $_POST["departamento"];
-              $perfil = $_POST["perfil"];
                 
               //Datos para Guaardar una foto 
               $foto_ubv = $_POST["foto_ubv"];
@@ -470,8 +526,9 @@
                   $mensaje="";
                   
                   if($data=$this->model->edit(['foto_ubv'=>$foto_ubv,'cedula'=>$cedula,'nombres'=>$nombres,'apellidos'=>$apellidos,
-                  'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,
-                  'perfil'=>$perfil,'estatus'=>$estatus,'password'=>$password,'id_persona'=>$id_persona,'id_usuario'=>$id_usuario])){
+                  'genero'=>$genero,'telefono'=>$telefono,'correo'=>$correo,'departamento'=>$departamento,'anfitrion'=>$anfitrion,'motivo'=>$motivo,
+                  'procedencia'=>$procedencia,'paquete'=>$paquete,'observacion'=>$observacion,
+                  'id_persona'=>$id_persona,'id_visitante'=>$id_visitante])){
           
                     $mensaje="<div class='alert alert-success alert-dismissable'>
                     <button aria-hidden='true' data-dismiss='alert' class='close type='button'></button>

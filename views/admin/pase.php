@@ -185,7 +185,15 @@
 	 <script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
 	
 
-
+<script>
+//Script para que el menu se quede en donde se seleciono-->
+/* nav-expanded nav-active   nav-active */
+/*var url = window.location;
+$('ul.nav a').filter(function () {
+   return this.href == url;
+}).parents('li').addClass('active');
+*/
+</script>
 
 	
 

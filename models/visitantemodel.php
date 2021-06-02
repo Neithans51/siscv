@@ -52,25 +52,28 @@ class VisitanteModel extends Model{
 
 
 
-       /* public function ValVisitante(){ //VAlida si hay pases para asignar
+        public function ValVisitante($id_visitante){ //VAlida si hay pases para asignar
           try{
         
-            $validator = array('no_pase' => false, 'messages' => array());
-
-            $sql = $this->db->connect()->prepare("SELECT id_pase FROM pase WHERE estatus=:estatus LIMIT 1");
-            $sql->execute(['estatus' =>0]);
+         
+            $sql = $this->db->connect()->prepare("SELECT pase.descripcion AS pase
+            FROM visitante,visitante_detalle,pase 
+            WHERE visitante.id_pase=pase.id_pase 
+            AND visitante.id_visitante=visitante_detalle.id_visitante 
+            AND visitante_detalle.estatus=:estatus AND visitante_detalle.id_visitante=:id_visitante");
+            $sql->execute(['estatus' =>0,'id_visitante'=>$id_visitante]);
             $nombre=$sql->fetch();
             
-            if(empty($nombre['id_pase'])){
-              $validator['no_pase'] = true;
-                return $validator;
+            if(!empty($nombre['pase'])){
+          
+                return $nombre['pase'];
         
             } 
             return false;
           } catch(PDOException $e){
             return false;
           }
-        }*/
+        }
 
         public function Detalle($id_visitante){
           $item=new Cvubv();
@@ -104,7 +107,6 @@ class VisitanteModel extends Model{
         $item->id_persona_tipo=$row['id_persona_tipo'];
         $item->persona_tipo=$row['persona_tipo'];
         $item->correo=$row['correo'];
-
         //DATOS DE LA VISTIA
         $item->id_departamento=$row['id_departamento'];
         $item->departamento=$row['departamento'];
@@ -114,16 +116,82 @@ class VisitanteModel extends Model{
         $item->procedencia=$row['procedencia'];
         $item->pase=$row['pase'];
         $item->id_pase=$row['id_pase'];
+        $item->id_anfitrion=$row['id_anfitrion'];
         $item->anfitrion=$row['anfitrion'];
+        //ENTRDADAS / SALIDAS
+        $item->fecha_ingreso=$this->Obtener_fecha(1,$row['id_visitante']); //ENTRADA
 
-       //ENTRDADAS / SALIDAS
-       $item->fecha_ingreso=$this->Obtener_fecha(1,$row['id_visitante']); //ENTRADA
+        $item->fecha_salida=$this->Obtener_fecha(0,$row['id_visitante']); //SALIDA
+          //ANTENDIDO POR ENTRDADAS / SALIDAS
+        $item->recibido_ingreso=$this->Obtener_user(1,$row['id_visitante']); //ENTRADA
 
-       $item->fecha_salida=$this->Obtener_fecha(0,$row['id_visitante']); //SALIDA
-        
+        $item->recibido_salida=$this->Obtener_user(0,$row['id_visitante']); //SALIDA
         
         }
         return $item;
+        
+        }catch(PDOException $e){
+        return null;
+        }
+        
+        }
+
+         public function DetalleVisitante($id_persona){
+          $items=[];
+         try{
+        $query=$this->db->connect()->prepare("SELECT visitante.id_visitante, persona.id_persona,cedula,nombres,apellidos,
+        telefono,nacionalidad,genero,documento,persona.id_persona_tipo,
+        persona_tipo.descripcion AS persona_tipo,correo,id_visitante,departamento.id_departamento,
+        departamento.descripcion AS departamento,motivo,paquete,observacion,
+        procedencia,pase.descripcion AS pase,pase.id_pase,anfitrion.id_anfitrion,
+        anfitrion.descripcion AS anfitrion		
+        FROM persona,persona_tipo,visitante,departamento,pase,anfitrion
+        WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
+        AND persona.id_persona=visitante.id_persona
+        AND visitante.id_departamento=departamento.id_departamento
+        AND visitante.id_pase=pase.id_pase
+        AND visitante.id_anfitrion=anfitrion.id_anfitrion
+        AND persona.id_persona=:id_persona");
+        $query->execute(['id_persona' =>$id_persona]);
+
+        while($row=$query->fetch()){
+          $item=new Cvubv();
+        //DATOS PERSONALES
+        $item->id_visitante=$row['id_visitante'];
+        $item->id_persona=$row['id_persona'];
+        $item->cedula=$row['cedula'];
+        $item->nombres=$row['nombres'];
+        $item->apellidos=$row['apellidos'];
+        $item->telefono=$row['telefono'];
+        $item->nacionalidad=$row['nacionalidad'];
+        $item->genero=$row['genero'];
+        $item->documento=$row['documento'];
+        $item->id_persona_tipo=$row['id_persona_tipo'];
+        $item->persona_tipo=$row['persona_tipo'];
+        $item->correo=$row['correo'];
+        //DATOS DE LA VISTIA
+        $item->id_departamento=$row['id_departamento'];
+        $item->departamento=$row['departamento'];
+        $item->motivo=$row['motivo'];
+        $item->paquete=$row['paquete'];
+        $item->observacion=$row['observacion'];
+        $item->procedencia=$row['procedencia'];
+        $item->pase=$row['pase'];
+        $item->id_pase=$row['id_pase'];
+        $item->id_anfitrion=$row['id_anfitrion'];
+        $item->anfitrion=$row['anfitrion'];
+        //ENTRDADAS / SALIDAS
+        $item->fecha_ingreso=$this->Obtener_fecha(1,$row['id_visitante']); //ENTRADA
+
+        $item->fecha_salida=$this->Obtener_fecha(0,$row['id_visitante']); //SALIDA
+          //ANTENDIDO POR ENTRDADAS / SALIDAS
+        $item->recibido_ingreso=$this->Obtener_user(1,$row['id_visitante']); //ENTRADA
+
+        $item->recibido_salida=$this->Obtener_user(0,$row['id_visitante']); //SALIDA
+        
+        array_push($items,$item);
+        }
+        return $items;
         
         }catch(PDOException $e){
         return null;
@@ -523,42 +591,37 @@ class VisitanteModel extends Model{
                           $fotos = fwrite($datos['file'], $datos['foto']);
                           fclose($datos['file']);
                           
-                          //Tabla persona
-                       $query=$pdo->prepare('UPDATE persona
-                       SET  cedula=:cedula, nombres=:nombres, apellidos=:apellidos,
-                        telefono=:telefono, nacionalidad=:nacionalidad, 
-                           genero=:genero, documento=:documento, id_persona_tipo=:id_persona_tipo,
-                            correo=:correo
-                     WHERE id_persona=:id_persona');
-                    
-                      $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
-                      'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
-                      'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
-                      'documento'=>$datos['route_photo'],'id_persona_tipo'=>1,
-                      'correo'=>$datos['correo'],'id_persona'=>$datos['id_persona']]);
+                                
+                        //Tabla persona
+                                
+                        $query=$pdo->prepare('UPDATE persona
+                        SET  cedula=:cedula, nombres=:nombres, apellidos=:apellidos,
+                          telefono=:telefono, nacionalidad=:nacionalidad, 
+                            genero=:genero, documento=:documento, 
+                              correo=:correo
+                      WHERE id_persona=:id_persona');
                       
-          
-                        //Tabla usuario
-                      $query=$pdo->prepare('UPDATE usuario
-                      SET estatus=:estatus,id_departamento=:id_departamento, id_usuario_perfil=:id_usuario_perfil
-                    WHERE id_persona=:id_persona');
-                     
-                      $query->execute(['estatus'=>$datos['estatus'],
-                      'id_departamento'=>$datos['departamento'],
-                      'id_usuario_perfil'=>$datos['perfil'],'id_persona'=>$datos['id_persona']]);
+                        $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
+                        'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
+                        'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
+                        'documento'=>$datos['route_photo'],
+                        'correo'=>$datos['correo'],'id_persona'=>$datos['id_persona']]);
+                        
 
+                          //Tabla visitante
+                        $query=$pdo->prepare('UPDATE visitante
+                        SET  motivo=:motivo, paquete=:paquete, observacion=:observacion,
+                        id_departamento=:id_departamento, 
+                          procedencia=:procedencia, id_anfitrion=:id_anfitrion
+                      WHERE id_visitante=:id_visitante');
+                      
+                        $query->execute(['motivo'=>$datos['motivo'],
+                        'paquete'=>$datos['paquete'],'observacion'=>$datos['observacion'],
+                        'id_departamento'=>$datos['departamento'], 'procedencia'=>$datos['procedencia'],
+                        'id_anfitrion'=>$datos['anfitrion'], 'id_visitante'=>$datos['id_visitante']]);
 
-                        //Cambiar contraseña
-                        if(!empty($datos['password'])){
-                      $query=$pdo->prepare('UPDATE usuario
-                      SET  password=:password WHERE id_persona=:id_persona');
-                     
-                      $crypt= new SED();
-                      $query->execute(['password'=>$crypt->encryption($datos['password']),
-                      'id_persona'=>$datos['id_persona']]);
-                        }
-
-
+           
+                       
 
                       
           
@@ -573,39 +636,34 @@ class VisitanteModel extends Model{
                             $uploadedFile = $datos["fileName"];
           
                           //Tabla persona
-                            //Tabla persona
-                       $query=$pdo->prepare('UPDATE persona
-                       SET  cedula=:cedula, nombres=:nombres, apellidos=:apellidos,
-                        telefono=:telefono, nacionalidad=:nacionalidad, 
-                           genero=:genero, documento=:documento, id_persona_tipo=:id_persona_tipo,
-                            correo=:correo
-                     WHERE id_persona=:id_persona');
-                    
-                      $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
-                      'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
-                      'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
-                      'documento'=>$url,'id_persona_tipo'=>1,
-                      'correo'=>$datos['correo'],'id_persona'=>$datos['id_persona']]);
-                      
-          
-                        //Tabla usuario
-                      $query=$pdo->prepare('UPDATE usuario
-                      SET estatus=:estatus,id_departamento=:id_departamento, id_usuario_perfil=:id_usuario_perfil
+                     
+                      $query=$pdo->prepare('UPDATE persona
+                      SET  cedula=:cedula, nombres=:nombres, apellidos=:apellidos,
+                       telefono=:telefono, nacionalidad=:nacionalidad, 
+                          genero=:genero, documento=:documento, 
+                           correo=:correo
                     WHERE id_persona=:id_persona');
+                   
+                     $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
+                     'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
+                     'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
+                     'documento'=>$url,
+                     'correo'=>$datos['correo'],'id_persona'=>$datos['id_persona']]);
                      
-                      $query->execute(['estatus'=>$datos['estatus'],
-                      'id_departamento'=>$datos['departamento'],
-                      'id_usuario_perfil'=>$datos['perfil'],'id_persona'=>$datos['id_persona']]);
+         
+                       //Tabla visitante
+                     $query=$pdo->prepare('UPDATE visitante
+                     SET  motivo=:motivo, paquete=:paquete, observacion=:observacion,
+                      id_departamento=:id_departamento, 
+                       procedencia=:procedencia, id_anfitrion=:id_anfitrion
+                   WHERE id_visitante=:id_visitante');
+                    
+                     $query->execute(['motivo'=>$datos['motivo'],
+                     'paquete'=>$datos['paquete'],'observacion'=>$datos['observacion'],
+                     'id_departamento'=>$datos['departamento'], 'procedencia'=>$datos['procedencia'],
+                     'id_anfitrion'=>$datos['anfitrion'], 'id_visitante'=>$datos['id_visitante']]);
 
-                        //Cambiar contraseña
-                        if(!empty($datos['password'])){
-                      $query=$pdo->prepare('UPDATE usuario
-                      SET  password=:password WHERE id_persona=:id_persona');
-                     
-                      $crypt= new SED();
-                      $query->execute(['password'=>$crypt->encryption($datos['password']),
-                      'id_persona'=>$datos['id_persona']]);
-                        }
+                    
 
 
                           
@@ -617,36 +675,30 @@ class VisitanteModel extends Model{
                          $query=$pdo->prepare('UPDATE persona
                          SET  cedula=:cedula, nombres=:nombres, apellidos=:apellidos,
                           telefono=:telefono, nacionalidad=:nacionalidad, 
-                             genero=:genero, documento=:documento, id_persona_tipo=:id_persona_tipo,
+                             genero=:genero, documento=:documento, 
                               correo=:correo
                        WHERE id_persona=:id_persona');
                       
                         $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
                         'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
                         'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
-                        'documento'=>$datos['foto_ubv'],'id_persona_tipo'=>1,
+                        'documento'=>$datos['foto_ubv'],
                         'correo'=>$datos['correo'],'id_persona'=>$datos['id_persona']]);
                         
             
-                          //Tabla usuario
-                        $query=$pdo->prepare('UPDATE usuario
-                        SET estatus=:estatus,id_departamento=:id_departamento, id_usuario_perfil=:id_usuario_perfil
-                      WHERE id_persona=:id_persona');
+                          //Tabla visitante
+                        $query=$pdo->prepare('UPDATE visitante
+                        SET  motivo=:motivo, paquete=:paquete, observacion=:observacion,
+                         id_departamento=:id_departamento, 
+                          procedencia=:procedencia, id_anfitrion=:id_anfitrion
+                      WHERE id_visitante=:id_visitante');
                        
-                        $query->execute(['estatus'=>$datos['estatus'],
-                        'id_departamento'=>$datos['departamento'],
-                        'id_usuario_perfil'=>$datos['perfil'],'id_persona'=>$datos['id_persona']]);
+                        $query->execute(['motivo'=>$datos['motivo'],
+                        'paquete'=>$datos['paquete'],'observacion'=>$datos['observacion'],
+                        'id_departamento'=>$datos['departamento'], 'procedencia'=>$datos['procedencia'],
+                        'id_anfitrion'=>$datos['anfitrion'], 'id_visitante'=>$datos['id_visitante']]);
   
-                          //Cambiar contraseña
-                          if(!empty($datos['password'])){
-                        $query=$pdo->prepare('UPDATE usuario
-                        SET  password=:password WHERE id_persona=:id_persona');
                        
-                        $crypt= new SED();
-                        $query->execute(['password'=>$crypt->encryption($datos['password']),
-                        'id_persona'=>$datos['id_persona']]);
-                          }
-  
   
           
                       }              
@@ -673,9 +725,7 @@ class VisitanteModel extends Model{
                   $items=[];
                  try{
                 $query=$this->db->connect()->query("SELECT DISTINCT persona.id_persona,nacionalidad,cedula,
-                nombres,apellidos,telefono,persona_tipo.descripcion AS persona_tipo, 
-                motivo,pase.descripcion AS pase,
-                DATE(visitante_detalle.fecha) AS fecha_ingreso,visitante.id_visitante
+                nombres,apellidos,telefono,persona_tipo.descripcion AS persona_tipo
                   FROM persona,visitante,pase,persona_tipo,visitante_detalle
                  WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
                  AND persona.id_persona=visitante.id_persona 
@@ -767,7 +817,7 @@ class VisitanteModel extends Model{
                 
       
          
-                public function Obtener_fecha($estatus,$id_visitante){//Valisa si el usuario tiene un pase asignado
+                public function Obtener_fecha($estatus,$id_visitante){//Valida entradas o salidas
                   try{
                     
                     $query =$this->db->connect()->prepare("SELECT fecha FROM visitante_detalle WHERE estatus=:estatus AND id_visitante=:id_visitante ");
@@ -775,6 +825,26 @@ class VisitanteModel extends Model{
                     $visita = $query->fetch();
 
                     return  $visita['fecha'];
+                  } catch(PDOException $e){
+                    return null;
+                  }
+                }
+
+                public function Obtener_user($estatus,$id_visitante){//Valisa el usuario que lo recibe en entradas y salidas
+                  try{
+                    
+                    $query =$this->db->connect()->prepare("SELECT nacionalidad,cedula, nombres,apellidos FROM visitante_detalle,usuario,persona
+                    WHERE visitante_detalle.id_usuario=usuario.id_usuario
+                   AND usuario.id_persona=persona.id_persona
+                    AND visitante_detalle.estatus=:estatus AND id_visitante=:id_visitante");
+                    $query->execute(['estatus'=>$estatus,'id_visitante'=>$id_visitante]);
+                    $visita = $query->fetch();
+
+                    list($pnom, $snom) = explode(" ", $visita['nombres']);
+                    list($pape, $sape) = explode(" ", $visita['apellidos']);
+
+                    return  $visita['nacionalidad']."-".$visita['cedula']." ".$pnom." ".$pape; //USUARIO
+
                   } catch(PDOException $e){
                     return null;
                   }
