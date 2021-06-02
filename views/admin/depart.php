@@ -156,11 +156,16 @@
 		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
 		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
 		
+		
+
+		
 		<!-- Theme Base, Components and Settings -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.js"></script>
 		
 		<!-- Theme Custom -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.custom.js"></script>
+		
+		
 		
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
@@ -174,7 +179,12 @@
    <!-- Examples Modal para mensajes -->
 	 <script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
 	
+<script>
 
+$(document).ready(function(){ 
+     $("input[type=search]").attr("placeholder","Buscar");
+});
+</script>
 
 
 	

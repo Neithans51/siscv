@@ -129,7 +129,7 @@
 
 									<div class="alert alert-warning" style="display: none;" id='no_pase'>
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>No se encontraron pases disponnibles, Por favor contacte su el administrador </strong> 
+										<strong>No se encontraron pases disponibles, Por favor contacte su el administrador </strong> 
 									</div>
 
 									<div class="alert alert-warning" style="display: none;" id='asig_pase'>

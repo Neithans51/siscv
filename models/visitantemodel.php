@@ -312,7 +312,7 @@ class VisitanteModel extends Model{
                 $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
                 'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
                 'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
-                'documento'=>$datos['foto_ubv'],'id_persona_tipo'=>$tipo_persona,
+                'documento'=>$datos['route_photo'],'id_persona_tipo'=>$tipo_persona,
                 'correo'=>$datos['correo']]);
   
                 //Toma el id de persona
@@ -408,7 +408,7 @@ class VisitanteModel extends Model{
                   $query->execute(['cedula'=>$nro_cedula,'nombres'=>$datos['nombres'],
                   'apellidos'=>$datos['apellidos'],'telefono'=>$datos['telefono'],
                   'nacionalidad'=>$nacionalidad,'genero'=>$datos['genero'],
-                  'documento'=>$datos['foto_ubv'],'id_persona_tipo'=>$tipo_persona,
+                  'documento'=>$url,'id_persona_tipo'=>$tipo_persona,
                   'correo'=>$datos['correo']]);
     
                   //Toma el id de persona
