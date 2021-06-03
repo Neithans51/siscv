@@ -76,6 +76,10 @@
       $usuarios=$this->model->getUsuariosFecha();
       $this->view->usuarios=$usuarios;
 
+      $visitantes=$this->model->getVisitantes();
+      $this->view->visitantes=$visitantes;
+
+
       $this->view->render('visitante/verificar');
     }
 
@@ -144,9 +148,9 @@
     $observacion = $_POST["observacion"];
       
     //Datos para Tomar una foto 
-    list($nacionalidad, $nro_cedula) = explode("-", $cedula);
+    //list($nacionalidad, $nro_cedula) = explode("-", $cedula);
     $foto = base64_decode($_POST["foto"]);
-    $route_photo = "src/fotos/".$nro_cedula.".jpg";
+    $route_photo = "src/fotos/".$cedula.".jpg";
     $name_photo = $cedula.".jpg";
     $file = fopen($route_photo, "w");
 
@@ -162,7 +166,7 @@
               exit();
             }
               //consultar si la persona tiene pase asignado
-                if($data=$this->model->existePaseAsignado($nro_cedula)){
+                if($data=$this->model->existePaseAsignado($cedula)){
               $mensaje="<div class='alert alert-danger alert-dismissable'>
               <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
               el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
@@ -228,7 +232,7 @@
       $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
       $allowTypes = array('jpg', 'png', 'jpeg');
 
-      list($nacionalidad, $nro_cedula) = explode("-", $cedula);
+     // list($nacionalidad, $nro_cedula) = explode("-", $cedula);
     
            //Consultar pases disponibles
            if($data=$this->model->existePases()){
@@ -241,7 +245,7 @@
             exit();
           }
             //consultar si la persona tiene pase asignado
-              if($data=$this->model->existePaseAsignado($nro_cedula)){
+              if($data=$this->model->existePaseAsignado($cedula)){
             $mensaje="<div class='alert alert-danger alert-dismissable'>
             <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
             el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
@@ -302,7 +306,7 @@
         //Datos para Guaardar una foto 
         $foto_ubv = $_POST["foto_ubv"];
       
-          list($nacionalidad, $nro_cedula) = explode("-", $cedula);
+         // list($nacionalidad, $nro_cedula) = explode("-", $cedula);
     
           //Consultar pases disponibles
       if($data=$this->model->existePases()){
@@ -315,7 +319,7 @@
         exit();
       }
         //consultar si la persona tiene pase asignado
-          if($data=$this->model->existePaseAsignado($nro_cedula)){
+          if($data=$this->model->existePaseAsignado($cedula)){
         $mensaje="<div class='alert alert-danger alert-dismissable'>
         <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
         el codigo  <b>" . $data . "</b> <a class='alert-link' href='#'> Usuario registrado </a>
@@ -375,9 +379,9 @@
           $perfil = $_POST["perfil"];
             
           //Datos para Tomar una foto 
-          list($nacionalidad, $nro_cedula) = explode("-", $cedula);
+       //   list($nacionalidad, $nro_cedula) = explode("-", $cedula);
           $foto = base64_decode($_POST["foto"]);
-          $route_photo = "src/fotos/".$nro_cedula.".jpg";
+          $route_photo = "src/fotos/".$cedula.".jpg";
           $name_photo = $cedula.".jpg";
           $file = fopen($route_photo, "w");
       
@@ -448,7 +452,7 @@
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
             $allowTypes = array('jpg', 'png', 'jpeg');
       
-            list($nacionalidad, $nro_cedula) = explode("-", $cedula);
+         //   list($nacionalidad, $nro_cedula) = explode("-", $cedula);
           
            /* if($data=$this->model->existe($nro_cedula)){
               $mensaje="<div class='alert alert-danger alert-dismissable'>
@@ -511,7 +515,7 @@
               //Datos para Guaardar una foto 
               $foto_ubv = $_POST["foto_ubv"];
             
-                list($nacionalidad, $nro_cedula) = explode("-", $cedula);
+               // list($nacionalidad, $nro_cedula) = explode("-", $cedula);
           
             /*if($data=$this->model->existe($nro_cedula)){
               $mensaje="<div class='alert alert-danger alert-dismissable'>

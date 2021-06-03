@@ -86,12 +86,12 @@ class UsuarioModel extends Model{
         //   $item=new Dtodito();
            try{
            
-            list($nacionalidad, $nro_cedula) = explode("-", $cedula);
+            //list($nacionalidad, $nro_cedula) = explode("-", $cedula);
 
              $query=$this->db->connect()->prepare("SELECT cedper AS cedula, nomper AS nombres, apeper AS apellidos,telmovper AS telefono, sexper AS genero,
              nacper AS nacionalidad, coreleper AS correo, carantper AS cargo
-              FROM sno_personal WHERE cedper=:cedula AND nacper=:nacionalidad");
-             $query->execute(['cedula'=>$nro_cedula,'nacionalidad'=>$nacionalidad]);
+              FROM sno_personal WHERE cedper=:cedula");
+             $query->execute(['cedula'=>$cedula]);
              $row=$query->fetch();
              if(!empty($row)){
                $data=$row;
@@ -142,8 +142,8 @@ class UsuarioModel extends Model{
              //3. hacer toas las consultas 
 
             //SEPARAMOS CEDULA DE NACIONALIDAD
-             list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
-
+            // list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
+             $nro_cedula=$datos['cedula'];
              $validator = array('success' => false, 'messages' => array());
 
            
@@ -293,8 +293,8 @@ class UsuarioModel extends Model{
                        //3. hacer toas las consultas 
           
                       //SEPARAMOS CEDULA DE NACIONALIDAD
-                       list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
-          
+                       //list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
+                       $nro_cedula=$datos['cedula'];
                        $validator = array('success' => false, 'messages' => array());
           
                      

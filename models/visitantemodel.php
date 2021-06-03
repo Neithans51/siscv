@@ -203,13 +203,13 @@ class VisitanteModel extends Model{
         //   $item=new Dtodito();
            try{
            
-            list($nacionalidad, $nro_cedula) = explode("-", $cedula);
+            //list($nacionalidad, $nro_cedula) = explode("-", $cedula);
 
             //BD SIGAD TABLA SNO_PERSONA
              $query=$this->db->connect()->prepare("SELECT cedper AS cedula, nomper AS nombres, apeper AS apellidos,telmovper AS telefono, sexper AS genero,
              nacper AS nacionalidad, coreleper AS correo, carantper AS cargo
-              FROM sno_personal WHERE cedper=:cedula AND nacper=:nacionalidad");
-             $query->execute(['cedula'=>$nro_cedula,'nacionalidad'=>$nacionalidad]);
+              FROM sno_personal WHERE cedper=:cedula");
+             $query->execute(['cedula'=>$cedula]);
             
              $row=$query->fetch();
 
@@ -275,8 +275,8 @@ class VisitanteModel extends Model{
              //3. hacer toas las consultas 
 
             //SEPARAMOS CEDULA DE NACIONALIDAD
-             list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
-
+           //  list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
+             $nro_cedula=$datos['cedula'];
              $validator = array('success' => false, 'messages' => array());
 
            
@@ -582,8 +582,8 @@ class VisitanteModel extends Model{
                        //3. hacer toas las consultas 
           
                       //SEPARAMOS CEDULA DE NACIONALIDAD
-                       list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
-          
+                      // list($nacionalidad, $nro_cedula) = explode("-", $datos['cedula']);
+                      $nro_cedula=$datos['cedula'];
                        $validator = array('success' => false, 'messages' => array());
           
                      
@@ -812,6 +812,56 @@ class VisitanteModel extends Model{
                 
                 }
 
+
+
+                public function getVisitantes(){
+                  $items=[];
+                 try{
+                $query=$this->db->connect()->query("SELECT DISTINCT persona.id_persona,nacionalidad,cedula,
+                nombres,apellidos,telefono,persona_tipo.descripcion AS persona_tipo, 
+                motivo,pase.descripcion AS pase,visitante.id_visitante
+                  FROM persona,visitante,pase,persona_tipo,visitante_detalle
+                 WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
+                 AND persona.id_persona=visitante.id_persona 
+                 AND visitante.id_pase=pase.id_pase 
+                 AND visitante.id_visitante=visitante_detalle.id_visitante ");
+                
+
+              
+                
+                while($row=$query->fetch()){
+                $item=new Cvubv();
+                $item->id_persona=$row['id_persona'];
+                $item->nacionalidad=$row['nacionalidad'];
+                $item->cedula=$row['cedula'];
+                $item->nombres=$row['nombres'];
+                $item->apellidos=$row['apellidos'];
+                $item->telefono=$row['telefono'];
+                $item->persona_tipo=$row['persona_tipo'];
+
+                $item->motivo=$row['motivo'];   
+                $item->pase=$row['pase'];
+                //$item->estatus=$row['estatus'];
+                //$item->fecha_ingreso=$row['fecha_ingreso'];
+
+                // OBTENEMOS FECHAS DE ENTRADA Y SALIDA A LA INTITUCION
+
+                $item->id_visitante=$row['id_visitante'];
+
+                $item->fecha_ingreso=$this->Obtener_fecha(1,$row['id_visitante']); //ENTRADA
+
+                $item->fecha_salida=$this->Obtener_fecha(0,$row['id_visitante']); //SALIDA
+                
+                array_push($items,$item);
+                
+                }
+                return $items;
+                
+                }catch(PDOException $e){
+                return[];
+                }
+                
+                }
 
 
                 

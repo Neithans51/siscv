@@ -188,9 +188,11 @@
 	<!--	<script src="<?php echo constant('URL');?>src/assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/tables/examples.datatables.tabletools.js"></script>-->
 
-   <!-- Examples Modal para mensajes -->
-	 <script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
-	
+	<!-- Examples Modal para mensajes -->
+		<script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
+		
+		<!-- Cambiar placeholder de buscardor y ocultar records per page-->
+		<script src="<?php echo constant('URL');?>src/js/table_buscar.js"></script>
 
 
 

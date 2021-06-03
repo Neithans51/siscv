@@ -132,7 +132,7 @@
 											</td>
                                           
                                         	<td><?php echo substr($user->motivo, 0,40); ?></td>
-											<td><?php echo $user->nacionalidad."-".$user->cedula; ?></td>
+											<td><?php echo $user->cedula; ?></td>
 										
                                         <!--<td><?php echo $user->nombres; ?></td>
                                             <td><?php echo $user->apellidos; ?></td>
@@ -161,6 +161,111 @@
 					
 						
 					<!-- end: page -->
+
+
+
+
+
+
+
+
+
+
+					
+					<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<!--<a href="#" class="fa fa-caret-down"></a>
+									<a href="#" class="fa fa-times"></a>-->
+								</div>
+						
+								<h2 class="panel-title">Lista de Visitantes sin marcar su Salida </h2>
+								<p class="panel-subtitle">
+											Visitantes registrados en el sistema
+								</p>
+							</header>
+							<div class="panel-body">
+                            <?php echo $this->mensaje; ?>
+								<table class="table table-bordered table-striped mb-none" id="datatable-default2">
+									<thead>
+										<tr>
+											<th>Cod. Pase</th>
+                                            <th>Estatus</th>
+											<th>Entrada</th>
+											<th>Salida</th>
+                                            <th>Motivo</th>
+											<th>Cedula</th>
+                                            
+											<!--<th>Nombres</th>
+                                            <th>Apellidos</th>
+											<th>Telefono</th>-->
+											<th>Tipo</th>
+											<th>Acciones</th>
+										</tr>
+									</thead>
+									<tbody>
+									<?php include_once 'models/cvubv.php';
+															foreach($this->visitantes as $row){
+															$user=new Cvubv();
+															$user=$row;
+															
+															if(empty($user->fecha_salida)){ // MOSTRAMOS SOLO LOS PASES SIN SALIDA
+															?> 
+										<tr class="gradeX">
+
+											<td><b><?php echo $user->pase; ?></b></td>
+                                            <td>
+                                            <?php 
+											if(empty($user->fecha_salida)){
+												echo '<span class="label label-success">&nbsp;&nbsp;Entrada&nbsp;&nbsp;&nbsp;</span>';
+											}else{
+												echo '<span class="label label-danger">&nbsp;&nbsp;&nbsp;&nbsp;Salida&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+											}
+
+										
+											 ?>
+                                            </td>
+                                            <td><?php echo date("d/m/Y H:i", strtotime($user->fecha_ingreso)); ?></td>
+											<td>
+											<?php 
+											if(!empty($user->fecha_salida)){
+											 echo date("d/m/Y H:i", strtotime($user->fecha_salida));
+											}
+											 ?>
+											
+											</td>
+                                          
+                                        	<td><?php echo substr($user->motivo, 0,40); ?></td>
+											<td><?php echo $user->cedula; ?></td>
+										
+                                        <!--<td><?php echo $user->nombres; ?></td>
+                                            <td><?php echo $user->apellidos; ?></td>
+                                            <td><?php echo $user->telefono; ?></td>-->
+											<td><?php echo $user->persona_tipo; ?></td>
+											
+											 <td>
+											<!-- <a href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario."/1";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-edit"></i>Editar</button></a>-->
+											 <a href="<?php echo constant ('URL') . "visitante/VerVisitante/".$user->id_visitante;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-eye"></i> &nbsp;&nbsp; Ver  &nbsp;&nbsp;&nbsp;</button></a>
+                                             <!--<a title="Cambiar Estatus" href="<?php echo constant ('URL') . "usuario/VerUsuario/".$user->id_usuario;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-refresh"></i> Estatus</button></a>-->
+                                        <?php if(empty($user->fecha_salida)){ ?>
+										     <a type="button" class="" data-id="<?php echo constant ('URL') . "visitante/CambiarEstatus/".$user->id_visitante;?>" data-toggle="modal" data-target="#ModalDelete" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><button data-toggle="tooltip" type="button" class="mb-xs mt-xs mr-xs btn btn-primary"  title="Cambiar Estatus"><i class="fa fa-refresh"></i> Estatus</i></button></a>
+										<?php }?>
+
+											 </td>
+										
+										</tr>
+
+										<?php } }?> 
+										
+									</tbody>
+								</table>
+								
+							</div>
+						</section>	
+					
+
+
+
 
 
 
@@ -258,6 +363,8 @@
 	</script>
   <!--end eliminar registro-->
 	
+	<!-- Cambiar placeholder de buscardor y ocultar records per page-->
+	<script src="<?php echo constant('URL');?>src/js/table_buscar.js"></script>
 
     </body>
 </html>

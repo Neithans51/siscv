@@ -104,7 +104,7 @@
 										<tr class="gradeX">
 
                                           <!--  <td><?php echo date("Y/m/d", strtotime($user->fecha_ingreso)); ?></td>-->
-											<td><?php echo $user->nacionalidad."-".$user->cedula; ?></td>
+											<td><?php echo $user->cedula; ?></td>
 										
 											<td><?php echo $user->nombres; ?></td>
                                             <td><?php echo $user->apellidos; ?></td>
@@ -178,7 +178,9 @@
     <!-- Examples Modal para mensajes -->
 	   <script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
 	
-
+		<!-- Cambiar placeholder de buscardor y ocultar records per page-->
+		<script src="<?php echo constant('URL');?>src/js/table_buscar.js"></script>
+														
 
 
 	

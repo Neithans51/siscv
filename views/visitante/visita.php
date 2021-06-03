@@ -87,7 +87,7 @@
                                  <?php 
                                 list($pnom, $snom) = explode(" ", $this->usuarios[0]->nombres);
                                 list($pape, $sape) = explode(" ", $this->usuarios[0]->apellidos);
-                                echo  $this->usuarios[0]->nacionalidad."-".$this->usuarios[0]->cedula." ".$pnom. " ".$pape; ?>
+                                echo  "C.I. ".$this->usuarios[0]->cedula." ".$pnom. " ".$pape; ?>
                                 
                              </h2>
 								<p class="panel-subtitle">
@@ -269,6 +269,8 @@
 	</script>
   <!--end eliminar registro-->
 	
+	<!-- Cambiar placeholder de buscardor y ocultar records per page-->
+	<script src="<?php echo constant('URL');?>src/js/table_buscar.js"></script>
 
     </body>
 </html>

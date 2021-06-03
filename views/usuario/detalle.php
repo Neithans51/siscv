@@ -92,7 +92,7 @@
 							<section class="panel">
 								<div class="panel-body">
 									<div class="thumb-info mb-md">
-										<img src="<?php echo constant ('URL') .$this->usuario->documento; ?>" class="rounded img-responsive" alt="John Doe">
+										<img src="<?php echo constant ('URL') .$this->usuario->documento; ?>" class="rounded img-responsive" alt="">
 										<div class="thumb-info-title">
 
 										<?php  list($pnombre, $snombre) = explode(" ", $this->usuario->nombres);
@@ -168,7 +168,7 @@
 															<?php echo $this->usuario->cedula; ?>
 															</p>
 
-															<p class="text-muted mb-none">Nacionalidad</p>
+														<!--	<p class="text-muted mb-none">Nacionalidad</p>
 															<p>
 															<?php if($this->usuario->nacionalidad=="V"){ 
 																echo "Venezolano";
@@ -176,7 +176,7 @@
 															    echo "Extranjero";
 																}
 															?>
-															</p>
+															</p>-->
 
 															<p class="text-muted mb-none">Nombre</p>
 															<p>
@@ -256,7 +256,7 @@
 
 									<div class="alert alert-info" >
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Los campos marcados con <span class="required">*</span> son requeridos</strong> 
+										<strong>Los campos marcados con <span class="required">*</span> son requeridos, La subida máxima de archivos es en extensión .JPG  de  2MB 0 2000000 Kbs</strong> 
 									</div>
 
 							<!--	End alerts	-->
@@ -271,7 +271,7 @@
 													<input type="hidden"  id="id_usuario"  name="id_usuario" value="<?php echo $this->usuario->id_usuario; ?>"/>
 													<input type="hidden"  id="id_persona"  name="id_persona" value="<?php echo $this->usuario->id_persona; ?>"/>
 													<input type="hidden" id="foto_ubv" name="foto_ubv" value="<?php echo $this->usuario->documento; ?>">
-													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula Ej. V-00000000 o E-00000000" onkeyup="javascript:this.value=this.value.toUpperCase();"  value="<?php echo $this->usuario->nacionalidad."-".$this->usuario->cedula; ?>"/>
+													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula " onkeypress="return valSoloNumeros(event)"  value="<?php echo $this->usuario->cedula; ?>"/>
 												</div>
 											</div>
 											<div class="form-group">
@@ -374,6 +374,13 @@
 													<div class="form-check radio_check checkbox-inline">
 														<input class="form-check-input" type="radio" name="radio_select" id="radiosfoto" value="1" >
 														<label class="form-check-label" for="radiosfoto">Seleccionar Foto</label>
+														<style>
+														.errorr{
+															color: #B94A48;
+														}
+														</style>
+														<div class="errorr" id="errores"></div>
+													
 													</div>
 													<div class="form-check radio_check checkbox-inline">
 														<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
@@ -574,6 +581,8 @@ $(document).ready(function(){
 						//	$("#registro-form")[0].reset(); //RESETEAR FORM
 							//CHECKED FOTO
 							//$("#radiosfoto").click();
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							setTimeout(refrescar, 10000);//Refrescar en 10 min
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
@@ -587,10 +596,14 @@ $(document).ready(function(){
 							 $("#perfil").select2("val", "");
 							 $("#departamento").select2("val", "");*/
 						}else if(response.registrer == true){
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#registrado').slideDown(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						}else{
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
@@ -617,6 +630,8 @@ $(document).ready(function(){
 						//$("#registro-form")[0].reset(); //RESETEAR FORM
 						//CHECKED FOTO
 						//$("#radiosfoto").click();
+						$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 						setTimeout(refrescar, 10000);//Refrescar en 10 min
 						$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 						$('#danger').slideUp(); // OCULTAR ALERTA error
@@ -630,10 +645,14 @@ $(document).ready(function(){
 						$("#perfil").select2("val", "");
 						$("#departamento").select2("val", "");*/
 						}else if(response.registrer == true){
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#registrado').slideDown(); //  MOSTRAR ALERTA error 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						}else{
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
@@ -661,6 +680,7 @@ $(document).ready(function(){
 						//	$("#registro-form")[0].reset(); //RESETEAR FORM
 							//CHECKED FOTO
 						//	$("#radiosfoto").click();
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
 							setTimeout(refrescar, 10000);//Refrescar en 10 min
 							$('#success').slideDown(); // MOSTRAR ALERTA EXITOSA
 							$('#danger').slideUp(); // OCULTAR ALERTA error
@@ -676,10 +696,14 @@ $(document).ready(function(){
 							
 
 						}else if(response.registrer == true){
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#registrado').slideDown(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						} else {
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 						//	console.log("no ok");
 						//	swal("MENSAJE", response.messages , "error");
 							$('#success').slideUp(); // OCULTAR ALERTA 
@@ -704,7 +728,7 @@ $(document).ready(function(){
 			/*Validar Cedula Venezolana */
 			//this.value=this.value.toUpperCase();
 
-			var pattern = /\d/,
+/*			var pattern = /\d/,
 			caja = document.getElementById("cedula");
 		
 			caja.addEventListener("keypress", function(e){
@@ -718,10 +742,31 @@ $(document).ready(function(){
 			if (this.value.length === 1)
 				this.value += "-";
 					}, false); 
-
+*/
 			
 
 /**Buscar usuario */
+ //VALIDAR PESO Y EXTENSION DE ARCHIVO
+ $('#subirfoto').change( function() {
+		if(this.files[0].size > 2000000) { // 512000 bytes = 500 / Kb 2000000= 2MB
+			  	$(this).val('');
+		    	$('#errores').html("El archivo supera el límite de peso permitido.");
+		} else { //ok
+			var formato = (this.files[0].name).split('.').pop();
+			//alert(formato);
+				if(formato.toLowerCase() == 'jpg' ) {
+				//	$('#errores').html("IMAGEN VALIDA, Ha pasado la prueba con éxito.");
+				$('#errores').html("");
+				} else {
+					$(this).val('');
+					$('#errores').html("Formato no soportado");
+				
+				}
+			}
+	});
+
+
+
 
 
 });

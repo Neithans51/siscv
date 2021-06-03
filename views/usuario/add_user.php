@@ -130,7 +130,7 @@
 
 									<div class="alert alert-info" >
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Los campos marcados con <span class="required">*</span> son requeridos</strong> 
+										<strong>Los campos marcados con <span class="required">*</span> son requeridos, La subida máxima de archivos es en extensión .JPG  de  2MB 0 2000000 Kbs</strong> 
 									</div>
 
 							<!--	End alerts	-->
@@ -150,7 +150,7 @@
 									<div class="form-group">
 											<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula Ej. V-00000000 o E-00000000" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+												<input type="text"  id="cedula"  name="cedula" class="form-control required" onkeypress="return valSoloNumeros(event)" placeholder="Escriba su número de cedula "  maxlength='20' minlength="5" />
 											</div>
 
 										</div>
@@ -246,7 +246,18 @@
 													<div class="form-check radio_check checkbox-inline">
 														<input class="form-check-input" type="radio" name="radio_select" id="radiosfoto" value="1" >
 														<label class="form-check-label" for="radiosfoto">Seleccionar Foto</label>
+									<style>
+									.errorr{
+										color: #B94A48;
+									}
+									</style>
+											<div class="errorr" id="errores"></div>
+								
+													
+												
 													</div>
+
+
 													<div class="form-check radio_check checkbox-inline">
 														<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
 														<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
@@ -416,6 +427,9 @@ $(document).ready(function(){
 				
 						if (response.success == true) {
 							//	swal("MENSAJE", response.messages , "success");
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
+
 							$("#registro-form")[0].reset(); //RESETEAR FORM
 							//CHECKED FOTO
 							$("#radiosfoto").click();
@@ -431,10 +445,14 @@ $(document).ready(function(){
 							 $("#perfil").select2("val", "");
 							 $("#departamento").select2("val", "");
 						}else if(response.registrer == true){
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#registrado').slideDown(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						}else{
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
@@ -457,6 +475,8 @@ $(document).ready(function(){
 					success: function(response){
 
 						if (response.success == true) {
+						$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 						//	swal("MENSAJE", response.messages , "success");
 						$("#registro-form")[0].reset(); //RESETEAR FORM
 						//CHECKED FOTO
@@ -474,10 +494,14 @@ $(document).ready(function(){
 						$("#perfil").select2("val", "");
 						$("#departamento").select2("val", "");
 						}else if(response.registrer == true){
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#registrado').slideDown(); //  MOSTRAR ALERTA error 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						}else{
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#registrado').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideDown(); // MOSTRAR ALERTA error
@@ -500,6 +524,8 @@ $(document).ready(function(){
 					},*/
 					success : function(response) {
 						if (response.success == true) {
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							console.log("ok");
 						//	swal("MENSAJE", response.messages , "success");
 							$("#registro-form")[0].reset(); //RESETEAR FORM
@@ -520,10 +546,14 @@ $(document).ready(function(){
 							
 
 						}else if(response.registrer == true){
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 							$('#registrado').slideDown(); // OCULTAR ALERTA 
 							$('#success').slideUp(); // OCULTAR ALERTA 
 							$('#danger').slideUp(); // MOSTRAR ALERTA error
 						} else {
+							$('html, body').animate({scrollTop:0}, 'slow');//VOLVER AL INICIO
+
 						//	console.log("no ok");
 						//	swal("MENSAJE", response.messages , "error");
 							$('#success').slideUp(); // OCULTAR ALERTA 
@@ -548,7 +578,7 @@ $(document).ready(function(){
 			/*Validar Cedula Venezolana */
 			//this.value=this.value.toUpperCase();
 
-			var pattern = /\d/,
+	/*		var pattern = /\d/,
 			caja = document.getElementById("cedula");
 		
 			caja.addEventListener("keypress", function(e){
@@ -562,7 +592,7 @@ $(document).ready(function(){
 			if (this.value.length === 1)
 				this.value += "-";
 					}, false); 
-
+*/
 			
 
 /**Buscar usuario */
@@ -645,6 +675,52 @@ $('#cedula').keyup(function(e) {
   });
 
 });
+
+
+/*$(document).on('change','input[type="file"]',function(){			
+			
+			var fileName = this.files[0].name;
+			var fileSize = this.files[0].size;
+
+				var ext = fileName.split('.');
+                // ahora obtenemos el ultimo valor despues el punto
+                // obtenemos el length por si el archivo lleva nombre con mas de 2 puntos
+                ext = ext[ext.length-1];
+
+				switch (ext) {
+					case 'xlsx':
+						$('#tamanoArchivo').text(fileSize+" bytes en "+ext);
+					break;	
+					case 'csv': 
+						$('#tamanoArchivo').text(fileSize+" bytes "+ext);
+					break;
+					default:
+						alert('El archivo no tiene la extensión adecuada');
+						this.value = ''; // reset del valor
+						this.files[0].name = '';
+					break;	
+				}
+		});*/
+
+ //VALIDAR PESO Y EXTENSION DE ARCHIVO
+		$('#subirfoto').change( function() {
+		if(this.files[0].size > 2000000) { // 512000 bytes = 500 / Kb 2000000= 2MB
+			  	$(this).val('');
+		    	$('#errores').html("El archivo supera el límite de peso permitido.");
+		} else { //ok
+			var formato = (this.files[0].name).split('.').pop();
+			//alert(formato);
+				if(formato.toLowerCase() == 'jpg' ) {
+				//	$('#errores').html("IMAGEN VALIDA, Ha pasado la prueba con éxito.");
+				$('#errores').html("");
+				} else {
+					$(this).val('');
+					$('#errores').html("Formato no soportado");
+				
+				}
+			}
+	});
+
 
 
 });

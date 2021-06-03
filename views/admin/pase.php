@@ -184,6 +184,8 @@
    <!-- Examples Modal para mensajes -->
 	 <script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
 	
+	<!-- Cambiar placeholder de buscardor y ocultar records per page-->
+	<script src="<?php echo constant('URL');?>src/js/table_buscar.js"></script>
 
 <script>
 //Script para que el menu se quede en donde se seleciono-->
@@ -193,6 +195,7 @@ $('ul.nav a').filter(function () {
    return this.href == url;
 }).parents('li').addClass('active');
 */
+
 </script>
 
 	
