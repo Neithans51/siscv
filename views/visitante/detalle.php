@@ -900,9 +900,11 @@ function refrescar(){
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
 
-   <!-- Examples Modal para mensajes -->
+   		<!-- Examples Modal para mensajes -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
 	
+		<!-- Active menu-->
+		<script src="<?php echo constant('URL');?>src/js/active.js"></script>
 
 	
 

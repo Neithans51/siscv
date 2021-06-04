@@ -60,6 +60,9 @@
 		width: 14%;
 		height: 2%;
 	}
+	.sidebar-left .sidebar-header .sidebar-title {
+    color: #7f8c9a;
+	}
 	</style>
 	<!-- start: header -->
     <header class="header">
@@ -71,6 +74,8 @@
 						<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
 					</div>
 				</div>
+			
+
 			
 				<!-- start: search & user box -->
 				<div class="header-right">
@@ -85,8 +90,14 @@
 					</form>
 			
 					<span class="separator"></span>-->
-			
-			
+					
+					<script> 
+                                    var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+                                    var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+                                    var f=new Date();
+                                    document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+                                </script> 
+
 					<span class="separator"></span>
 			
 					<div id="userbox" class="userbox">
@@ -154,19 +165,18 @@
 						<div class="nano-content">
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
+									
+									
 									<li class="">
 										<a href="<?php echo constant('URL');?>home">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Inicio</span>
 										</a>
 									</li>
-								<!--	<li>
-										<a href="mailbox-folder.html">
-											<span class="pull-right label label-primary">182</span>
-											<i class="fa fa-envelope" aria-hidden="true"></i>
-											<span>Mailbox</span>
-										</a>
-									</li>-->
+							
+								
+
+								<?php if($_SESSION['id_usuario_perfil']=='1'){ // ADMINISTRADOR?>
 									<li class="nav-parent">
 										<a>
 											<i class="fa fa-cog" aria-hidden="true"></i>
@@ -192,6 +202,8 @@
 											
 										</ul>
 									</li>
+								
+
 									<li class="nav-parent">
 										<a>
 											<i class="fa fa-user" aria-hidden="true"></i>
@@ -212,6 +224,9 @@
 											
 										</ul>
 									</li>
+									<?php } ?>
+
+
 									<li class="nav-parent">
 										<a>
 											<i class="fa fa-list-alt" aria-hidden="true"></i>
@@ -239,6 +254,8 @@
 										</ul>
 									</li>
 									
+
+
 								</ul>
 							</nav>
 				

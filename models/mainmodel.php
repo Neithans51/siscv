@@ -19,7 +19,7 @@
                     
 
                 $query=$this->db->connect()->prepare("SELECT usuario.id_usuario,usuario,password,estatus,cedula,nombres,apellidos,correo,
-                departamento.descripcion AS departamento, persona.id_persona,usuario_perfil.descripcion AS perfil,documento
+                departamento.descripcion AS departamento, persona.id_persona,usuario_perfil.id_usuario_perfil,usuario_perfil.descripcion AS perfil,documento
                 FROM usuario,usuario_perfil,persona,departamento 
                 WHERE usuario.id_usuario_perfil=usuario_perfil.id_usuario_perfil
                 AND usuario.id_persona=persona.id_persona
@@ -42,7 +42,8 @@
                     
                     $_SESSION['id_perfil']=$var['id_perfil'];
                     $_SESSION['documento']=$var['documento'];
-                    
+
+                    $_SESSION['id_usuario_perfil']=$var['id_usuario_perfil'];
                     $_SESSION['perfil']=$var['perfil'];
                     $_SESSION['bienvenido']=1;
                   

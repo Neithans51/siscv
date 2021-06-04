@@ -185,7 +185,7 @@
 								</p>
 							</header>
 							<div class="panel-body">
-                            <?php echo $this->mensaje; ?>
+                            <?php echo $this->mensaje2; ?>
 								<table class="table table-bordered table-striped mb-none" id="datatable-default2">
 									<thead>
 										<tr>
@@ -365,6 +365,10 @@
 	
 	<!-- Cambiar placeholder de buscardor y ocultar records per page-->
 	<script src="<?php echo constant('URL');?>src/js/table_buscar.js"></script>
+
+	<!-- Active menu-->
+	<script src="<?php echo constant('URL');?>src/js/active.js"></script>
+
 
     </body>
 </html>

@@ -89,9 +89,12 @@
 															
 														</div>
 													</div>
+													<?php if($_SESSION['id_usuario_perfil']=='1'){ // ADMINISTRADOR?>
 													<div class="summary-footer">
 														<a href="<?php echo constant('URL');?>admin" class="text-muted text-uppercase">Ver Más</a>
 													</div>
+													<?php } ?>
+
 												</div>
 											</div>
 										</div>
@@ -108,10 +111,26 @@
 												</div>
 												<div class="widget-summary-col">
 													<div class="summary">
-														<h4 class="title">Total de Visitas</h4>
+														<h4 class="title">Total de Entradas / Sin Salida</h4>
 														<div class="info">
-															<strong class="amount"><?php echo $this->estadistica->visitas; ?></strong>
+															<strong class="amount" title="U"><?php echo $this->estadistica->visitas; ?></strong> &nbsp;
+															
+															
+															<?php include_once 'models/cvubv.php';
+															$cont=0;
+															foreach($this->visitantes as $row){
+															$user=new Cvubv();
+															$user=$row;
+															//echo $user->fecha_salida."<br>"; 
+															if(empty($user->fecha_salida)){ // MOSTRAMOS SOLO LOS PASES SIN SALIDA
+																echo $user->fecha_salida."<br>"; 
+																$cont=$cont+1;
+															}
+														}
+															?> 
+															<strong class="amount" title="Sin Salida"><?php echo $cont; ?></strong>
 														</div>
+														
 													</div>
 													<div class="summary-footer">
 														<a href="<?php echo constant('URL');?>visitante/Verificar" class="text-muted text-uppercase">Ver Más</a>
@@ -161,9 +180,11 @@
 															<strong class="amount"><?php echo $this->estadistica->usuarios; ?></strong>
 														</div>
 													</div>
+													<?php if($_SESSION['id_usuario_perfil']=='1'){ // ADMINISTRADOR?>
 													<div class="summary-footer">
 														<a href="<?php echo constant('URL');?>usuario"  class="text-muted text-uppercase">Ver Más</a>
 													</div>
+													<?php } ?>
 												</div>
 											</div>
 										</div>
@@ -257,16 +278,18 @@
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
 	
 
-<?php 
-if($_SESSION['bienvenido']==1){
-	unset($_SESSION['bienvenido']);?>
-<script>
-	//jQuery.noConflict(); 
-$('#Bienvenido').modal();
-</script>
-<?php }?>
+		<?php 
+		if($_SESSION['bienvenido']==1){
+			unset($_SESSION['bienvenido']);?>
+		<script>
+			//jQuery.noConflict(); 
+		$('#Bienvenido').modal();
+		</script>
+		<?php }?>
 
-	
+		<!-- Active menu-->
+		<script src="<?php echo constant('URL');?>src/js/active.js"></script>
+
     
     </body>
 </html>

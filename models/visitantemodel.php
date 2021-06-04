@@ -883,7 +883,7 @@ class VisitanteModel extends Model{
                 public function Obtener_user($estatus,$id_visitante){//Valisa el usuario que lo recibe en entradas y salidas
                   try{
                     
-                    $query =$this->db->connect()->prepare("SELECT nacionalidad,cedula, nombres,apellidos FROM visitante_detalle,usuario,persona
+                    $query =$this->db->connect()->prepare("SELECT cedula, nombres,apellidos FROM visitante_detalle,usuario,persona
                     WHERE visitante_detalle.id_usuario=usuario.id_usuario
                    AND usuario.id_persona=persona.id_persona
                     AND visitante_detalle.estatus=:estatus AND id_visitante=:id_visitante");
@@ -893,7 +893,7 @@ class VisitanteModel extends Model{
                     list($pnom, $snom) = explode(" ", $visita['nombres']);
                     list($pape, $sape) = explode(" ", $visita['apellidos']);
 
-                    return  $visita['nacionalidad']."-".$visita['cedula']." ".$pnom." ".$pape; //USUARIO
+                    return  "C.I. ".$visita['cedula']." ".$pnom." ".$pape; //USUARIO
 
                   } catch(PDOException $e){
                     return null;

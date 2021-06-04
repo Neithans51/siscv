@@ -21,11 +21,11 @@
 
 
       if($data=$this->model->ValVisitante($id_visitante)){
-        $mensaje="<div class='alert alert-danger alert-dismissable'>
+        $mensaje2="<div class='alert alert-danger alert-dismissable'>
         <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
         El Cod pase <a class='alert-link' href='#'> " . $data . "</a> Yas Se encuentra actualizado 
         </div>";
-        $this->view->mensaje=$mensaje;
+        $this->view->mensaje2=$mensaje2;
         if($vista=='1'){
           $this->VerVisita($id_persona);
          }else{

@@ -182,8 +182,8 @@
 		<!-- Cambiar placeholder de buscardor y ocultar records per page-->
 		<script src="<?php echo constant('URL');?>src/js/table_buscar.js"></script>
 
-<!-- Active menu-->
-<script src="<?php echo constant('URL');?>src/js/active.js"></script>
+		<!-- Active menu-->
+		<script src="<?php echo constant('URL');?>src/js/active.js"></script>
 
 
 	

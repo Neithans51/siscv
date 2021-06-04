@@ -100,7 +100,7 @@
                 $_SESSION['apellidos'],
                 $_SESSION['departamento'],
                 $_SESSION['correo'],
-                $_SESSION['id_perfil'],
+                $_SESSION['id_usuario_perfil'],
                 $_SESSION['perfil'],
                 $_SESSION['documento'],
                 $_SESSION['bienvenido'],

@@ -308,7 +308,7 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Teléfono </label>
 											<div class="col-md-8">
-												<input type="text" id="telefono" name="telefono"  data-plugin-masked-input data-input-mask="(9999) 999-9999" class="form-control required" placeholder="Escriba su numero de teléfono"  value="<?php echo $this->usuario->telefono; ?>"/>
+												<input type="text" id="telefono" name="telefono"  data-plugin-masked-input data-input-mask="(9999) 999-9999" class="form-control" placeholder="Escriba su numero de teléfono"  value="<?php echo $this->usuario->telefono; ?>"/>
 											</div>
 										</div>
 
@@ -792,11 +792,13 @@ function refrescar(){
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
 
-   <!-- Examples Modal para mensajes -->
+  		 <!-- Examples Modal para mensajes -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/ui-elements/examples.modals.js"></script>
 	
 
-	
+		<!-- Active menu-->
+		<script src="<?php echo constant('URL');?>src/js/active.js"></script>
+
 
 
     </body>

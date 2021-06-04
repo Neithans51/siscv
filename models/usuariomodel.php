@@ -319,10 +319,10 @@ class UsuarioModel extends Model{
           
                         //Tabla usuario
                       $query=$pdo->prepare('UPDATE usuario
-                      SET estatus=:estatus,id_departamento=:id_departamento, id_usuario_perfil=:id_usuario_perfil
+                      SET usuario=:usuario,estatus=:estatus,id_departamento=:id_departamento, id_usuario_perfil=:id_usuario_perfil
                     WHERE id_persona=:id_persona');
                      
-                      $query->execute(['estatus'=>$datos['estatus'],
+                      $query->execute(['usuario'=>"ubv".$datos['cedula'],'estatus'=>$datos['estatus'],
                       'id_departamento'=>$datos['departamento'],
                       'id_usuario_perfil'=>$datos['perfil'],'id_persona'=>$datos['id_persona']]);
 
@@ -369,10 +369,10 @@ class UsuarioModel extends Model{
           
                         //Tabla usuario
                       $query=$pdo->prepare('UPDATE usuario
-                      SET estatus=:estatus,id_departamento=:id_departamento, id_usuario_perfil=:id_usuario_perfil
+                      SET usuario=:usuario,estatus=:estatus,id_departamento=:id_departamento, id_usuario_perfil=:id_usuario_perfil
                     WHERE id_persona=:id_persona');
                      
-                      $query->execute(['estatus'=>$datos['estatus'],
+                      $query->execute(['usuario'=>"ubv".$datos['cedula'],'estatus'=>$datos['estatus'],
                       'id_departamento'=>$datos['departamento'],
                       'id_usuario_perfil'=>$datos['perfil'],'id_persona'=>$datos['id_persona']]);
 
@@ -409,10 +409,10 @@ class UsuarioModel extends Model{
             
                           //Tabla usuario
                         $query=$pdo->prepare('UPDATE usuario
-                        SET estatus=:estatus,id_departamento=:id_departamento, id_usuario_perfil=:id_usuario_perfil
+                        SET usuario=:usuario,estatus=:estatus,id_departamento=:id_departamento, id_usuario_perfil=:id_usuario_perfil
                       WHERE id_persona=:id_persona');
                        
-                        $query->execute(['estatus'=>$datos['estatus'],
+                        $query->execute(['usuario'=>"ubv".$datos['cedula'],'estatus'=>$datos['estatus'],
                         'id_departamento'=>$datos['departamento'],
                         'id_usuario_perfil'=>$datos['perfil'],'id_persona'=>$datos['id_persona']]);
   

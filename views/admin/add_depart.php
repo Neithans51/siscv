@@ -238,6 +238,9 @@
 	
 	<!-- Validar el ingreso de letra o numeros en input -->
 	<script src="<?php echo constant('URL');?>src/js/val_letras.js"></script>
+		<!-- Active menu-->
+	<script src="<?php echo constant('URL');?>src/js/active.js"></script>
+
 
     </body>
 </html>

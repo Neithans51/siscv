@@ -229,6 +229,9 @@
       });
         </script>
 	
+			<!-- Active menu-->
+		<script src="<?php echo constant('URL');?>src/js/active.js"></script>
+
 
     </body>
 </html>

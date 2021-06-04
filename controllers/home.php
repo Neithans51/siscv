@@ -11,6 +11,11 @@ include_once 'session_admin.php';
         $estadistica=$this->model->getEstadistica();
         $this->view->estadistica=$estadistica;
 
+
+        $visitantes=$this->model->getTotalVisitantes();
+        $this->view->visitantes=$visitantes;
+  
+       // var_dump($visitantes); exit();
         $this->view->render('home/index');
     }
 
