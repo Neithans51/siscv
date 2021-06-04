@@ -154,7 +154,7 @@
 						<div class="nano-content">
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
-									<li class="nav-active">
+									<li class="">
 										<a href="<?php echo constant('URL');?>home">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Inicio</span>
