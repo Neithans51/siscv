@@ -18,7 +18,7 @@
 
                     
 
-                $query=$this->db->connect()->prepare("SELECT usuario.id_usuario,usuario,password,estatus,cedula,nombres,apellidos,correo,
+                $query=$this->db->connect()->prepare("SELECT usuario.id_persona,usuario.id_usuario,usuario,password,estatus,cedula,nombres,apellidos,correo,
                 departamento.descripcion AS departamento, persona.id_persona,usuario_perfil.id_usuario_perfil,usuario_perfil.descripcion AS perfil,documento
                 FROM usuario,usuario_perfil,persona,departamento 
                 WHERE usuario.id_usuario_perfil=usuario_perfil.id_usuario_perfil
@@ -33,6 +33,7 @@
                     //variables de sesion
                     //session_start();
                     $_SESSION['id_usuario']=$var['id_usuario'];
+                    $_SESSION['id_persona']=$var['id_persona'];
                     $_SESSION['usuario']=$var['usuario'];
                     $_SESSION['nombres']=$var['nombres'];
                     $_SESSION['apellidos']=$var['apellidos'];
@@ -83,6 +84,90 @@
     }
 
     }
+
+
+
+    public function getTotalVisitanteshoy(){
+        $items=[];
+       try{
+      $query=$this->db->connect()->query("SELECT DISTINCT persona.id_persona,nacionalidad,cedula,
+      nombres,apellidos,telefono,persona_tipo.descripcion AS persona_tipo, 
+      motivo,pase.descripcion AS pase,visitante.id_visitante
+        FROM persona,visitante,pase,persona_tipo,visitante_detalle
+       WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
+       AND persona.id_persona=visitante.id_persona 
+       AND visitante.id_pase=pase.id_pase 
+       AND visitante.id_visitante=visitante_detalle.id_visitante  AND  CURRENT_DATE = date(fecha)");
+      
+  
+    
+      
+      while($row=$query->fetch()){
+      $item=new Cvubv();
+   
+      $item->id_visitante=$row['id_visitante'];
+  
+      $item->fecha_ingreso=$this->Obtener_fecha(1,$row['id_visitante']); //ENTRADA
+  
+      $item->fecha_salida=$this->Obtener_fecha(0,$row['id_visitante']); //SALIDA
+      
+      array_push($items,$item);
+      
+      }
+      return $items;
+      
+      }catch(PDOException $e){
+      return[];
+      }
+      
+      }
+  
+
+    public function getTotalVisitantes(){
+        $items=[];
+       try{
+      $query=$this->db->connect()->query("SELECT DISTINCT visitante.id_visitante
+        FROM persona,visitante,pase,persona_tipo,visitante_detalle
+       WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
+       AND persona.id_persona=visitante.id_persona 
+       AND visitante.id_pase=pase.id_pase 
+       AND visitante.id_visitante=visitante_detalle.id_visitante ");
+      
+      while($row=$query->fetch()){
+      $item=new Cvubv();
+     
+      $item->id_visitante=$row['id_visitante'];
+
+      $item->fecha_ingreso=$this->Obtener_fecha(1,$row['id_visitante']); //ENTRADA
+
+      $item->fecha_salida=$this->Obtener_fecha(0,$row['id_visitante']); //SALIDA
+
+
+      
+      
+      array_push($items,$item);
+      
+      }
+      return $items;
+      
+      }catch(PDOException $e){
+      return[];
+      }
+      
+      }
+
+      public function Obtener_fecha($estatus,$id_visitante){//Valida entradas o salidas
+        try{
+          
+          $query =$this->db->connect()->prepare("SELECT fecha FROM visitante_detalle WHERE estatus=:estatus AND id_visitante=:id_visitante ");
+          $query->execute(['estatus'=>$estatus,'id_visitante'=>$id_visitante]);
+          $visita = $query->fetch();
+
+          return  $visita['fecha'];
+        } catch(PDOException $e){
+          return null;
+        }
+      }
 
 
     }

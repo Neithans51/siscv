@@ -10,7 +10,15 @@
         $usuarios=$this->model->getUsuarios('departamento');
         $this->view->usuarios=$usuarios;
 
-        $this->view->render('usuario/index');
+             // SECCION DISPNIBLE PARA ADMIN
+             if($_SESSION['id_usuario_perfil'] == 1){
+              $this->view->render('usuario/index');
+            } else{
+                $this->view->render('errores/index');
+            }
+
+            
+   
     }
 
     function Registro(){
@@ -33,6 +41,7 @@
 
     function VerUsuario($param=null){
       $id_usuario=$param[0];
+      $vista=$param[1];
       
       $departamentos=$this->model->getCatalogo('departamento');
       $this->view->departamentos=$departamentos;
@@ -43,6 +52,8 @@
 
       $usuario = $this->model->Detalle($id_usuario);
       $this->view->usuario=$usuario;
+
+      $this->view->vista=$vista;
       $this->view->render('usuario/detalle');
     }
 

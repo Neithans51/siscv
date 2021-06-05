@@ -337,8 +337,11 @@ class UsuarioModel extends Model{
                       'id_persona'=>$datos['id_persona']]);
                         }
 
-
-
+                        //SI QUIEN ACTUALIZA ES EL USUARIO QQUE HA INICIADO SESION ACTUALIZAMOS SU  FOTO
+                        if($datos['id_persona']==$_SESSION['id_persona']){
+                          //session_start();
+                          $_SESSION['documento']=$datos['route_photo'];
+                        }
                       
           
                        }else if(!empty($datos["archivo"])){ //Guardar foto tomada del sistema
@@ -387,6 +390,11 @@ class UsuarioModel extends Model{
                         }
 
 
+                         //SI QUIEN ACTUALIZA ES EL USUARIO QQUE HA INICIADO SESION ACTUALIZAMOS SU  FOTO
+                         if($datos['id_persona']==$_SESSION['id_persona']){
+                          //session_start();
+                          $_SESSION['documento']=$url;
+                        }
                           
                           }
                         }

@@ -13,7 +13,7 @@ class VisitanteModel extends Model{
             $validator = array('asig_pase' => false, 'messages' => array());
 
             $sql = $this->db->connect()->prepare("SELECT pase.id_pase FROM visitante,pase WHERE
-            visitante.id_persona=(SELECT id_persona FROM persona WHERE cedula=:cedula)
+            visitante.id_persona=(SELECT id_persona FROM persona WHERE cedula=:cedula LIMIT 1)
             AND visitante.id_pase=pase.id_pase 
             AND estatus =:estatus LIMIT 1");
             $sql->execute(['cedula' =>$nro_cedula,'estatus' =>1]);
@@ -216,8 +216,8 @@ class VisitanteModel extends Model{
 
             //TABLA PERSONA
              $query1=$this->db->connect()->prepare("SELECT id_persona,cedula,nombres,apellidos,telefono,genero,nacionalidad,correo FROM persona
-             WHERE cedula=:cedula AND nacionalidad=:nacionalidad");
-             $query1->execute(['cedula'=>$nro_cedula,'nacionalidad'=>$nacionalidad]);
+             WHERE cedula=:cedula");
+             $query1->execute(['cedula'=>$cedula]);
 
              $row1=$query1->fetch();
 

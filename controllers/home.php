@@ -14,6 +14,9 @@ include_once 'session_admin.php';
 
         $visitantes=$this->model->getTotalVisitantes();
         $this->view->visitantes=$visitantes;
+
+        $visitanteshoy=$this->model->getTotalVisitanteshoy();
+        $this->view->visitanteshoy=$visitanteshoy;
   
        // var_dump($visitantes); exit();
         $this->view->render('home/index');

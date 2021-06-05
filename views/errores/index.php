@@ -14,7 +14,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 		<!-- Web Fonts  -->
-        <link href="<?php echo constant('URL');?>src/fonts/css.css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    <link href="<?php echo constant('URL');?>src/fonts/css.css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
         
 		<!-- Vendor CSS -->
 		<link rel="stylesheet" href="<?php echo constant('URL');?>src/assets/vendor/bootstrap/css/bootstrap.css" />
@@ -45,13 +45,21 @@
 					<!-- start: page -->
 						<section class="body-error error-inside">
 							<div class="center-error">
-
+<style>
+html.fixed .inner-wrapper {
+    padding-top: 22px;
+}
+</style>
 								<div class="row">
 									<div class="col-md-8">
 										<div class="main-error mb-xlg">
 											<h2 class="error-code text-dark text-center text-semibold m-none">404 <i class="fa fa-file"></i></h2>
+									
+									<br><br>
 											<p class="error-explanation text-center">Uups! Error 404 Página No Encontrada.</p>
-                                      <center>
+                          
+													<br>
+													            <center>
 
                                             <p>
                                             &copy; <script>document.write(new Date().getFullYear());</script>  
@@ -70,6 +78,9 @@
 										<ul class="nav nav-list primary">
 											<li>
 												<a href="<?php echo constant('URL');?>main"><i class="fa fa-caret-right text-dark"></i> Inicio</a>
+											</li>
+											<li>
+												<a href="<?php echo constant('URL');?>visitante"><i class="fa fa-caret-right text-dark"></i> Visitantes</a>
 											</li>
 											<!--<li>
 												<a href="#"><i class="fa fa-caret-right text-dark"></i> User Profile</a>

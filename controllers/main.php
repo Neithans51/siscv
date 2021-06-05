@@ -57,7 +57,12 @@
                 if($this->model->getLogin(['usuario'=> $usuario, 'contrasena' => $contrasena])){
                 
 
+                  $visitanteshoy=$this->model->getTotalVisitanteshoy();
+                  $this->view->visitanteshoy=$visitanteshoy;
 
+                  $visitantes=$this->model->getTotalVisitantes();
+                  $this->view->visitantes=$visitantes;
+              
                   $estadistica=$this->model->getEstadistica();
                   $this->view->estadistica=$estadistica;
 
@@ -104,6 +109,7 @@
                 $_SESSION['perfil'],
                 $_SESSION['documento'],
                 $_SESSION['bienvenido'],
+                $_SESSION['id_persona'],
 
                             );
             //var_dump($_SESSION);

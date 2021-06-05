@@ -92,7 +92,20 @@
 							<section class="panel">
 								<div class="panel-body">
 									<div class="thumb-info mb-md">
-										<img src="<?php echo constant ('URL') .$this->usuario->documento; ?>" class="rounded img-responsive" alt="">
+									
+									
+
+										<?php if(empty($this->usuario->documento)){ ?>
+											<img src="<?php echo constant ('URL') .'src/assets/images/!logged-user.jpg'; ?>" class="rounded img-responsive" alt="">
+												
+										<?php }else{?>
+											<img src="<?php echo constant ('URL') .$this->usuario->documento; ?>" class="rounded img-responsive" alt="">
+												
+										<?php }?>
+
+
+
+									
 										<div class="thumb-info-title">
 
 										<?php  list($pnombre, $snombre) = explode(" ", $this->usuario->nombres);
@@ -136,8 +149,10 @@
 						</div>
 						<div class="col-md-8 col-lg-9">
 						<div class="panel-actions">
-										<a title="Volver" href="<?php echo constant ('URL') . "usuario";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
 
+						<?php if($this->vista !='1'){?>
+										<a title="Volver" href="<?php echo constant ('URL') . "usuario";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+						<?php }?>
 						</div>
 						<br>
 							<div class="tabs">
@@ -225,7 +240,21 @@
 															<p>
 																Foto
 															</p>
-															<div class="thumbnail-gallery">
+															
+															
+															
+
+															<?php if(empty($this->usuario->documento)){ ?>
+																<div class="thumbnail-gallery">
+																<a class="img-thumbnail lightbox" href="<?php echo constant ('URL') .'src/assets/images/!logged-user.jpg'; ?>" data-plugin-options='{ "type":"image" }'>
+																	<img class="img-responsive" width="215" src="<?php echo constant ('URL') .'src/assets/images/!logged-user.jpg'; ?>">
+																	<span class="zoom">
+																		<i class="fa fa-search"></i>
+																	</span>
+																</a>
+															</div>
+															<?php }else{?>
+																<div class="thumbnail-gallery">
 																<a class="img-thumbnail lightbox" href="<?php echo constant ('URL') .$this->usuario->documento; ?>" data-plugin-options='{ "type":"image" }'>
 																	<img class="img-responsive" width="215" src="<?php echo constant ('URL') .$this->usuario->documento; ?>">
 																	<span class="zoom">
@@ -233,6 +262,11 @@
 																	</span>
 																</a>
 															</div>
+															<?php }?>
+
+
+
+
 														</div>
 													</li>
 												</ol>
@@ -271,7 +305,7 @@
 													<input type="hidden"  id="id_usuario"  name="id_usuario" value="<?php echo $this->usuario->id_usuario; ?>"/>
 													<input type="hidden"  id="id_persona"  name="id_persona" value="<?php echo $this->usuario->id_persona; ?>"/>
 													<input type="hidden" id="foto_ubv" name="foto_ubv" value="<?php echo $this->usuario->documento; ?>">
-													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula " onkeypress="return valSoloNumeros(event)"  value="<?php echo $this->usuario->cedula; ?>"/>
+													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula " onkeypress="return valSoloNumeros(event)"  value="<?php echo $this->usuario->cedula; ?>"  <?php if($this->vista=='1'){echo "readonly"; } //VIENE DE LA SECCION PERFRL ?>/>
 												</div>
 											</div>
 											<div class="form-group">
@@ -318,6 +352,18 @@
 													<input type="email" id="correo" name="correo" class="form-control" placeholder="Escriba su correo electrónico" maxlength='100' minlength="5" onkeyup="javascript:this.value=this.value.toLowerCase();"  value="<?php echo $this->usuario->correo; ?>"/>
 											</div>
 										</div>	
+
+
+
+										<?php if($this->vista=='1'){ //VIENE DE LA SECCION PERFIL ?>
+
+
+										<input type="hidden" value="<?php echo $this->usuario->id_departamento; ?>" id="departamento" name="departamento" >
+										<input type="hidden" value="<?php echo $this->usuario->id_usuario_perfil;?>" id="perfil" name="perfil">
+										<input type="hidden"value="<?php echo $this->usuario->estatus;?>" id="estatus" name="estatus">
+
+										<?php }else{ ?>
+
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Departamento <span class="required">*</span></label>
 											<div class="col-md-8">
@@ -362,7 +408,7 @@
 											</div>
 										</div>
 
-							
+										<?php } ?>
 
 									
 										<div class="form-group">
@@ -397,6 +443,13 @@
 
 										   </div>
 										</div>
+
+												
+
+
+
+
+
 
 
 											</fieldset>

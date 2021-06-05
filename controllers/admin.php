@@ -10,7 +10,16 @@
         function render(){ //Pases
           $pases=$this->model->getPases();
           $this->view->pases=$pases;
+
+            // SECCION DISPNIBLE PARA ADMIN
+         if($_SESSION['id_usuario_perfil'] == 1){
           $this->view->render('admin/pase');
+        } else{
+            $this->view->render('errores/index');
+        }
+
+
+         
         }
 
         function Pase(){//Paases

@@ -92,7 +92,17 @@
 							<section class="panel">
 								<div class="panel-body">
 									<div class="thumb-info mb-md">
-										<img src="<?php echo constant ('URL') .$this->usuario->documento; ?>" class="rounded img-responsive" alt="John Doe">
+
+
+										<?php if(empty($this->usuario->documento)){ ?>
+											<img src="<?php echo constant ('URL') .'src/assets/images/!logged-user.jpg'; ?>" class="rounded img-responsive" alt="">
+												
+										<?php }else{?>
+											<img src="<?php echo constant ('URL') .$this->usuario->documento; ?>" class="rounded img-responsive" alt="">
+												
+										<?php }?>
+
+									
 										<div class="thumb-info-title">
 
 										<?php  list($pnombre, $snombre) = explode(" ", $this->usuario->nombres);
@@ -220,7 +230,21 @@
 															<p>
 																Foto
 															</p>
-															<div class="thumbnail-gallery">
+
+
+								
+
+															<?php if(empty($this->usuario->documento)){ ?>
+																<div class="thumbnail-gallery">
+																<a class="img-thumbnail lightbox" href="<?php echo constant ('URL') .'src/assets/images/!logged-user.jpg'; ?>" data-plugin-options='{ "type":"image" }'>
+																	<img class="img-responsive" width="215" src="<?php echo constant ('URL') .'src/assets/images/!logged-user.jpg'; ?>">
+																	<span class="zoom">
+																		<i class="fa fa-search"></i>
+																	</span>
+																</a>
+															</div>
+															<?php }else{?>
+																<div class="thumbnail-gallery">
 																<a class="img-thumbnail lightbox" href="<?php echo constant ('URL') .$this->usuario->documento; ?>" data-plugin-options='{ "type":"image" }'>
 																	<img class="img-responsive" width="215" src="<?php echo constant ('URL') .$this->usuario->documento; ?>">
 																	<span class="zoom">
@@ -228,6 +252,12 @@
 																	</span>
 																</a>
 															</div>
+															<?php }?>
+
+
+
+
+
 														</div>
 													</li>
 												</ol>

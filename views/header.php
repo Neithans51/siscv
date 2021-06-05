@@ -131,11 +131,11 @@
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="<?php echo constant('URL').'usuario/VerUsuario/';?>"><i class="fa fa-user"></i> Perfil</a>
+									<a role="menuitem" tabindex="-1" href="<?php echo constant('URL').'usuario/VerUsuario/'. $_SESSION['id_usuario'].'/1';?>"><i class="fa fa-user"></i> Perfil</a>
 								</li>
-								<li>
+							<!--	<li>
 									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
-								</li>
+								</li>-->
 								<li>
 								<a class="modal-basic" href="#CerrarSessionModal"><i class="fa fa-power-off"></i> Cerrar Sesión</a>
 								

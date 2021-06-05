@@ -131,6 +131,8 @@
     function Save_photo(){//Se registra un usuario con foto
   
     //Datos genrales
+    $id_persona = $_POST["id_persona"];
+
     $cedula = $_POST["cedula"];
     $nombres = $_POST["nombres"];
     $apellidos = $_POST["apellidos"];
@@ -206,6 +208,8 @@
     function Save_img(){//Se registra un usuario con foto tomada del sistema
   
       //Datos genrales
+      $id_persona = $_POST["id_persona"];
+
       $cedula = $_POST["cedula"];
       $nombres = $_POST["nombres"];
       $apellidos = $_POST["apellidos"];
@@ -289,6 +293,7 @@
         $id_persona = $_POST["id_persona"];
 
         $cedula = $_POST["cedula"];
+        
         $nombres = $_POST["nombres"];
         $apellidos = $_POST["apellidos"];
         $genero = $_POST["genero"];

@@ -111,23 +111,36 @@
 												</div>
 												<div class="widget-summary-col">
 													<div class="summary">
-														<h4 class="title">Total de Entradas / Sin Salida</h4>
+														<h4 class="title">Total de Entradas / Sin Salida <br> <?php echo date('d/m/Y');?></h4>
 														<div class="info">
-															<strong class="amount" title="U"><?php echo $this->estadistica->visitas; ?></strong> &nbsp;
-															
-															
-															<?php include_once 'models/cvubv.php';
+
+																		
+														<?php include_once 'models/cvubv.php';
 															$cont=0;
 															foreach($this->visitantes as $row){
 															$user=new Cvubv();
 															$user=$row;
 															//echo $user->fecha_salida."<br>"; 
 															if(empty($user->fecha_salida)){ // MOSTRAMOS SOLO LOS PASES SIN SALIDA
-																echo $user->fecha_salida."<br>"; 
 																$cont=$cont+1;
 															}
-														}
+															}
+
+
+															$contador=0;
+															foreach($this->visitanteshoy as $row){
+															$user=new Cvubv();
+															$user=$row;
+															//echo $user->fecha_salida."<br>"; 
+															if(!empty($user->fecha_ingreso)){ // MOSTRAMOS SOLO LOS PASES DE HOY
+																$contador=$contador+1;
+															}
+															}
 															?> 
+
+															<strong class="amount" title="U"><?php echo $contador; ?></strong> &nbsp;
+															
+											
 															<strong class="amount" title="Sin Salida"><?php echo $cont; ?></strong>
 														</div>
 														
