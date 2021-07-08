@@ -625,59 +625,9 @@
 		<script src="<?php echo constant('URL');?>src/assets/vendor/nanoscroller/nanoscroller.js"></script>
 		<script src="<?php echo constant('URL');?>src/assets/vendor/magnific-popup/magnific-popup.js"></script>
 
-		
-		<!-- Specific Page Vendor -->
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-appear/jquery.appear.js"></script>
-
-		<!-- Specific Page Vendor -->
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-validation/jquery.validate.js"></script>
-		
-		<script src="<?php echo constant('URL');?>src/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
-			
-
-
-		<!-- Theme Base, Components and Settings -->
-		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.js"></script>
-		<!-- Theme Custom -->
-		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.custom.js"></script>
-		<!-- Theme Initialization Files -->
-		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
-		<!-- Examples -->
-		<script src="<?php echo constant('URL');?>src/assets/javascripts/dashboard/examples.dashboard.js"></script>
-    		
-	
-		<!-- Specific Page Vendor -->
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-validation/jquery.validate.js"></script>
-	
-		<!--Input mask-->
-		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-maskedinput/jquery.maskedinput.js"></script>
-		<!--Select2-->
-		<script src="<?php echo constant('URL');?>src/assets/vendor/select2/select2.js"></script>
-		
-			<!-- Tomar foto -->
+					<!-- Tomar foto -->
 		<script src="<?php echo constant('URL');?>src/js/camara.js"></script>
-		<!-- Validar el ingreso de letra o numeros en input -->
-		<script src="<?php echo constant('URL');?>src/js/val_letras.js"></script>
 
-		
-		<script>
-			$(".select2_demo_3").select2({
-                placeholder: "Seleccione",
-                width: "100%",
-                dropdownAutoWidth: true,
-                allowClear: true
-            });
-							     //select no search
-    $(".select2_demo_4").select2({
-                                placeholder: "Seleccione",
-                                width: "100%",
-                                dropdownAutoWidth: true,
-                                allowClear: true,
-                                minimumResultsForSearch: -1
-                            });
-							</script>
 		<script>
 
 
@@ -924,6 +874,59 @@ function refrescar(){
 
 	</script>
 
+
+		<!-- Specific Page Vendor -->
+		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
+		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-appear/jquery.appear.js"></script>
+
+		<!-- Specific Page Vendor -->
+		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-validation/jquery.validate.js"></script>
+		
+		<script src="<?php echo constant('URL');?>src/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
+			
+
+
+		<!-- Theme Base, Components and Settings -->
+		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.js"></script>
+		<!-- Theme Custom -->
+		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.custom.js"></script>
+		<!-- Theme Initialization Files -->
+		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>
+		<!-- Examples -->
+		<script src="<?php echo constant('URL');?>src/assets/javascripts/dashboard/examples.dashboard.js"></script>
+    		
+	
+		<!-- Specific Page Vendor -->
+		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-validation/jquery.validate.js"></script>
+	
+		<!--Input mask-->
+		<script src="<?php echo constant('URL');?>src/assets/vendor/jquery-maskedinput/jquery.maskedinput.js"></script>
+		<!--Select2-->
+		<script src="<?php echo constant('URL');?>src/assets/vendor/select2/select2.js"></script>
+		
+
+		<!-- Validar el ingreso de letra o numeros en input -->
+		<script src="<?php echo constant('URL');?>src/js/val_letras.js"></script>
+
+		
+		<script>
+			$(".select2_demo_3").select2({
+                placeholder: "Seleccione",
+                width: "100%",
+                dropdownAutoWidth: true,
+                allowClear: true
+            });
+							     //select no search
+    $(".select2_demo_4").select2({
+                                placeholder: "Seleccione",
+                                width: "100%",
+                                dropdownAutoWidth: true,
+                                allowClear: true,
+                                minimumResultsForSearch: -1
+                            });
+							</script>
+	
 
 
 
