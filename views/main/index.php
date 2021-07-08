@@ -73,7 +73,7 @@
 
 							<div class="form-group mb-lg">
 							<br>
-							<img src="<?php echo constant ('URL');?>src/captcha/captcha.php" alt="Captcha Image" maxlength="6" size="6" style="width: 199px; height: 51px;">
+							<img src="<?php echo constant ('URL');?>src/captcha/captcha.php" alt="Captcha Image" maxlength="6" size="6" style="width: 203px; height: 57px;">
 							<br>	<br>
 							<input autocomplete="off" style="text-align:center;" type="text" name="captcha" maxlength="15" placeholder="Ingrese el Captcha" class="form-control required">
 							</div>
