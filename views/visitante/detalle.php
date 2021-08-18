@@ -167,9 +167,11 @@
 										<a href="#visita" data-toggle="tab">Datos de la visita</a>
 									</li>
 
-									<li class="">
+								<!--	<li class="">
 										<a href="#edit" data-toggle="tab">Editar</a>
-									</li>
+									</li>-->
+
+									<!-- BOTON COMENTADO SIN EMBARGO LA SECCINO SE MANTIENE DEBIDO A QUE NADIE DE LOS NADIE PODRA EDITA UN VISITANTE 17/08/2021-->
 								</ul>
 								<div class="tab-content">
 									<div id="overview" class="tab-pane active">

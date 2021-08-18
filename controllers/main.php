@@ -1,5 +1,5 @@
 <?php
-
+require 'models/cvubv.php';
     class Main extends Controller {
         function __construct(){
             parent::__construct();
@@ -41,7 +41,7 @@
                     </div>";
     
                 //Recuperamos los datos ingresados  por el cedper en caso de responder equivocarse con el captcha
-                //    $login = new Oferta_academica();
+                    $login = new Cvubv();
                     $login->usuario=$usuario;
                     $login->contrasena=$contrasena;
                     $this->view->login=$login;
