@@ -7907,7 +7907,7 @@ COPY public.sno_personal (codemp, codper, cedper, nomper, apeper, dirper, fecnac
 --
 
 COPY public.usuario (id_usuario, usuario, password, fecha_registro, estatus, id_departamento, id_persona, id_usuario_perfil) FROM stdin;
-3	ubv12345678	VXAxcDdHRWZrdjlpZE1za29OVWxiUT09	2021-08-17	1	20	3	3
+3	ubv12345678	VXAxcDdHRWZrdjlpZE1za29OVWxiUT09	2021-08-17	1	20	3	1
 \.
 
 
