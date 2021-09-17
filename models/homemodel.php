@@ -33,7 +33,7 @@ class HomeModel extends Model{
      try{
     $query=$this->db->connect()->query("SELECT DISTINCT persona.id_persona,nacionalidad,cedula,
     nombres,apellidos,telefono,persona_tipo.descripcion AS persona_tipo, 
-    motivo,pase.descripcion AS pase,visitante.id_visitante
+    motivo,pase.descripcion AS pase,visitante.id_visitante,visitante_detalle.estatus AS estatus_visitante
       FROM persona,visitante,pase,persona_tipo,visitante_detalle
      WHERE persona.id_persona_tipo=persona_tipo.id_persona_tipo 
      AND persona.id_persona=visitante.id_persona 
@@ -47,6 +47,9 @@ class HomeModel extends Model{
     $item=new Cvubv();
  
     $item->id_visitante=$row['id_visitante'];
+   
+    $item->estatus_visitante=$row['estatus_visitante'];
+    
 
     $item->fecha_ingreso=$this->Obtener_fecha(1,$row['id_visitante']); //ENTRADA
 

@@ -100,22 +100,8 @@
 										</div>
 									</section>
 								</div>
-								<div class="col-md-12 col-lg-6 col-xl-6">
-									<section class="panel panel-featured-left panel-featured-secondary">
-										<div class="panel-body">
-											<div class="widget-summary">
-												<div class="widget-summary-col widget-summary-col-icon">
-													<div class="summary-icon bg-secondary">
-														<i class="fa fa-paper-plane"></i>
-													</div>
-												</div>
-												<div class="widget-summary-col">
-													<div class="summary">
-														<h4 class="title">Total de Entradas / Sin Salida <br> <?php echo date('d/m/Y');?></h4>
-														<div class="info">
 
-																		
-														<?php include_once 'models/cvubv.php';
+								<?php include_once 'models/cvubv.php';
 															$cont=0;
 															foreach($this->visitantes as $row){
 															$user=new Cvubv();
@@ -127,7 +113,7 @@
 															}
 
 
-															$contador=0;
+															$contador=0; $salidas=0;
 															foreach($this->visitanteshoy as $row){
 															$user=new Cvubv();
 															$user=$row;
@@ -135,13 +121,33 @@
 															if(!empty($user->fecha_ingreso)){ // MOSTRAMOS SOLO LOS PASES DE HOY
 																$contador=$contador+1;
 															}
+
+															//ENTRADAS16092021
+																if($user->estatus_visitante=='0'){
+																	$salidas=$salidas+1;
+																}
+															
+
 															}
 															?> 
+							
 
-															<strong class="amount" title="U"><?php echo $contador; ?></strong> &nbsp;
-															
-											
-															<strong class="amount" title="Sin Salida"><?php echo $cont; ?></strong>
+							<div class="col-md-12 col-lg-6 col-xl-6">
+									<section class="panel panel-featured-left panel-featured-secondary">
+										<div class="panel-body">
+											<div class="widget-summary">
+												<div class="widget-summary-col widget-summary-col-icon">
+													<div class="summary-icon bg-secondary">
+														<i class="fa fa-paper-plane"></i>
+													</div>
+												</div>
+												<div class="widget-summary-col">
+													<div class="summary">
+														<h4 class="title">Total de Entradas  <br> <?php echo date('d/m/Y');?></h4>
+														<div class="info">
+														
+															<strong class="amount" title="Entradas"><?php echo $contador; ?></strong> &nbsp;
+
 														</div>
 														
 													</div>
@@ -153,6 +159,63 @@
 										</div>
 									</section>
 								</div>
+							
+								<div class="col-md-12 col-lg-6 col-xl-6">
+									<section class="panel panel-featured-left panel-featured-secondary">
+										<div class="panel-body">
+											<div class="widget-summary">
+												<div class="widget-summary-col widget-summary-col-icon">
+													<div class="summary-icon bg-info">
+														<i class="fa fa-check-circle"></i>
+													</div>
+												</div>
+												<div class="widget-summary-col">
+													<div class="summary">
+														<h4 class="title">Salidas <br> <?php echo date('d/m/Y');?></h4>
+														<div class="info">
+														
+															<strong class="amount" title="Salidas"><?php echo $salidas; ?></strong> &nbsp;
+															
+														</div>
+														
+													</div>
+													<div class="summary-footer">
+														<a href="<?php echo constant('URL');?>visitante/Verificar" class="text-muted text-uppercase">Ver Más</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+
+								<div class="col-md-12 col-lg-6 col-xl-6">
+									<section class="panel panel-featured-left panel-featured-secondary">
+										<div class="panel-body">
+											<div class="widget-summary">
+												<div class="widget-summary-col widget-summary-col-icon">
+													<div class="summary-icon bg-warning">
+														<i class="fa fa-exclamation-triangle"></i>
+													</div>
+												</div>
+												<div class="widget-summary-col">
+													<div class="summary">
+														<h4 class="title">Sin Salida <br> <?php echo date('d/m/Y');?></h4>
+														<div class="info">
+														
+														<strong class="amount" title="Sin Salida"><?php echo $cont;  ?></strong>
+														</div>
+														
+													</div>
+													<div class="summary-footer">
+														<a href="<?php echo constant('URL');?>visitante/Verificar" class="text-muted text-uppercase">Ver Más</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+
+							
 								<div class="col-md-12 col-lg-6 col-xl-6">
 									<section class="panel panel-featured-left panel-featured-tertiary">
 										<div class="panel-body">

@@ -130,7 +130,7 @@
 								    	<div class="form-group">
 											<label class="col-sm-3 control-label">Codigo Pase  <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text"  id="pase"  name="pase" value="<?php echo $this->pase->descripcion; ?>" class="form-control required" placeholder="Escriba su codigo de pase" maxlength='140' minlength="5" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+												<input type="text"  id="pase"  name="pase" value="<?php echo $this->pase->descripcion; ?>" class="form-control required" placeholder="Escriba su codigo de pase" maxlength='140' minlength="2" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
 											</div>
 
 										</div>
