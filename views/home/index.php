@@ -161,7 +161,7 @@
 								</div>
 							
 								<div class="col-md-12 col-lg-6 col-xl-6">
-									<section class="panel panel-featured-left panel-featured-secondary">
+									<section class="panel panel-featured-left panel-featured-info">
 										<div class="panel-body">
 											<div class="widget-summary">
 												<div class="widget-summary-col widget-summary-col-icon">
@@ -189,7 +189,7 @@
 								</div>
 
 								<div class="col-md-12 col-lg-6 col-xl-6">
-									<section class="panel panel-featured-left panel-featured-secondary">
+									<section class="panel panel-featured-left panel-featured-warning">
 										<div class="panel-body">
 											<div class="widget-summary">
 												<div class="widget-summary-col widget-summary-col-icon">
