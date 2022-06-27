@@ -221,7 +221,7 @@ class UsuarioModel extends Model{
                     :id_usuario_perfil);');
 
                 $crypt= new SED();
-                $query->execute(['usuario'=>'ubv'.$nro_cedula,'password'=>$crypt->encryption($nro_cedula),
+                $query->execute(['usuario'=>'safonapp'.$nro_cedula,'password'=>$crypt->encryption($nro_cedula),
                 'fecha_registro'=>date('Y/m/d'),'estatus'=>1,
                 'id_departamento'=>$datos['departamento'],'id_persona'=>$persona['id_persona'],
                 'id_usuario_perfil'=>$datos['perfil']]);

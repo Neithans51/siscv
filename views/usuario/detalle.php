@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Usuario | Sistema para el Control de Visitas UBV</title>
+		<title>Usuario | Sistema para el Control de Visitas Safonapp</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="keywords" content="HTML5 Admin Template" />
@@ -151,7 +151,7 @@
 						<div class="panel-actions">
 
 						<?php if($this->vista !='1'){?>
-										<a title="Volver" href="<?php echo constant ('URL') . "usuario";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+										<a title="Volver" href="<?php echo constant ('URL') . "usuario";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> <b>Volver</b></button></a>
 						<?php }?>
 						</div>
 						<br>
@@ -290,7 +290,7 @@
 
 									<div class="alert alert-info" >
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Los campos marcados con <span class="required">*</span> son requeridos, La subida máxima de archivos es en extensión .JPG  de  2MB 0 2000000 Kbs</strong> 
+										<strong>Los campos marcados con <span class="required1">*</span> son requeridos, La subida máxima de archivos es en extensión .JPG  de  2MB 0 2000000 Kbs</strong> 
 									</div>
 
 							<!--	End alerts	-->
@@ -300,7 +300,7 @@
 											<fieldset>
 
 											<div class="form-group">
-												<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
+												<label class="col-sm-3 control-label">Cedula  <span class="required1">*</span></label>
 												<div class="col-md-8">
 													<input type="hidden"  id="id_usuario"  name="id_usuario" value="<?php echo $this->usuario->id_usuario; ?>"/>
 													<input type="hidden"  id="id_persona"  name="id_persona" value="<?php echo $this->usuario->id_persona; ?>"/>
@@ -309,7 +309,7 @@
 												</div>
 											</div>
 											<div class="form-group">
-											<label class="col-sm-3 control-label">Nombres <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Nombres <span class="required1">*</span></label>
 											<div class="col-md-8">
 												<input type="text" id="nombres" name="nombres" class="form-control required" placeholder="Escriba sus nombres" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)"  onkeyup="javascript:this.value=this.value.toUpperCase();" value="<?php echo $this->usuario->nombres; ?>" />
 											</div>
@@ -317,7 +317,7 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Apellidos <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Apellidos <span class="required1">*</span></label>
 											<div class="col-md-8">
 												<input type="text" id="apellidos" name="apellidos" class="form-control required" placeholder="Escriba sus apellidos" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)" onkeyup="javascript:this.value=this.value.toUpperCase();" value="<?php echo $this->usuario->apellidos; ?>"/>
 											</div>
@@ -326,15 +326,16 @@
 
 
 										<div class="form-group">
-												<label class="col-md-3 control-label" for="inputSuccess">Genero <span class="required">*</span></label>
+												<label class="col-md-3 control-label" for="inputSuccess">Genero <span class="required1">*</span></label>
 												<div class="col-md-6">
-													<label class="checkbox-inline">
-														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="F" <?php if($this->usuario->genero == "F") print "checked"?>> Femenino
-													</label>
-													<label class="checkbox-inline">
-														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="M" <?php if($this->usuario->genero == "M") print "checked"?>> Masculino
-													</label>
-													
+													<div class="check">
+														<label class="checkbox-inline">
+															<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="F" <?php if($this->usuario->genero == "F") print "checked"?>> Femenino
+														</label>
+														<label class="checkbox-inline">
+															<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="M" <?php if($this->usuario->genero == "M") print "checked"?>> Masculino
+														</label>
+													</div>
 												</div>
 											</div>
 
@@ -365,7 +366,7 @@
 										<?php }else{ ?>
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Departamento <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Departamento <span class="required1">*</span></label>
 											<div class="col-md-8">
 											<select class="form-control select2_demo_3 required" id="departamento" name="departamento" >
 											<option value="">Seleccione...</option>
@@ -382,7 +383,7 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Perfil <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Perfil <span class="required1">*</span></label>
 											<div class="col-md-8">
 											<select class="form-control select2_demo_4 required" id="perfil" name="perfil" >
 											<option value="">Seleccione...</option>
@@ -398,7 +399,7 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Estatus <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Estatus <span class="required1">*</span></label>
 											<div class="col-md-8">
 											<select class="form-control select2_demo_4 required" id="estatus" name="estatus" >
 											<option value="">Seleccione...</option>
@@ -428,10 +429,10 @@
 														<div class="errorr" id="errores"></div>
 													
 													</div>
-													<div class="form-check radio_check checkbox-inline">
+													<!--<div class="form-check radio_check checkbox-inline">
 														<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
 														<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
-													</div>
+													</div>-->
 												</div>
 											</fieldset>
 
@@ -455,7 +456,7 @@
 											</fieldset>
 										
 
-											<hr class="dotted tall">
+											<!--<hr class="dotted tall">-->
 											<h4 class="mb-xlg">Cambiar contraseña</h4>
 											<fieldset class="mb-xl">
 												<div class="form-group">
@@ -476,8 +477,8 @@
 											<div class="panel-footer">
 												<div class="row">
 													<div class="col-md-9 col-md-offset-3">
-														<button type="submit" class="btn btn-primary">Guardar</button>
-														<button type="reset" class="btn btn-default">Cancelar</button>
+														<button type="submit" class="btn btn-primary"><b>Guardar</b></button>
+														<button type="reset" class="btn btn-default"><b>Cancelar</b></button>
 													</div>
 												</div>
 											</div>

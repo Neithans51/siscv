@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Visitantes | Sistema para el Control de Visitas UBV</title>
+		<title>Visitantes | Sistema para el Control de Visitas Safonapp</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
@@ -76,7 +76,7 @@
 									<!--<a href="#" class="fa fa-caret-down"></a>
 									<a href="#" class="fa fa-times"></a>-->
 
-                                    <a title="Volver" href="<?php echo constant ('URL') . "visitante";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+                                    <a title="Volver" href="<?php echo constant ('URL') . "visitante";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> <b>Volver</b></button></a>
 								</div>
 						
                                 <h2 class="panel-title">

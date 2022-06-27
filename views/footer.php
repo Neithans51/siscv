@@ -1,22 +1,21 @@
 <style>
 .footer{
-  background: none repeat scroll 0 0 white;
-border-top: 1px solid #e7eaec;
+  background: none repeat scroll 0 0 #EAEAEA;
+border-top: 1px solid #1A2980;
 bottom: 0;
 left: 0;
-padding: 10px 20px;
+padding: 10px 10px 0;
 position: fixed; /*relative,fixed, absolute*/
 right: 0;
-
+color: #2c3e50;
 }
 </style>
 
 <footer class="footer mt-auto">
             <div class="copyright bg-white">
               <p>
-                &copy; <script>document.write(new Date().getFullYear());</script>  
-                Universidad Bolivariana de Venezuela - Dirección General de Tecnologías de Información y Telecomunicaciones (DGTIT)
-                
+                <b>&copy; <script>document.write(new Date().getFullYear());</script>  
+                Safonapp - Servicio Fondo Nacional del Poder Popular</b> 
               </p>
             </div>
            

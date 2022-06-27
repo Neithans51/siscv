@@ -10878,7 +10878,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No existe datos disponibles en la tabla",
+			"sEmptyTable": "No existen datos disponibles en la tabla",
 	
 	
 			/**

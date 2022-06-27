@@ -5,7 +5,7 @@ BOOTSTRAP EXTEND
 html.scroll,
 html.fixed {
 	/* UNDO original bootrap LG helper classes*/
-	/* Helper classes for XL */;
+	/* Helper classes for XL */
 }
 
 @media (min-width: 1600px) {

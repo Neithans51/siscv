@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Visitantes | Sistema para el Control de Visitas UBV</title>
+		<title>Visitantes | Sistema para el Control de Visitas Safonapp</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="keywords" content="HTML5 Admin Template" />
@@ -99,9 +99,9 @@
 									<header class="panel-heading">
 										<div class="panel-actions">
 										<?php if($this->vista=='1'){?>
-										<a title="Volver" href="<?php echo constant ('URL') . "visitante";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+										<a title="Volver" href="<?php echo constant ('URL') . "visitante";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> <b>Volver</b></button></a>
 										<?php }else{ ?>
-											<a title="Volver" href="<?php echo constant ('URL') . "visitante/Verificar";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+											<a title="Volver" href="<?php echo constant ('URL') . "visitante/Verificar";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> <b>Volver</b></button></a>
 									
 										<?php }?>
 										</div>
@@ -140,7 +140,7 @@
 
 									<div class="alert alert-info" >
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Los campos marcados con <span class="required">*</span> son requeridos, La subida máxima de archivos es en extensión .JPG  de  2MB 0 2000000 Kbs</strong> 
+										<strong>Los campos marcados con <span class="required1">*</span> son requeridos, La subida máxima de archivos es en extensión .JPG  de  2MB 0 2000000 Kbs</strong> 
 									</div>
 							<!--	End alerts	-->
 									<style>
@@ -157,7 +157,7 @@
 									<h4 class="mb-xlg">Información personal</h4>
 							<br>
 									<div class="form-group">
-											<label class="col-sm-3 control-label">Cedula  <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Cedula  <span class="required1">*</span></label>
 											<div class="col-sm-9">
 												<input type="hidden" name="id_persona" id="id_persona">
 												<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula" onkeypress="return valSoloNumeros(event)"  onkeyup="javascript:this.value=this.value.toUpperCase();"/>
@@ -168,7 +168,7 @@
 							
 									
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Nombres <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Nombres <span class="required1">*</span></label>
 											<div class="col-sm-9">
 												<input type="text" id="nombres" name="nombres" class="form-control required" placeholder="Escriba sus nombres" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)"  onkeyup="javascript:this.value=this.value.toUpperCase();"  />
 											</div>
@@ -176,7 +176,7 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Apellidos <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Apellidos <span class="required1">*</span></label>
 											<div class="col-sm-9">
 												<input type="text" id="apellidos" name="apellidos" class="form-control required" placeholder="Escriba sus apellidos" maxlength='60' minlength="5"  onkeypress="return soloLetras(event)" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
 											</div>
@@ -185,15 +185,16 @@
 
 
 										<div class="form-group">
-												<label class="col-md-3 control-label" for="inputSuccess">Genero <span class="required">*</span></label>
+												<label class="col-md-3 control-label" for="inputSuccess">Genero <span class="required1">*</span></label>
 												<div class="col-md-6">
-													<label class="checkbox-inline">
-														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="F"> Femenino
-													</label>
-													<label class="checkbox-inline">
-														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="M"> Masculino
-													</label>
-													
+													<div class="check">
+														<label class="checkbox-inline">
+															<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="F"> Femenino
+														</label>
+														<label class="checkbox-inline">
+															<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="M"> Masculino
+														</label>
+													</div>
 												</div>
 											</div>
 
@@ -212,11 +213,11 @@
 											</div>
 										</div>
 														
-										<hr class="dotted tall">
-											<h4 class="mb-xlg">Informacción de la visita</h4>
+										<!--<hr class="dotted tall">-->
+											<h4 class="mb-xlg">Información de la visita</h4>
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Departamento <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Departamento <span class="required1">*</span></label>
 											<div class="col-sm-9">
 											<select class="form-control select2_demo_3 required" id="departamento" name="departamento" >
 											<option value="">Seleccione...</option>
@@ -233,7 +234,7 @@
 
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Anfitrión <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Anfitrión <span class="required1">*</span></label>
 											<div class="col-sm-9">
 											<select class="form-control select2_demo_3 required" id="anfitrion" name="anfitrion" >
 											<option value="">Seleccione...</option>
@@ -250,7 +251,7 @@
 
 													
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Motivo <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Motivo <span class="required1">*</span></label>
 											<div class="col-sm-9">
 											<textarea name="motivo" id="motivo" cols="30" rows="2" class="form-control required" placeholder="Escriba el motivo de la visita" maxlength='145'  onkeyup="javascript:this.value=this.value.toUpperCase();" ></textarea>
 											</div>
@@ -266,7 +267,7 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Paquete </label>
 											<div class="col-sm-9">
-												<input type="text" id="paquete" name="paquete" placeholder="Escriba sobre los paquetes que tre consigo el visitante" class="form-control" placeholder="Escriba sus nombres" maxlength='45' minlength="5"   onkeyup="javascript:this.value=this.value.toUpperCase();"  />
+												<input type="text" id="paquete" name="paquete" placeholder="Escriba sobre los paquetes que trae consigo el visitante" class="form-control" placeholder="Escriba sus nombres" maxlength='45' minlength="5"   onkeyup="javascript:this.value=this.value.toUpperCase();"  />
 											</div>
 										</div>
 
@@ -298,10 +299,10 @@
 								
 												
 													</div>
-													<div class="form-check radio_check checkbox-inline">
+													<!--<div class="form-check radio_check checkbox-inline">
 														<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
 														<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
-													</div>
+													</div>-->
 												</div>
 											</fieldset>
 
@@ -325,8 +326,8 @@
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button type="submit" class="btn btn-primary" >Guardar</button>
-												<button type="reset" class="btn btn-default">Cancelar</button>
+												<button type="submit" class="btn btn-primary" ><b>Guardar</b></button>
+												<button type="reset" class="btn btn-default"><b>Cancelar</b></button>
 											</div>
 										</div>
 

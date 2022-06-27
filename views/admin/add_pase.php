@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Pases | Sistema para el Control de Visitas UBV</title>
+		<title>Pases | Sistema para el Control de Visitas Safonapp</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="keywords" content="HTML5 Admin Template" />
@@ -98,7 +98,7 @@
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
-										<a title="Volver" href="<?php echo constant ('URL') . "admin";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+										<a title="Volver" href="<?php echo constant ('URL') . "admin";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> <b>Volver</b></button></a>
 
 										</div>
 
@@ -121,14 +121,14 @@
 						<!--	 alerts	-->
 									<div class="alert alert-info" >
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Los campos marcados con <span class="required">*</span> son requeridos</strong> 
+										<strong>Los campos marcados con <span class="required1">*</span> son requeridos</strong> 
 									</div>
 
 							<!--	End alerts	-->
 											<input type="hidden" name="id_pase" value="<?php echo $this->pase->id_pase;?>">
 
 								    	<div class="form-group">
-											<label class="col-sm-3 control-label">Codigo Pase  <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Codigo Pase  <span class="required1">*</span></label>
 											<div class="col-sm-9">
 												<input type="text"  id="pase"  name="pase" value="<?php echo $this->pase->descripcion; ?>" class="form-control required" placeholder="Escriba su codigo de pase" maxlength='140' minlength="2" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
 											</div>
@@ -147,8 +147,8 @@
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button type="submit" class="btn btn-primary" >Guardar</button>
-												<button type="reset" class="btn btn-default">Cancelar</button>
+												<button type="submit" class="btn btn-primary" ><b>Guardar</b></button>
+												<button type="reset" class="btn btn-default"><b>Cancelar</b></button>
 											</div>
 										</div>
 

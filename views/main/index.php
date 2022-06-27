@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html class="fixed">
 	<head>
 
@@ -12,7 +13,7 @@
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
        
-        <title>Login | Sistema para el Control de Visitas UBV</title>
+        <title>Login | Sistema para el Control de Visitas Safonapp</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 		<!-- Web Fonts  -->
         <link href="<?php echo constant('URL');?>src/fonts/css.css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
@@ -41,7 +42,7 @@
 	<style>
 	.log{
 		border-radius: 0px 45px 45px 3px;
-		width: 44%;
+		width: 60%;
 		height: 2%;
 	}
 	</style>
@@ -57,16 +58,16 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Iniciar Sesión</h2>
 					</div>
 					<div class="panel-body">
-					<h2 class="error-explanation text-center">Control de Visitas UBV</h2>
+					<h2 class="error-explanation text-center">Control de Visitas Safonapp <i class="fa-solid fa-star" style="color:red;text-shadow: 2px 2px 2px white;"></i></h2>
 					<?php echo $this->mensaje;?>
 						<form action="<?php echo constant('URL');?>main/iniciar" method="post" id="form">
 							<div class="form-group mb-lg">
-								<label>Usuario</label>
+								<label><b>Usuario</b></label>
 								<input name="usuario" type="text" class="form-control input-lg required" maxlength="45" placeholder="Escriba su Usuario o Correo electrónico" value="<?php echo $this->login->usuario; ?>"/>
 							</div>
 
 							<div class="form-group mb-lg">
-								<label>Contraseña</label>
+								<label><b>Contraseña</b></label>
 								<input name="contrasena" type="password" class="form-control input-lg required" maxlength="255" placeholder="Escriba su Contraseña" value="<?php echo $this->login->contrasena; ?>"/>
 							</div>
 
@@ -86,14 +87,14 @@
 
 
 							<div class="row">
-								<div class="col-sm-8">
+								<!--<div class="col-sm-8">
 									<div class="checkbox-custom checkbox-default">
-										<!--<input id="AgreeTerms" name="agreeterms" type="checkbox"/>
-										<label for="AgreeTerms">I agree with <a href="#">terms of use</a></label>-->
+										<input id="AgreeTerms" name="agreeterms" type="checkbox"/>
+										<label for="AgreeTerms">I agree with <a href="#">terms of use</a></label>
 									</div>
-								</div>
+								</div>-->
 								<div class="col-sm-4 text-right">
-									<button type="submit" class="btn btn-primary hidden-xs">Iniciar</button>
+									<button type="submit" class="btn btn-primary hidden-xs button-init"><b>Iniciar</b></button>
 									<button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign Up</button>
 								</div>
 							</div>
@@ -107,7 +108,7 @@
 					</div>
 				</div>
 
-				<p class="text-center text-muted mt-md mb-md">&copy;<script>document.write(new Date().getFullYear());</script> Universidad Bolivariana de Venezuela - Dirección General de Tecnologías de Información y Telecomunicaciones (DGTIT)</p>
+				<p class="text-center text-muted mt-md mb-md" ><b style="color:#fff">&copy;<script>document.write(new Date().getFullYear());</script> Safonapp - Servicio Fondo Nacional del Poder Popular</b></p>
 			</div>
 		</section>
 		<!-- end: page -->
@@ -129,6 +130,7 @@
 		
 		<!-- Theme Custom -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.custom.js"></script>
+		<script src="<?php echo constant('URL');?>src/assets/javascripts/estrella.js"></script>
 		
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo constant('URL');?>src/assets/javascripts/theme.init.js"></script>

@@ -61,7 +61,7 @@
 		height: 2%;
 	}
 	.sidebar-left .sidebar-header .sidebar-title {
-    color: #7f8c9a;
+    color: #fff;
 	}
 	</style>
 	<!-- start: header -->
@@ -95,8 +95,8 @@
                                     var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
                                     var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
                                     var f=new Date();
-                                    document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
-                                </script> 
+                                    document.write(`<b class="media-date">` + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + `</b>`);
+                    </script> 
 
 					<span class="separator"></span>
 			
@@ -120,8 +120,8 @@
 
 							</figure>
 							<div class="profile-info" data-lock-name="<?php echo $pnombre." ".$papellido;?>" data-lock-email="<?php echo  $_SESSION['correo'];?>">
-								<span class="name"><?php echo $pnombre." ".$papellido;?></span>
-								<span class="role"><?php echo  $_SESSION['perfil'];?></span>
+								<span class="name"><b><?php echo $pnombre." ".$papellido;?></b></span>
+								<span class="role"><b><?php echo  $_SESSION['perfil'];?></b></span>
 							</div>
 			
 							<i class="fa custom-caret"></i>
@@ -154,7 +154,7 @@
 				
 					<div class="sidebar-header">
 						<div class="sidebar-title">
-							Navegación
+							<b>Navegación</b>
 						</div>
 						<div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
 							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -170,7 +170,7 @@
 									<li class="">
 										<a href="<?php echo constant('URL');?>home">
 											<i class="fa fa-home" aria-hidden="true"></i>
-											<span>Inicio</span>
+											<span><b>Inicio</b></span>
 										</a>
 									</li>
 							
@@ -180,7 +180,7 @@
 									<li class="nav-parent">
 										<a>
 											<i class="fa fa-cog" aria-hidden="true"></i>
-											<span>Administración</span>
+											<span><b>Administración</b></span>
 										</a>
 										<ul class="nav nav-children">
 										  <li>
@@ -207,7 +207,7 @@
 									<li class="nav-parent">
 										<a>
 											<i class="fa fa-user" aria-hidden="true"></i>
-											<span>Usuario</span>
+											<span><b>Usuario</b></span>
 										</a>
 										<ul class="nav nav-children">
 											
@@ -218,7 +218,7 @@
 											</li>
 											<li>
 												<a href="<?php echo constant('URL');?>usuario">
-													 Usuarios
+													Usuarios
 												</a>
 											</li>
 											
@@ -230,7 +230,7 @@
 									<li class="nav-parent">
 										<a>
 											<i class="fa fa-list-alt" aria-hidden="true"></i>
-											<span>Visitante</span>
+											<span><b>Visitante</b></span>
 										</a>
 										<ul class="nav nav-children">
 											  <li>

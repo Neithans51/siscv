@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Departamentos | Sistema para el Control de Visitas UBV</title>
+		<title>Departamentos | Sistema para el Control de Visitas Safonapp</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">

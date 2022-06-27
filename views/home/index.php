@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Inicio | Sistema para el Control de Visitas UBV</title>
+		<title>Inicio | Sistema para el Control de Visitas Safonapp</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="keywords" content="HTML5 Admin Template" />
@@ -305,7 +305,7 @@
 												</div>
 												<div class="modal-text">
 													<h4>Bienvenido</h4>
-													<p>Bienvenido al Sistema para el Control de Visitas UBV</p>
+													<p>Bienvenido al Sistema para el Control de Visitas Safonapp</p>
 												</div>
 											</div>
 										</div>

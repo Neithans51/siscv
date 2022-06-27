@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Visitantes | Sistema para el Control de Visitas UBV</title>
+		<title>Visitantes | Sistema para el Control de Visitas Safonapp</title>
 		<link rel="shortcut icon" href="<?php echo constant('URL');?>src/img/favicon.ico" type="image/x-icon">
 
 		<meta name="keywords" content="HTML5 Admin Template" />
@@ -151,9 +151,9 @@
 						<div class="panel-actions">
 
 						<?php if($this->vista=='1'){?>
-							<a title="Volver" href="<?php echo constant ('URL') . "visitante/VerVisita/".$this->usuario->id_persona;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+							<a title="Volver" href="<?php echo constant ('URL') . "visitante/VerVisita/".$this->usuario->id_persona;?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> <b>Volver</b></button></a>
 						<?php }else{ ?>
-					   <a title="Volver" href="<?php echo constant ('URL') . "visitante/Verificar";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> Volver</button></a>
+					   <a title="Volver" href="<?php echo constant ('URL') . "visitante/Verificar";?>"><button type="button" class="mb-xs mt-xs mr-xs btn btn-info"><i class="fa fa-arrow-left"></i> <b>Volver</b></button></a>
 						<?php } ?>
 						</div>
 						<br>
@@ -377,7 +377,7 @@
 
 									<div class="alert alert-info" >
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Los campos marcados con <span class="required">*</span> son requeridos, La subida máxima de archivos es en extensión .JPG  de  2MB 0 2000000 Kbs</strong> 
+										<strong>Los campos marcados con <span class="required1">*</span> son requeridos, La subida máxima de archivos es en extensión .JPG  de  2MB 0 2000000 Kbs</strong> 
 									</div>
 
 							<!--	End alerts	-->
@@ -415,13 +415,14 @@
 										<div class="form-group">
 												<label class="col-md-3 control-label" for="inputSuccess">Genero <span class="required">*</span></label>
 												<div class="col-md-6">
-													<label class="checkbox-inline">
-														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="F" <?php if($this->usuario->genero == "F") print "checked"?>> Femenino
-													</label>
-													<label class="checkbox-inline">
-														<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="M" <?php if($this->usuario->genero == "M") print "checked"?>> Masculino
-													</label>
-													
+													<div class="check">
+														<label class="checkbox-inline">
+															<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="F" <?php if($this->usuario->genero == "F") print "checked"?>> Femenino
+														</label>
+														<label class="checkbox-inline">
+															<input type="radio" id="inlineCheckbox1" id="genero" name="genero" class="required" value="M" <?php if($this->usuario->genero == "M") print "checked"?>> Masculino
+														</label>
+													</div>
 												</div>
 											</div>
 
@@ -473,8 +474,8 @@
 
 									
 
-											<hr class="dotted tall">
-											<h4 class="mb-xlg">Informacción de la visita</h4>
+											<!--<hr class="dotted tall">-->
+											<h4 class="mb-xlg">Información de la visita</h4>
 
 
 
@@ -562,10 +563,10 @@
 								
 													
 													</div>
-													<div class="form-check radio_check checkbox-inline">
+													<!--<div class="form-check radio_check checkbox-inline">
 														<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
 														<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
-													</div>
+													</div>-->
 												</div>
 											</fieldset>
 
@@ -584,8 +585,8 @@
 											<div class="panel-footer">
 												<div class="row">
 													<div class="col-md-9 col-md-offset-3">
-														<button type="submit" class="btn btn-primary">Guardar</button>
-														<button type="reset" class="btn btn-default">Cancelar</button>
+														<button type="submit" class="btn btn-primary"><b>Guardar</b></button>
+														<button type="reset" class="btn btn-default"><b>Cancelar</b></button>
 													</div>
 												</div>
 											</div>
