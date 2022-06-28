@@ -23,7 +23,7 @@
       if($data=$this->model->ValVisitante($id_visitante)){
         $mensaje2="<div class='alert alert-danger alert-dismissable'>
         <button aria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button>
-        El Cod pase <a class='alert-link' href='#'> " . $data . "</a> Yas Se encuentra actualizado 
+        El Cod pase <a class='alert-link' href='#'> " . $data . "</a> ya se encuentra actualizado 
         </div>";
         $this->view->mensaje2=$mensaje2;
         if($vista=='1'){

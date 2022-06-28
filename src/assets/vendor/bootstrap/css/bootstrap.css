@@ -2992,7 +2992,6 @@ fieldset[disabled] .btn-success.active {
 .btn-info {
   color: #ffffff;
   background-color: #5bc0de;
-  border-color: #46b8da;
 }
 .btn-info:hover,
 .btn-info:focus,
@@ -3002,7 +3001,6 @@ fieldset[disabled] .btn-success.active {
 .open > .dropdown-toggle.btn-info {
   color: #ffffff;
   background-color: #31b0d5;
-  border-color: #269abc;
 }
 .btn-info:active,
 .btn-info.active,
@@ -3028,7 +3026,6 @@ fieldset[disabled] .btn-info:active,
 .btn-info[disabled].active,
 fieldset[disabled] .btn-info.active {
   background-color: #5bc0de;
-  border-color: #46b8da;
 }
 .btn-info .badge {
   color: #5bc0de;
@@ -3253,7 +3250,7 @@ tbody.collapse.in {
   list-style: none;
   font-size: 14px;
   text-align: left;
-  background-color: #1A2980;
+  background-color: #336;
   border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
@@ -3269,7 +3266,7 @@ tbody.collapse.in {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
-  background-color: #26D0CE;
+  background-color: #09c;
 }
 .dropdown-menu > li > a {
   display: block;
@@ -5127,7 +5124,7 @@ a.list-group-item-danger.active:focus {
 .panel-footer {
   padding: 10px 15px;
   background-color: #f5f5f5;
-  border-top: 1px solid #514A9D;
+  border-top: 1px solid #09c;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }

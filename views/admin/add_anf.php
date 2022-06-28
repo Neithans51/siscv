@@ -121,16 +121,16 @@
 						<!--	 alerts	-->
 									<div class="alert alert-info" >
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-										<strong>Los campos marcados con <span class="required">*</span> son requeridos</strong> 
+										<strong>Los campos marcados con <span class="required1">*</span> son requeridos</strong> 
 									</div>
 
 							<!--	End alerts	-->
 											<input type="hidden" name="id_anfitrion" value="<?php echo $this->anf->id_anfitrion;?>">
 
 								    	<div class="form-group">
-											<label class="col-sm-3 control-label">Anfitrión  <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Anfitrión  <span class="required1">*</span></label>
 											<div class="col-sm-9">
-												<input type="text"  id="anfitrion"  name="anfitrion" value="<?php echo $this->anf->descripcion; ?>" class="form-control required" placeholder="Escriba su nombre del anfitrión" maxlength='45' minlength="5" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)"/>
+												<input type="text"  id="anfitrion"  name="anfitrion" value="<?php echo $this->anf->descripcion; ?>" class="form-control required" placeholder="Escriba el nombre del anfitrión" maxlength='45' minlength="5" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)"/>
 											</div>
 
 										</div>

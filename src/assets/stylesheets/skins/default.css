@@ -50,7 +50,7 @@ a:active,
 }
 /* Userbox - Open */
 .userbox.open .dropdown-menu a:hover {
-	background: #f5af19;
+	background: #262d3785;
 }
 /* Mailbox */
 .mailbox .mailbox-mail-list li.active {
@@ -231,24 +231,21 @@ body .btn-info {
 	color: #ffffff;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	background-color: #f5af19;
-	border-color: #fff;
 }
 
 @media only screen and (max-width: 767px){
 	body .btn-info {
-		margin-left: 550px;
+		
 	}		
 }
 
-body .btn-info:hover {
-	border-color: #fff !important;
+body .btn-info:hover { 
 	background-color: #f64f59;
 	color: #fff;
 }
 
 body .btn-info:active,
 body .btn-info:focus {
-	border-color: #fff !important;
 	color: #fff;
 	background-color: #93291E;
 }
@@ -335,7 +332,7 @@ p.drop-caps.colored.secundary:first-child:first-letter {
 }
 /* Page Header */
 .page-header h2 {
-	border-bottom-color: #26D0CE;
+	border-bottom-color: #337;
 }
 
 .page-header .sidebar-right-toggle:hover {
@@ -343,7 +340,7 @@ p.drop-caps.colored.secundary:first-child:first-letter {
 }
 /* Navigation */
 ul.nav-main > li.nav-active > a {
-	box-shadow: 2px 0 0 #f5af19 inset;
+	box-shadow: 2px 0 0 #336 inset;
 }
 
 ul.nav-main > li.nav-active > i {
@@ -351,11 +348,11 @@ ul.nav-main > li.nav-active > i {
 }
 
 ul.nav-main li .nav-children li.nav-active > a {
-	color: #f5af19;
+	color: #5b86ea;
 }
 /* Nano Scroller Plugin */
 html.no-overflowscrolling .nano > .nano-pane > .nano-slider {
-	background: #f5af19;
+	background: #5b86ea;
 }
 /* Nav Pills */
 .nav-pills > .active a,
@@ -380,7 +377,6 @@ html.no-overflowscrolling .nano > .nano-pane > .nano-slider {
 .pagination > li.active a:focus,
 .pagination > li.active span:focus {
 	background-color: #0088cc;
-	border-color: #1A2980;
 }
 
 .pagination > li.active a {
@@ -404,7 +400,7 @@ html.dark .pagination > li.active span:focus {
 
 html .pagination > li.active a,
 html.dark .pagination > li.active a {
-	background-color: #26D0CE;
+	background-color: #09c;
 	color: #fff;
 	position: inherit;
 }

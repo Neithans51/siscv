@@ -305,7 +305,7 @@
 													<input type="hidden"  id="id_usuario"  name="id_usuario" value="<?php echo $this->usuario->id_usuario; ?>"/>
 													<input type="hidden"  id="id_persona"  name="id_persona" value="<?php echo $this->usuario->id_persona; ?>"/>
 													<input type="hidden" id="foto_ubv" name="foto_ubv" value="<?php echo $this->usuario->documento; ?>">
-													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula " onkeypress="return valSoloNumeros(event)"  value="<?php echo $this->usuario->cedula; ?>"  <?php if($this->vista=='1'){echo "readonly"; } //VIENE DE LA SECCION PERFRL ?>/>
+													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula " style="background:#DADADA" onkeypress="return valSoloNumeros(event)"  value="<?php echo $this->usuario->cedula; ?>"  <?php if($this->vista=='1'){echo "readonly"; } //VIENE DE LA SECCION PERFRL ?>/>
 												</div>
 											</div>
 											<div class="form-group">

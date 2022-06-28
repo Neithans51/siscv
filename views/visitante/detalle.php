@@ -392,7 +392,7 @@
 													<input type="hidden"  id="id_visitante"  name="id_visitante" value="<?php echo $this->usuario->id_visitante; ?>"/>
 													<input type="hidden"  id="id_persona"  name="id_persona" value="<?php echo $this->usuario->id_persona; ?>"/>
 													<input type="hidden" id="foto_ubv" name="foto_ubv" value="<?php echo $this->usuario->documento; ?>">
-													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula" onkeypress="return valSoloNumeros(event)" value="<?php echo $this->usuario->cedula; ?>"/>
+													<input type="text"  id="cedula"  name="cedula" class="form-control required" placeholder="Escriba su número de cedula" style="background:#DADADA" onkeypress="return valSoloNumeros(event)" value="<?php echo $this->usuario->cedula; ?>"/>
 												</div>
 											</div>
 											<div class="form-group">

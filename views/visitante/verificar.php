@@ -307,7 +307,7 @@
 												<div class="row">
 													<div class="col-md-12 text-right">
 													<a id="borrar" href=""> <button class="btn btn-primary" >Aceptar</button></a>
-                                                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    <button type="button"  class="btn btn-secondary" data-dismiss="modal" style="color:#000">Cerrar</button>
                                                 	</div>
 												</div>
 											</footer>
